@@ -6,7 +6,9 @@
 <main>
     <div class="admin-container">
         <button class="admin-btn">Cadastrar novo apadrinhado</button>
-        <button class="admin-btn">Gerenciar apadrinhados</button>
+        <a href="{% url "gerenciarApadrinhados" %}" class="button-link">
+            <button class="admin-btn">Gerenciar apadrinhados</button>
+        </a>
     </div>
     <div class="navigation-buttons">
         <a href="{% url "admLogin" %}" class="button-link">

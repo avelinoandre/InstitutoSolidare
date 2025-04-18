@@ -186,3 +186,42 @@ button {
 .admin-btn:hover {
     background-color: #c4c4c4;
 }
+
+.management-title {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.children-grid {
+    background-color: #808080;
+    padding: 2rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+.child-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.photo-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.child-name {
+    background-color: #D9D9D9;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+}

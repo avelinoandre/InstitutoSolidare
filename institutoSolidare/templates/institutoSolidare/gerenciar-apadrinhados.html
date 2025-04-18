@@ -1,0 +1,40 @@
+{% extends "shared/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="management-title">Gerenciamento de apadrinhados</h1>
+    <div class="children-grid">
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+        <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <p class="child-name">aaaaaaaa</p>
+        </div>
+    </div>
+    <div class="navigation-buttons">
+        <a href="{% url "admMain" %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+    </div>
+</main>
+{% endblock  %}
