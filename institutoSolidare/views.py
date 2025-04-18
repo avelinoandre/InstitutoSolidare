@@ -13,3 +13,6 @@ def admMain(request):
 
 def gerenciarApadrinhados(request):
     return render(request, "institutoSolidare/gerenciar-apadrinhados.html")
+
+def cadastrarApadrinhados(request):
+    return render(request, "institutoSolidare/cadastro-apadrinhados.html")

@@ -5,7 +5,9 @@
 {% block content %}
 <main>
     <div class="admin-container">
-        <button class="admin-btn">Cadastrar novo apadrinhado</button>
+        <a href="{% url "cadastroApadrinhados" %}" class="button-link">
+            <button class="admin-btn">Cadastrar novo apadrinhado</button>
+        </a>
         <a href="{% url "gerenciarApadrinhados" %}" class="button-link">
             <button class="admin-btn">Gerenciar apadrinhados</button>
         </a>
