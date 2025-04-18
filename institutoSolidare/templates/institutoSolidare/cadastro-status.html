@@ -1,0 +1,18 @@
+{% extends "shared/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="success-container">
+        <div class="success-buttons">
+            <a href="{% url "cadastroApadrinhados" %}" class="button-link">
+                <button class="success-btn">Cadastre um novo apadrinhado</button>
+            </a>
+            <a href="{% url "admMain" %}" class="button-link">
+                <button class="success-btn">Página inicial do ADM</button>
+            </a>
+        </div>
+    </div>
+</main>
+{% endblock  %}

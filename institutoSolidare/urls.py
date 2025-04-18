@@ -1,5 +1,5 @@
 from django.urls import path
-from institutoSolidare.views import index, admLogin, admMain, gerenciarApadrinhados, cadastrarApadrinhados
+from institutoSolidare.views import index, admLogin, admMain, gerenciarApadrinhados, cadastrarApadrinhados, cadastroStatus
 
 urlpatterns = [
     path("", index, name="index"),
@@ -7,4 +7,5 @@ urlpatterns = [
     path("adm-main/", admMain, name="admMain"),
     path("gerenciar-apadrinhados/", gerenciarApadrinhados, name="gerenciarApadrinhados"),
     path("cadastro-apadrinhados/", cadastrarApadrinhados, name="cadastroApadrinhados"),
+    path("cadastro-status/", cadastroStatus, name="cadastroStatus")
 ]
