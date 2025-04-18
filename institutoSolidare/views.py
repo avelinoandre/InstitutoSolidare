@@ -19,3 +19,6 @@ def cadastrarApadrinhados(request):
 
 def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
+
+def cadastroPadrinhos(request):
+    return render (request, "institutoSolidare/cadastro-padrinhos.html")
