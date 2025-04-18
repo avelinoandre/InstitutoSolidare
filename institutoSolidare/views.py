@@ -7,3 +7,6 @@ def index(request):
 
 def admLogin(request):
     return render(request, "institutoSolidare/adm-login.html")
+
+def admMain(request):
+    return render(request, "institutoSolidare/adm-main.html")

@@ -1,0 +1,18 @@
+{% extends "shared/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="admin-container">
+        <button class="admin-btn">Cadastrar novo apadrinhado</button>
+        <button class="admin-btn">Gerenciar apadrinhados</button>
+    </div>
+    <div class="navigation-buttons">
+        <a href="{% url "admLogin" %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+        <button class="nav-btn">Próximo →</button>
+    </div>
+</main>
+{% endblock  %}
