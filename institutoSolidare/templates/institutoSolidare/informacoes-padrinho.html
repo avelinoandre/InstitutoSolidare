@@ -1,0 +1,48 @@
+{% extends "shared/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <main>
+        <h1 class="register-title">Informações sobre você</h1>
+        <p class="register-subtitle">Responda as questões e nos conte um pouco sobre você, seus ideais, seus sonhos etc</p>
+        <div class="register-container">
+            <div class="register-grid">
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <input type="text" class="register-input">
+                </div>
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <input type="text" class="register-input">
+                </div>
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <input type="text" class="register-input">
+                </div>
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <input type="text" class="register-input">
+                </div>
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <textarea class="register-input" rows="4"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <textarea class="register-input" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-buttons register-nav">
+            <a href="{% url "cadastroPadrinhos" %}" class="button-link">
+                <button class="nav-btn">← Voltar</button>
+            </a>
+            <a href="#" class="button-link">
+                <button class="nav-btn">Próximo →</button>
+            </a>
+        </div>
+    </main>
+
+{% endblock  %}

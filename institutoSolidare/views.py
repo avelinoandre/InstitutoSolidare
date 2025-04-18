@@ -21,4 +21,7 @@ def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
 
 def cadastroPadrinhos(request):
-    return render (request, "institutoSolidare/cadastro-padrinhos.html")
+    return render(request, "institutoSolidare/cadastro-padrinhos.html")
+
+def informacoesPadrinho (request):
+    return render(request, "institutoSolidare/informacoes-padrinho.html")
