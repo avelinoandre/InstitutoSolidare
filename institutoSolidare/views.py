@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def index(request):
     return render(request, "institutoSolidare/index.html")
+
+def admLogin(request):
+    return render(request, "institutoSolidare/adm-login.html")
