@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Apadrinhados, Padrinho
@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 
 def index(request):
     return render(request, "institutoSolidare/index.html")
+
+# views de adm
 
 def admLogin(request):
     if request.method == "POST":
@@ -30,6 +32,8 @@ def admLogin(request):
 
 def admMain(request):
     return render(request, "institutoSolidare/adm-main.html")
+
+# views de apadrinhados
 
 def gerenciarApadrinhados(request):
     apadrinhados = Apadrinhados.objects.all()
@@ -60,6 +64,20 @@ def cadastrarApadrinhados(request):
 
 def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
+
+def informacoesApadrinhados(request, nome):
+    apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
+
+    if request.method == "POST":
+        if "delete" in request.POST:
+            apadrinhado.delete()
+            messages.success(request, "Apadrinhado excluído com sucesso!")
+            return redirect("gerenciarApadrinhados")
+
+    return render(request, "institutoSolidare/informacoes-apadrinhado.html", {"apadrinhado": apadrinhado})
+
+
+# views padrinhos
 
 def cadastroPadrinhos(request):
     if request.method == "POST":

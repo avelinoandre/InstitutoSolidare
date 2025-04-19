@@ -1,0 +1,55 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="register-title">Informações do Apadrinhado</h1>
+    <div class="register-container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="register-grid">
+                <div class="input-group full-width">
+                    <div class="child-photo-container">
+                        {% if apadrinhado.foto %}
+                        <img src="{{ apadrinhado.foto.url }}" alt="Foto do apadrinhado" class="child-photo">
+                        {% else %}
+                        <p>Sem foto</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome" class="register-input" value="{{ apadrinhado.nome }}">
+                </div>
+                <div class="input-group">
+                    <label>Idade</label>
+                    <input type="number" name="idade" class="register-input" value="{{ apadrinhado.idade }}">
+                </div>
+                <div class="input-group">
+                    <label>Gênero</label>
+                    <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}">
+                </div>
+                <div class="input-group">
+                    <label>Status</label>
+                    <input type="text" class="register-input" value="aaaaaaa" readonly>
+                </div>
+                <div class="input-group full-width">
+                    <label>Informações Adicionais</label>
+                    <textarea class="register-input" rows="4" readonly>aaaaaaa</textarea>
+                </div>
+                <div class="input-group full-width">
+                    <div class="button-group">
+                        <button type="submit" name="delete" class="delete-btn" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir apadrinhado</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="navigation-buttons">
+        <a href="{% url 'gerenciarApadrinhados' %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+    </div>
+</main>
+{% endblock %}
