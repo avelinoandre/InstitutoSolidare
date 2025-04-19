@@ -1,5 +1,6 @@
 from django.urls import path
-from institutoSolidare.views import index, admLogin, admMain, gerenciarApadrinhados, cadastrarApadrinhados, cadastroStatus, cadastroPadrinhos, informacoesPadrinho
+from institutoSolidare.views import index, admLogin, admMain, gerenciarApadrinhados, cadastrarApadrinhados, \
+    cadastroStatus, cadastroPadrinhos, informacoesPadrinho
 
 urlpatterns = [
     path("", index, name="index"),

@@ -7,40 +7,51 @@
     <h1 class="register-title">Cadastro de apadrinhados</h1>
     <p class="register-subtitle">Insira os dados sobre o apadrinhado abaixo:</p>
     <div class="register-container">
-        <div class="register-grid">
-            <div class="input-group">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: yellow;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="register-grid">
+              <div class="input-group">
+                <label>Nome Completo</label>
+                <input type="text" name="nome" class="register-input">
+              </div>
+              <div class="input-group">
+                <label>Idade</label>
+                <input type="number" name="idade" class="register-input">
+              </div>
+              <div class="input-group">
+                <label>Gênero</label>
+                <div class="combo-container">
+                  <select name="genero" class="register-input">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group">
+                <label>Foto</label>
+                <input type="file" name="foto" class="register-input file-input" accept="image/*">
+              </div>
+              <div class="input-group">
                 <label>aaaaaaa</label>
-                <input type="text" class="register-input">
+                <input type="text" name="aaaaaaa" class="register-input">
+              </div>
             </div>
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <input type="text" class="register-input">
-            </div>
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <input type="text" class="register-input">
-            </div>
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <input type="text" class="register-input">
-            </div>
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <input type="text" class="register-input">
-            </div>
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <input type="text" class="register-input">
-            </div>
-        </div>
+            <button type="submit" class="submit-btn">Cadastrar</button>
+          </form>
     </div>
-</div>
-<div class="navigation-buttons register-nav">
-    <a href="{% url "admMain" %}" class="button-link">
-        <button class="nav-btn">← Voltar</button>
-    </a>
-    <a href="{% url "cadastroStatus" %}" class="button-link">
-        <button class="nav-btn">Próximo →</button>
-    </a>
+    <div class="navigation-buttons register-nav">
+        <a href="{% url "admMain" %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+        {% comment %} <a href="{% url "cadastroStatus" %}" class="button-link">
+            <button class="nav-btn">Próximo →</button>
+        </a> {% endcomment %}
+    </div>
 </main>
 {% endblock  %}
