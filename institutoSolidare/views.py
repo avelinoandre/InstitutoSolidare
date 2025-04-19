@@ -31,7 +31,8 @@ def admMain(request):
     return render(request, "institutoSolidare/adm-main.html")
 
 def gerenciarApadrinhados(request):
-    return render(request, "institutoSolidare/gerenciar-apadrinhados.html")
+    apadrinhados = Apadrinhados.objects.all()
+    return render(request, "institutoSolidare/gerenciar-apadrinhados.html", {"apadrinhados" : apadrinhados})
 
 def cadastrarApadrinhados(request):
     if request.method == "POST":
