@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -6,6 +9,21 @@ def index(request):
     return render(request, "institutoSolidare/index.html")
 
 def admLogin(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            if user.is_superuser:
+                login(request, user)
+                return redirect("admMain")
+            else:
+                messages.error(request, 'Apenas superusuários podem fazer login.')
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+
     return render(request, "institutoSolidare/adm-login.html")
 
 def admMain(request):
