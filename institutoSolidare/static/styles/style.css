@@ -310,3 +310,18 @@ button {
     text-align: center;
     font-size: 1rem;
 }
+
+.combo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.combo-select {
+    width: 100%;
+    padding: 0.8rem;
+}
+
+.other-input {
+    margin-top: 0.5rem;
+}
