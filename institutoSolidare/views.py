@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .models import Apadrinhados
+from .models import Apadrinhados, Padrinho
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -61,6 +62,39 @@ def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
 
 def cadastroPadrinhos(request):
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+        confirmar_senha = request.POST.get("confirmar_senha")
+        pais = request.POST.get("pais")
+        estado = request.POST.get("estado")
+        idade = request.POST.get("idade")
+        data_nascimento = request.POST.get("data_nascimento")
+        telefone = request.POST.get("telefone")
+
+        if senha != confirmar_senha:
+            messages.error(request, "As senhas não coincidem.")
+            return render(request, "institutoSolidare/cadastro-padrinhos.html")
+
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "Já existe um usuário com esse e-mail.")
+            return render(request, "institutoSolidare/cadastro-padrinhos.html")
+
+        user = User.objects.create_user(username=email, email=email, password=senha, first_name=nome)
+
+        Padrinho.objects.create(
+            user=user,
+            pais=pais,
+            estado=estado,
+            idade=idade,
+            data_nascimento=data_nascimento,
+            telefone=telefone
+        )
+
+        messages.success(request, "Cadastro realizado com sucesso, agora preencha algumas informações sobre você!")
+        return redirect("informacoesPadrinho")
+
     return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
 def informacoesPadrinho (request):

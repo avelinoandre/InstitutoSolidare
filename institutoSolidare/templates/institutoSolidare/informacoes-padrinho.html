@@ -8,106 +8,114 @@
     <h1 class="register-title">Informações sobre você</h1>
     <p class="register-subtitle">Responda as questões e nos conte um pouco sobre você, seus ideais, seus sonhos etc</p>
     <div class="register-container">
-        <div class="register-grid">
-            <!-- primeira combo box -->
-            <div class="input-group">
-                <label>Como você se descreve no seu dia a dia?</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Gosto de conversar, contar histórias e estar perto de gente</option>
-                        <option value="option2">Sou mais tranquilo(a), prefiro ouvir e observar</option>
-                        <option value="option3">Penso bastante antes de agir, gosto de entender bem as coisas</option>
-                        <option value="option4">Tenho uma mente cheia de sonhos e ideias</option>
-                        <option value="option5">Me preocupo muito com os outros e gosto de ajudar sempre que posso</option>
-                        <option value="other"> Caso nenhuma dessas opções descreva você, por favor, escreva um pequeno texto sobre como você se vê: </option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="POST">
+            <div class="register-grid">
+                <!-- primeira combo box -->
+                <div class="input-group">
+                    <label>Como você se descreve no seu dia a dia?</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)" required>
+                            <option value="option1">Gosto de conversar, contar histórias e estar perto de gente</option>
+                            <option value="option2">Sou mais tranquilo(a), prefiro ouvir e observar</option>
+                            <option value="option3">Penso bastante antes de agir, gosto de entender bem as coisas</option>
+                            <option value="option4">Tenho uma mente cheia de sonhos e ideias</option>
+                            <option value="option5">Me preocupo muito com os outros e gosto de ajudar sempre que posso</option>
+                            <option value="other"> Caso nenhuma dessas opções descreva você, por favor, escreva um pequeno texto sobre como você se vê: </option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
+                </div>
+                <!-- segunda combo box -->
+                <div class="input-group">
+                    <label>Na escola, qual área mais te chamava atenção?</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)">
+                            <option value="option1">Números, cálculos e raciocínio lógico</option>
+                            <option value="option2">A natureza, os experimentos e o funcionamento das coisas</option>
+                            <option value="option3">Escrever, ler, se comunicar</option>
+                            <option value="option4">Aprender sobre o mundo, lugares, pessoas e suas histórias</option>
+                            <option value="option5">Criar com arte, desenhar, tocar instrumentos, inventar coisas</option>
+                            <option value="other">Caso nenhuma dessas opções te represente, descreva brevemente qual área te chamava mais a atenção:</option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
+                </div>
+                <!-- terceira combo box -->
+                <div class="input-group">
+                    <label>E no tempo livre, o que te dá mais prazer fazer?</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)">
+                            <option value="option1">Praticar esportes, caminhar, me movimentar</option>
+                            <option value="option2">Assistir algo, ler ou buscar aprender novas coisas</option>
+                            <option value="option3">Fazer algo com as mãos, desenhar, pintar, montar</option>
+                            <option value="option4">Jogar, seja no videogame, celular ou em jogos de tabuleiro</option>
+                            <option value="option5">Cuidar da casa, das plantas, dos bichinhos ou das pessoas próximas</option>
+                            <option value="other">Caso nenhuma dessas opções se encaixe, descreva brevemente o que você mais gosta de fazer no seu tempo livre:</option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
+                </div>
+                <!-- quarta combo box -->
+                <div class="input-group">
+                    <label>Qual dessas coisas mais te inspira hoje?</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)">
+                            <option value="option1">Ajudar alguém e causar um impacto positivo na vida dela</option>
+                            <option value="option2">Conhecer novas culturas, lugares e formas de ver o mundo</option>
+                            <option value="option3">Ter uma vida tranquila e próxima de quem eu amo</option>
+                            <option value="option4">Trabalhar com o que eu gosto e me sentir valorizado(a)</option>
+                            <option value="option5">Aprender constantemente e crescer como pessoa</option>
+                            <option value="other">Caso nenhuma dessas opções ressoe com você, escreva um pequeno texto sobre o que te inspira:</option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
+                </div>
+                <!-- quinta combo box -->
+                <div class="input-group">
+                    <label>E pra fechar, qual desses valores mais representa você?</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)">
+                            <option value="option1">Empatia – me importo e tento entender o outro</option>
+                            <option value="option2">Coragem – encaro desafios mesmo com medo</option>
+                            <option value="option3">Paciência – sei respeitar o tempo das coisas</option>
+                            <option value="option4">Dedicação – me entrego de verdade no que faço</option>
+                            <option value="option5">Alegria – tento sempre espalhar boas energias por onde passo</option>
+                            <option value="other">Caso nenhuma dessas opções te descreva, escreva um pequeno texto sobre o valor que mais te representa:</option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
+                </div>
+                <!-- sexta combo box se precisar -->
+                <div class="input-group">
+                    <label>aaaaaaa</label>
+                    <div class="combo-container">
+                        <select class="register-input combo-select" onchange="toggleOtherInput(this)">
+                            <option value="option1">Opção 1</option>
+                            <option value="option2">Opção 2</option>
+                            <option value="option3">Opção 3</option>
+                            <option value="option4">Opção 4</option>
+                            <option value="option5">Opção 5</option>
+                            <option value="other">Outro</option>
+                        </select>
+                        <input type="text" class="register-input other-input" style="display: none;">
+                    </div>
                 </div>
             </div>
-            <!-- segunda combo box -->
-            <div class="input-group">
-                <label>Na escola, qual área mais te chamava atenção?</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Números, cálculos e raciocínio lógico</option>
-                        <option value="option2">A natureza, os experimentos e o funcionamento das coisas</option>
-                        <option value="option3">Escrever, ler, se comunicar</option>
-                        <option value="option4">Aprender sobre o mundo, lugares, pessoas e suas histórias</option>
-                        <option value="option5">Criar com arte, desenhar, tocar instrumentos, inventar coisas</option>
-                        <option value="other">Caso nenhuma dessas opções te represente, descreva brevemente qual área te chamava mais a atenção:</option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
-                </div>
-            </div>
-            <!-- terceira combo box -->
-            <div class="input-group">
-                <label>E no tempo livre, o que te dá mais prazer fazer?</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Praticar esportes, caminhar, me movimentar</option>
-                        <option value="option2">Assistir algo, ler ou buscar aprender novas coisas</option>
-                        <option value="option3">Fazer algo com as mãos, desenhar, pintar, montar</option>
-                        <option value="option4">Jogar, seja no videogame, celular ou em jogos de tabuleiro</option>
-                        <option value="option5">Cuidar da casa, das plantas, dos bichinhos ou das pessoas próximas</option>
-                        <option value="other">Caso nenhuma dessas opções se encaixe, descreva brevemente o que você mais gosta de fazer no seu tempo livre:</option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
-                </div>
-            </div>
-            <!-- quarta combo box -->
-            <div class="input-group">
-                <label>Qual dessas coisas mais te inspira hoje?</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Ajudar alguém e causar um impacto positivo na vida dela</option>
-                        <option value="option2">Conhecer novas culturas, lugares e formas de ver o mundo</option>
-                        <option value="option3">Ter uma vida tranquila e próxima de quem eu amo</option>
-                        <option value="option4">Trabalhar com o que eu gosto e me sentir valorizado(a)</option>
-                        <option value="option5">Aprender constantemente e crescer como pessoa</option>
-                        <option value="other">Caso nenhuma dessas opções ressoe com você, escreva um pequeno texto sobre o que te inspira:</option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
-                </div>
-            </div>
-            <!-- quinta combo box -->
-            <div class="input-group">
-                <label>E pra fechar, qual desses valores mais representa você?</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Empatia – me importo e tento entender o outro</option>
-                        <option value="option2">Coragem – encaro desafios mesmo com medo</option>
-                        <option value="option3">Paciência – sei respeitar o tempo das coisas</option>
-                        <option value="option4">Dedicação – me entrego de verdade no que faço</option>
-                        <option value="option5">Alegria – tento sempre espalhar boas energias por onde passo</option>
-                        <option value="other">Caso nenhuma dessas opções te descreva, escreva um pequeno texto sobre o valor que mais te representa:</option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
-                </div>
-            </div>
-            <!-- sexta combo box se precisar -->
-            <div class="input-group">
-                <label>aaaaaaa</label>
-                <div class="combo-container">
-                    <select class="register-input combo-select" onchange="toggleOtherInput(this)">
-                        <option value="option1">Opção 1</option>
-                        <option value="option2">Opção 2</option>
-                        <option value="option3">Opção 3</option>
-                        <option value="option4">Opção 4</option>
-                        <option value="option5">Opção 5</option>
-                        <option value="other">Outro</option>
-                    </select>
-                    <input type="text" class="register-input other-input" style="display: none;">
-                </div>
-            </div>
-        </div>
+            <button type="submit" class="submit-btn">Cadastrar Informações</button>
+        </form>
     </div>
     <div class="navigation-buttons register-nav">
         <a href="{% url "cadastroPadrinhos" %}" class="button-link">
             <button class="nav-btn">← Voltar</button>
         </a>
-        <a href="#" class="button-link">
+        {% comment %} <a href="#" class="button-link">
             <button class="nav-btn">Próximo →</button>
-        </a>
+        </a> {% endcomment %}
     </div>
 </main>
 <script>
