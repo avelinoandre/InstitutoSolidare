@@ -1,0 +1,25 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <h2 class="login-title">Faça seu login</h2>
+
+    <div class="login-container">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Usuário" class="login-input" required>
+            <input type="password" name="password" placeholder="Senha" class="login-input" required>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        <p class="signup-text" style="text-align: center; margin-top: 1rem;">
+            Ainda não é padrinho?<br>
+            <a href="{% url 'cadastroPadrinhos' %}">Inscreva-se aqui!</a>
+        </p>
+    </div>
+
+    <div class="navigation-buttons" style="justify-content: center;">
+        <a href="{% url "index" %}" class="nav-btn">← Voltar</a>
+    </div>
+</main>
+{% endblock %}
