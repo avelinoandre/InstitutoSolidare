@@ -1,0 +1,74 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button class="admin-btn">Meus dados</button>
+      <button class="admin-btn">Meus Afilhados</button>
+      <button class="admin-btn">aaaaaaaaaa</button>
+      <button class="admin-btn">aaaaaaaaaa</button>
+      <button class="admin-btn">aaaaaaaaaa</button>
+      <a href="#">
+        <button class="submit-btn">Novo Afilhado</button>
+      </a>
+    </div>
+
+    <!-- Formulário -->
+    <div class="register-container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="register-grid">
+            <!-- Foto à esquerda + campos à direita -->
+            <div class="photo-column">
+                <div class="child-photo-container">
+                  <label for="photo-upload" class="photo-label">
+                    <div class="photo-placeholder"></div>
+                  </label>
+                </div>
+              </div>
+              
+          
+            <div class="info-column">
+              <div class="input-group">
+                <label>Nome</label>
+                <input type="text" class="register-input" name="nome">
+              </div>
+              <div class="input-group">
+                <label>Endereço</label>
+                <input type="text" class="register-input" name="endereco">
+              </div>
+            </div>
+          
+            <!-- Linha de campos duplos -->
+            <div class="input-group">
+              <label>aaaaa</label>
+              <input type="text" class="register-input" name="campo1">
+            </div>
+            <div class="input-group">
+              <label>aaaaaaa</label>
+              <input type="text" class="register-input" name="campo2">
+            </div>
+          
+            <!-- Linha de tags -->
+            <div class="input-group">
+              <label>Tags</label>
+              <input type="text" class="register-input" name="tags1">
+            </div>
+            <div class="input-group">
+              <label>Tags</label>
+              <input type="text" class="register-input" name="tags2">
+            </div>
+          </div>          
+
+        <div class="button-group">
+          <button type="submit" class="submit-btn">Salvar</button>
+            <a href="{% url "meusAfiliados" %}" class="nav-btn">Salvar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}
