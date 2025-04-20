@@ -425,3 +425,63 @@ button {
 .delete-btn:hover {
     background-color: #cc0000;
 }
+.dashboard-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+    padding: 2rem;
+    align-items: flex-start;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.afilhado-content {
+    background-color: #808080;
+    padding: 2rem;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 100%;
+}
+
+.children-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.child-card {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.child-card:hover {
+    transform: scale(1.05);
+}
+
+.photo-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #4A4A4A;
+    border-radius: 10px;
+}
+
+.child-name {
+    background-color: #B8B8B8;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    width: 100%;
+    font-weight: bold;
+}

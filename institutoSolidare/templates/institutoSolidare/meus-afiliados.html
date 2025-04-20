@@ -1,0 +1,53 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="dashboard-wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <button class="admin-btn">Meus dados</button>
+        <button class="admin-btn">Meus Afilhados</button>
+        <button class="admin-btn">aaaaaaaaaa</button>
+        <button class="admin-btn">aaaaaaaaaa</button>
+        <button class="admin-btn">aaaaaaaaaa</button>
+        <a href="{% url 'novoAfiliado' %}">
+          <button class="submit-btn">Novo Afilhado</button>
+        </a>
+      </div>
+  
+      <!-- Conteúdo -->
+      <div class="afilhado-content">
+        <input 
+          type="text" 
+          class="login-input" 
+          placeholder="Pesquise seu afilhado por nome"
+        >
+  
+        <div class="children-grid">
+          <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <div class="child-name">Fulano de Tal</div>
+          </div>
+          <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <div class="child-name">Maria Silva</div>
+          </div>
+          <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <div class="child-name">João Pedro</div>
+          </div>
+          <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <div class="child-name">Ana Luiza</div>
+          </div>
+          <div class="child-card">
+            <div class="photo-placeholder"></div>
+            <div class="child-name">Carlos Souza</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+{% endblock %}

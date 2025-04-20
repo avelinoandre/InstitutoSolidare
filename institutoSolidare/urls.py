@@ -1,6 +1,6 @@
 from django.urls import path
 from institutoSolidare.views import index, admLogin, admMain, gerenciarApadrinhados, cadastrarApadrinhados, \
-    cadastroStatus, cadastroPadrinhos, informacoesPadrinho, informacoesApadrinhados, login
+    cadastroStatus, cadastroPadrinhos, informacoesPadrinho, informacoesApadrinhados, login, meusAfiliados, novoAfiliado
 
 urlpatterns = [
     path("", index, name="index"),
@@ -13,4 +13,6 @@ urlpatterns = [
     path("cadastro-padrinhos/", cadastroPadrinhos, name = "cadastroPadrinhos"),
     path("informacoes-padrinho/", informacoesPadrinho, name = "informacoesPadrinho"),
     path("login/", login, name="login"),
+    path("meus-afiliados", meusAfiliados, name="meusAfiliados"),
+    path("novo-afiliado", novoAfiliado, name="novoAfiliado"),
 ]

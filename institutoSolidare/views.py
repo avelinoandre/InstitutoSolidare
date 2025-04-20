@@ -65,9 +65,6 @@ def cadastrarApadrinhados(request):
 def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
 
-def login(request):
-    return render(request, "institutoSolidare/login.html")
-
 def informacoesApadrinhados(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
 
@@ -81,6 +78,15 @@ def informacoesApadrinhados(request, nome):
 
 
 # views padrinhos
+
+def login(request):
+    return render(request, "institutoSolidare/login.html")
+
+def meusAfiliados(request):
+    return render(request, "institutoSolidare/meus-afiliados.html")
+
+def novoAfiliado(request):
+    return render(request, "institutoSolidare/novo-afiliado.html")
 
 def cadastroPadrinhos(request):
     if request.method == "POST":
