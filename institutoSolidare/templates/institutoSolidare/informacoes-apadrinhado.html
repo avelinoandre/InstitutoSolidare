@@ -5,7 +5,7 @@
 <main>
     <h1 class="register-title">Informações do Apadrinhado</h1>
     <div class="register-container">
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="form-apadrinhado">
             {% csrf_token %}
             <div class="register-grid">
                 <div class="input-group full-width">
@@ -19,15 +19,19 @@
                 </div>
                 <div class="input-group">
                     <label>Nome Completo</label>
-                    <input type="text" name="nome" class="register-input" value="{{ apadrinhado.nome }}">
+                    <input type="text" name="nome" class="register-input" value="{{ apadrinhado.nome }}" readonly>
+                </div>
+                <div class="input-group">
+                    <label>Data Nascimento</label>
+                    <input type="date" name="data_nascimento" class="register-input" value="{{ apadrinhado.data_nascimento|date:'Y-m-d' }}" readonly>
                 </div>
                 <div class="input-group">
                     <label>Idade</label>
-                    <input type="number" name="idade" class="register-input" value="{{ apadrinhado.idade }}">
+                    <input type="number" name="idade" class="register-input" value="{{ apadrinhado.idade }}" readonly>
                 </div>
                 <div class="input-group">
                     <label>Gênero</label>
-                    <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}">
+                    <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}" readonly>
                 </div>
                 <div class="input-group">
                     <label>Status</label>
@@ -35,11 +39,13 @@
                 </div>
                 <div class="input-group full-width">
                     <label>Informações Adicionais</label>
-                    <textarea class="register-input" rows="4" readonly>aaaaaaa</textarea>
+                    <textarea class="register-input" name="info_adicional" rows="4" readonly>aaaaaaa</textarea>
                 </div>
                 <div class="input-group full-width">
                     <div class="button-group">
                         <button type="submit" name="delete" class="delete-btn" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir apadrinhado</button>
+                        <button type="button" class="update-btn" id="edit-btn">Atualizar</button>
+                        <button type="submit" name="save" class="save-btn" id="save-btn" style="display:none; background-color: green; color: white;">Salvar</button>
                     </div>
                 </div>
             </div>
@@ -52,4 +58,16 @@
         </a>
     </div>
 </main>
+
+<script>
+    const editBtn = document.getElementById("edit-btn");
+    const saveBtn = document.getElementById("save-btn");
+    const inputs = document.querySelectorAll(".register-input");
+
+    editBtn.addEventListener("click", () => {
+        inputs.forEach(input => input.removeAttribute("readonly"));
+        editBtn.style.display = "none";
+        saveBtn.style.display = "inline-block";
+    });
+</script>
 {% endblock %}

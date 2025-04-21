@@ -84,7 +84,25 @@ def informacoesApadrinhados(request, nome):
             messages.success(request, "Apadrinhado excluído com sucesso!")
             return redirect("gerenciarApadrinhados")
 
+        if "save" in request.POST:
+            apadrinhado.nome = request.POST.get("nome")
+            apadrinhado.data_nascimento = request.POST.get("data_nascimento")
+            apadrinhado.genero = request.POST.get("genero")
+            if apadrinhado.data_nascimento:
+                nascimento = datetime.strptime(apadrinhado.data_nascimento, '%Y-%m-%d').date()
+            
+                hoje = date.today()
+                idade = hoje.year - nascimento.year - (
+                    (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
+                )
+                apadrinhado.idade = idade
+            # so add outros campos dps
+            apadrinhado.save()
+            messages.success(request, "Apadrinhado atualizado com sucesso!")
+            return redirect("informacoesApadrinhados", nome=apadrinhado.nome)
+
     return render(request, "institutoSolidare/informacoes-apadrinhado.html", {"apadrinhado": apadrinhado})
+
 
 
 # views padrinhos
