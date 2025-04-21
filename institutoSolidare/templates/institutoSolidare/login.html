@@ -6,9 +6,14 @@
     <h2 class="login-title">Faça seu login</h2>
 
     <div class="login-container">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: rgb(255, 0, 0);">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Usuário" class="login-input" required>
+            <input type="text" name="username" placeholder="e-mail" class="login-input" required>
             <input type="password" name="password" placeholder="Senha" class="login-input" required>
             <button type="submit" class="login-button">Login</button>
                 <a href="{% url "meusAfiliados" %}" class="nav-btn">Login</a>

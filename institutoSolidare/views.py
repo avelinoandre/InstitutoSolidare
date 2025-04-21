@@ -81,6 +81,19 @@ def informacoesApadrinhados(request, nome):
 # views padrinhos
 
 def loginPadrinho(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+        ## sem a segunda parte apos and, da pra logar como super usuario
+        if (user is not None) and (not user.is_superuser):
+            login(request, user)
+            messages.success(request, "Login confirmado!")
+            return redirect("meusAfiliados")
+        else:
+            messages.error(request, "Usuário ou senha inválidos.")
+
     return render(request, "institutoSolidare/login.html")
 
 def meusAfiliados(request):
