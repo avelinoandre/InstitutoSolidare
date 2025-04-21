@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #B8B8B8;
+    background-color: #EDEDDD;
     font-family: Arial, sans-serif;
     min-height: 100vh;
 }
@@ -512,3 +512,157 @@ button {
     width: 100%;
     height: 100%;
   }
+
+header {
+    background-color: #406694;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 100px;
+}
+
+.logo,
+.institute-name {
+    background-color: #8AB8DB;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    position: absolute;
+}
+
+.logo {
+    left: 20px;
+}
+
+.institute-name {
+    right: 20px;
+}
+
+.login-title {
+    color: #406694;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.login-container,
+.admin-container,
+.register-container,
+.success-container,
+.children-grid,
+.afilhado-content {
+    background-color: #8AB8DB;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.login-input,
+.register-input,
+.combo-select,
+.file-input {
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #EDEDDD;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.login-button,
+.submit-btn,
+.admin-btn,
+.success-btn,
+.update-btn,
+.delete-btn {
+    background-color: #FF954E;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.login-button:hover,
+.submit-btn:hover,
+.admin-btn:hover,
+.success-btn:hover {
+    background-color: #e67f2e;
+}
+
+.update-btn {
+    background-color: #406694;
+}
+
+.update-btn:hover {
+    background-color: #304c70;
+}
+
+.delete-btn {
+    background-color: #FF4444;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background-color: #406694;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background-color: #304c70;
+}
+
+button {
+    background-color: #FF954E;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.child-name {
+    background-color: #406694;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.photo-placeholder,
+.child-photo-container {
+    background-color: #EDEDDD;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+    flex-shrink: 0;
+}
