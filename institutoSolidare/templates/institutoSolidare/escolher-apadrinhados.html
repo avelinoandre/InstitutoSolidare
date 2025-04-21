@@ -1,0 +1,60 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="management-title">Escolha seu apadrinhado</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="children-grid" id="apadrinhados-list">
+            {% for apadrinhado in apadrinhados %}
+            <div class="child-card selectable-card" data-id="{{ apadrinhado.id }}">
+                {% if apadrinhado.foto %}
+                <div class="photo-placeholder">
+                    <img src="{{ apadrinhado.foto.url }}" alt="Foto de {{ apadrinhado.nome }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                {% else %}
+                <div class="photo-placeholder"></div>
+                {% endif %}
+                <p class="child-name">{{ apadrinhado.nome }} - {{ apadrinhado.idade }} anos</p>
+                <input type="checkbox" name="apadrinhados" value="{{ apadrinhado.id }}" style="display: none;">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="{% url 'cadastroPadrinhos' %}" class="button-link">
+                <button type="button" class="nav-btn">← Voltar</button>
+            </a>
+            <button type="submit" class="nav-btn">Próximo →</button>
+        </div>
+    </form>
+</main>
+
+<style>
+    .selectable-card.selected {
+        border: 3px solid #3baf3e;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".selectable-card");
+        cards.forEach(card => {
+            card.addEventListener("click", () => {
+                card.classList.toggle("selected");
+                const checkbox = card.querySelector("input[type=checkbox]");
+                checkbox.checked = !checkbox.checked;
+            });
+        });
+    });
+</script>
+{% endblock %}
