@@ -124,7 +124,14 @@ def loginPadrinho(request):
     return render(request, "institutoSolidare/login.html")
 
 def meusAfiliados(request):
-    return render(request, "institutoSolidare/meus-afiliados.html")
+    padrinho = Padrinho.objects.get(user=request.user)
+    apadrinhados = padrinho.apadrinhados.all()
+    return render(request, "institutoSolidare/meus-afiliados.html", {"apadrinhados": apadrinhados})
+
+def infoMeuApadrinhado(request, nome):
+    apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
+
+    return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", {"apadrinhado": apadrinhado})
 
 def novoAfiliado(request):
     return render(request, "institutoSolidare/novo-afiliado.html")

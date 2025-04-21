@@ -21,31 +21,41 @@
         <input 
           type="text" 
           class="login-input" 
-          placeholder="Pesquise seu afilhado por nome"
-        >
+          placeholder="Pesquise seu afilhado por nome">
   
+        {% comment %} {% for apadrinhado in apadrinhados %}
         <div class="children-grid">
           <div class="child-card">
-            <div class="photo-placeholder"></div>
-            <div class="child-name">Fulano de Tal</div>
+            {% if apadrinhado.foto  %}
+              <div class="photo-placeholder">
+                <img src="{{ apadrinhado.foto.url }}" alt="foto de {{ apadrinhado.nome }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+              </div>
+            {% else %}
+              <div class="photo-placeholder"></div>
+            {% endif %}
+            <p class="child-name">{{ apadrinhado.nome }} - {{ apadrinhado.idade }} anos</p>
           </div>
-          <div class="child-card">
-            <div class="photo-placeholder"></div>
-            <div class="child-name">Maria Silva</div>
-          </div>
-          <div class="child-card">
-            <div class="photo-placeholder"></div>
-            <div class="child-name">João Pedro</div>
-          </div>
-          <div class="child-card">
-            <div class="photo-placeholder"></div>
-            <div class="child-name">Ana Luiza</div>
-          </div>
-          <div class="child-card">
-            <div class="photo-placeholder"></div>
-            <div class="child-name">Carlos Souza</div>
-          </div>
-        </div>
+          {% endfor %}
+        </div> {% endcomment %}
+        <div class="children-grid">
+          {% for apadrinhado in apadrinhados %}
+          <a href="{% url 'infoMeuApadrinhado' apadrinhado.nome %}" class="child-card-link">
+              <div class="child-card">
+                  {% if apadrinhado.foto %}
+                  <div class="photo-placeholder">
+                      <img src="{{ apadrinhado.foto.url }}" alt="Foto de {{ apadrinhado.nome }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                  </div>
+                  {% else %}
+                  <div class="photo-placeholder"></div>
+                  {% endif %}
+                  <p class="child-name">{{ apadrinhado.nome }} - {{ apadrinhado.idade }} anos</p>
+              </div>
+          </a>
+          {% empty %}
+          <p>Nenhum apadrinhado cadastrado ainda.</p>
+          {% endfor %}
+  
+      </div>
       </div>
     </div>
   </main>

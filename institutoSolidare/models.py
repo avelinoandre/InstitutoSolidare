@@ -10,6 +10,8 @@ class Apadrinhados(models.Model):
     genero = models.CharField(max_length=15, null = False)
     foto = models.ImageField(upload_to="fotos/")
 
+    padrinhos = models.ManyToManyField('Padrinho', related_name='apadrinhados', blank=True)
+
     def __str__(self):
         return self.nome
     

@@ -1,0 +1,50 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="register-title">Informações do meu Apadrinhado</h1>
+    <div class="register-container">
+        <form method="POST" enctype="multipart/form-data" id="form-apadrinhado">
+            {% csrf_token %}
+            <div class="register-grid">
+                <div class="input-group full-width">
+                    <div class="child-photo-container">
+                        {% if apadrinhado.foto %}
+                        <img src="{{ apadrinhado.foto.url }}" alt="Foto do apadrinhado" class="child-photo">
+                        {% else %}
+                        <p>Sem foto</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome" class="register-input" value="{{ apadrinhado.nome }}" readonly>
+                </div>
+                <div class="input-group">
+                    <label>Data Nascimento</label>
+                    <input type="date" name="data_nascimento" class="register-input" value="{{ apadrinhado.data_nascimento|date:'Y-m-d' }}" readonly>
+                </div>
+                <div class="input-group">
+                    <label>Idade</label>
+                    <input type="number" name="idade" class="register-input" value="{{ apadrinhado.idade }}" readonly>
+                </div>
+                <div class="input-group">
+                    <label>Gênero</label>
+                    <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}" readonly>
+                </div>
+                <div class="input-group full-width">
+                    <label>Informações Adicionais</label>
+                    <textarea class="register-input" name="info_adicional" rows="4" readonly>aaaaaaa</textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="navigation-buttons">
+        <a href="{% url 'meusAfiliados' %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+    </div>
+</main>
+{% endblock %}
