@@ -20,5 +20,23 @@ class Padrinho(models.Model):
     estado = models.CharField(max_length=100)
     telefone = models.CharField(max_length=20)
 
+    estilo_vida = models.IntegerField(null=True, blank=True)
+    estilo_vida_outro = models.TextField(null=True, blank=True)
+
+    area_escolar = models.IntegerField(null=True, blank=True)
+    area_escolar_outro = models.TextField(null=True, blank=True)
+
+    tempo_livre = models.IntegerField(null=True, blank=True)
+    tempo_livre_outro = models.TextField(null=True, blank=True)
+
+    inspiracao = models.IntegerField(null=True, blank=True)
+    inspiracao_outro = models.TextField(null=True, blank=True)
+
+    valor_representa = models.IntegerField(null=True, blank=True)
+    valor_representa_outro = models.TextField(null=True, blank=True)
+
+    extra = models.IntegerField(null=True, blank=True)
+    extra_outro = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return self.user.get_full_name()

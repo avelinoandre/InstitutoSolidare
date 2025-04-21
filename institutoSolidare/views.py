@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Apadrinhados, Padrinho
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -79,7 +80,7 @@ def informacoesApadrinhados(request, nome):
 
 # views padrinhos
 
-def login(request):
+def loginPadrinho(request):
     return render(request, "institutoSolidare/login.html")
 
 def meusAfiliados(request):
@@ -119,10 +120,56 @@ def cadastroPadrinhos(request):
             telefone=telefone
         )
 
+        login(request, user)
+
         messages.success(request, "Cadastro realizado com sucesso, agora preencha algumas informações sobre você!")
         return redirect("informacoesPadrinho")
 
     return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
+@login_required
 def informacoesPadrinho (request):
+    if request.method == "POST":
+        resposta1 = int(request.POST.get("estilo_vida"))
+        resposta1_outro = request.POST.get("estilo_vida_outro", "").strip()
+
+        resposta2 = int(request.POST.get("materia_preferida"))
+        resposta2_outro = request.POST.get("materia_preferida_outro", "").strip()
+
+        resposta3 = int(request.POST.get("tempo_livre"))
+        resposta3_outro = request.POST.get("tempo_livre_outro", "").strip()
+
+        resposta4 = int(request.POST.get("inspiracao"))
+        resposta4_outro = request.POST.get("inspiracao_outro", "").strip()
+
+        resposta5 = int(request.POST.get("representa"))
+        resposta5_outro = request.POST.get("representa_outro", "").strip()
+
+        resposta6 = int(request.POST.get("extra"))
+        resposta6_outro = request.POST.get("extra_outro", "").strip()
+
+        padrinho = Padrinho.objects.get(user=request.user)
+        padrinho.estilo_vida = resposta1
+        padrinho.estilo_vida_outro = resposta1_outro if resposta1 == 99 else None
+
+        padrinho.area_escolar = resposta2
+        padrinho.area_escolar_outro = resposta2_outro if resposta2 == 99 else None
+
+        padrinho.tempo_livre = resposta3
+        padrinho.tempo_livre_outro = resposta3_outro if resposta3 == 99 else None
+
+        padrinho.inspiracao = resposta4
+        padrinho.inspiracao_outro = resposta4_outro if resposta4 == 99 else None
+
+        padrinho.valor_representa = resposta5
+        padrinho.valor_representa_outro = resposta5_outro if resposta5 == 99 else None
+
+        padrinho.extra = resposta6
+        padrinho.extra_outro = resposta6_outro if resposta6 == 99 else None
+
+        padrinho.save()
+
+        messages.success(request, "Informações salvas com sucesso!")
+        return redirect("meusAfiliados")
+
     return render(request, "institutoSolidare/informacoes-padrinho.html")
