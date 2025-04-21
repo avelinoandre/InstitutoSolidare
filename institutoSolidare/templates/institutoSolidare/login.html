@@ -11,12 +11,11 @@
                 <p style="color: rgb(255, 0, 0);">{{ message }}</p>
             {% endfor %}
         {% endif %}
-        <form method="post" action="{% url 'login' %}">
+        <form method="POST">
             {% csrf_token %}
             <input type="text" name="username" placeholder="e-mail" class="login-input" required>
             <input type="password" name="password" placeholder="Senha" class="login-input" required>
             <button type="submit" class="login-button">Login</button>
-                <a href="{% url "meusAfiliados" %}" class="nav-btn">Login</a>
         </form>
         <p class="signup-text" style="text-align: center; margin-top: 1rem;">
             Ainda não é padrinho?<br>
@@ -25,7 +24,9 @@
     </div>
 
     <div class="navigation-buttons" style="justify-content: center;">
-        <a href="{% url "index" %}" class="nav-btn">← Voltar</a>
+        <a href="{% url "index" %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
     </div>
 </main>
 {% endblock %}

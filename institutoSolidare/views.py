@@ -4,7 +4,7 @@ from django.contrib import messages
 from .models import Apadrinhados, Padrinho
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
+from datetime import datetime, date
 
 # Create your views here.
 
@@ -43,17 +43,26 @@ def gerenciarApadrinhados(request):
 def cadastrarApadrinhados(request):
     if request.method == "POST":
         nome = request.POST.get("nome")
-        idade = request.POST.get("idade")
+        data_nascimento = request.POST.get("data_nascimento")
         genero = request.POST.get("genero")
         foto = request.FILES.get("foto")
 
-        if not all([nome, idade, genero, foto]):
+        if not all([nome, data_nascimento, genero, foto]):
             messages.error(request, "Todos os campos são obrigatórios.")
             return render(request, "institutoSolidare/cadastro-apadrinhados.html")
+        
+        if data_nascimento:
+            nascimento = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
+            
+            hoje = date.today()
+            idade = hoje.year - nascimento.year - (
+                (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
+        )
 
         Apadrinhados.objects.create(
             nome=nome,
             idade=int(idade),
+            data_nascimento=data_nascimento,
             genero=genero,
             foto=foto
         )
@@ -110,7 +119,6 @@ def cadastroPadrinhos(request):
         confirmar_senha = request.POST.get("confirmar_senha")
         pais = request.POST.get("pais")
         estado = request.POST.get("estado")
-        idade = request.POST.get("idade")
         data_nascimento = request.POST.get("data_nascimento")
         telefone = request.POST.get("telefone")
 
@@ -121,8 +129,16 @@ def cadastroPadrinhos(request):
         if User.objects.filter(username=email).exists():
             messages.error(request, "Já existe um usuário com esse e-mail.")
             return render(request, "institutoSolidare/cadastro-padrinhos.html")
+        
+        if data_nascimento:
+            nascimento = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
+            
+            hoje = date.today()
+            idade = hoje.year - nascimento.year - (
+                (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
+        )
 
-        user = User.objects.create_user(username=email, email=email, password=senha, first_name=nome)
+        user = User.objects.create_user(username=nome, email=email, password=senha, first_name=nome)
 
         Padrinho.objects.create(
             user=user,
