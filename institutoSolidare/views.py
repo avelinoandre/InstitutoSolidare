@@ -136,8 +136,28 @@ def infoMeuApadrinhado(request, nome):
 def novoAfiliado(request):
     return render(request, "institutoSolidare/novo-afiliado.html")
 
-def cadastroPadrinhos(request):
+@login_required
+def escolherApadrinhado(request):
     if request.method == "POST":
+        padrinho = get_object_or_404(Padrinho, user=request.user)
+        selecionados_ids = request.POST.getlist("apadrinhados")
+
+        if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
+            messages.error(request, "Você só pode escolher até 2 apadrinhados.")
+            return redirect("escolherApadrinhado")
+
+        for apadrinhado_id in selecionados_ids:
+            apadrinhado = get_object_or_404(Apadrinhados, id=apadrinhado_id)
+            apadrinhado.padrinhos.add(padrinho)
+
+        messages.success(request, "Apadrinhados selecionados com sucesso!")
+        return redirect("meusAfiliados")
+
+    apadrinhados_disponiveis = Apadrinhados.objects.exclude(padrinhos=request.user.padrinho)
+    return render(request, "institutoSolidare/escolher-apadrinhados.html", {"apadrinhados": apadrinhados_disponiveis})
+
+def cadastroPadrinhos(request):
+    if request.method == "POST":    
         nome = request.POST.get("nome")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
@@ -224,6 +244,6 @@ def informacoesPadrinho (request):
         padrinho.save()
 
         messages.success(request, "Informações salvas com sucesso!")
-        return redirect("meusAfiliados")
+        return redirect("escolherApadrinhado")
 
     return render(request, "institutoSolidare/informacoes-padrinho.html")
