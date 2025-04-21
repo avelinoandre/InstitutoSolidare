@@ -79,7 +79,7 @@ def informacoesApadrinhados(request, nome):
 
 # views padrinhos
 
-def login_padrinho(request):
+def loginPadrinho(request):
     return render(request, "institutoSolidare/login.html")
 
 def meusAfiliados(request):
