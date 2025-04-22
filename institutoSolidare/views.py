@@ -158,7 +158,7 @@ def escolherApadrinhado(request):
     return render(request, "institutoSolidare/escolher-apadrinhados.html", {"apadrinhados": apadrinhados_disponiveis})
 
 def cadastroPadrinhos(request):
-    if request.method == "POST":    
+    if request.method == "POST":
         nome = request.POST.get("nome")
         email = request.POST.get("email")
         senha = request.POST.get("senha")
@@ -175,36 +175,41 @@ def cadastroPadrinhos(request):
         if User.objects.filter(email=email).exists():
             messages.error(request, "Já existe um usuário com esse e-mail.")
             return render(request, "institutoSolidare/cadastro-padrinhos.html")
-        
-        if data_nascimento:
-            nascimento = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
-            
-            hoje = date.today()
-            idade = hoje.year - nascimento.year - (
-                (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
-        )
 
         user = User.objects.create_user(username=nome, email=email, password=senha, first_name=nome)
 
-        Padrinho.objects.create(
-            user=user,
-            pais=pais,
-            estado=estado,
-            idade=idade,
-            data_nascimento=data_nascimento,
-            telefone=telefone
-        )
+        request.session["cadastro_user_id"] = user.id
+        request.session["padrinho_data"] = {
+            "pais": pais,
+            "estado": estado,
+            "data_nascimento": data_nascimento,
+            "telefone": telefone
+        }
 
-        login(request, user)
+        request.session.modified = True
 
-        messages.success(request, "Cadastro realizado com sucesso, agora preencha algumas informações sobre você!")
+        messages.success(request, "Cadastro básico feito! Agora complete suas informações.")
         return redirect("informacoesPadrinho")
 
     return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
-@login_required
 def informacoesPadrinho (request):
     if request.method == "POST":
+        user_id = request.session.get("cadastro_user_id")
+        padrinho_data = request.session.get("padrinho_data")
+
+        if not user_id or not padrinho_data:
+            messages.error(request, "Erro ao recuperar os dados do cadastro.")
+            return redirect("cadastroPadrinhos")
+        
+        user = User.objects.get(id=user_id)
+
+        login(request, user)
+
+        nascimento = datetime.strptime(padrinho_data["data_nascimento"], "%Y-%m-%d").date()
+        hoje = date.today()
+        idade = hoje.year - nascimento.year - ((hoje.month, hoje.day) < (nascimento.month, nascimento.day))
+        
         resposta1 = int(request.POST.get("estilo_vida"))
         resposta1_outro = request.POST.get("estilo_vida_outro", "").strip()
 
@@ -223,26 +228,30 @@ def informacoesPadrinho (request):
         resposta6 = int(request.POST.get("extra"))
         resposta6_outro = request.POST.get("extra_outro", "").strip()
 
-        padrinho = Padrinho.objects.get(user=request.user)
-        padrinho.estilo_vida = resposta1
-        padrinho.estilo_vida_outro = resposta1_outro if resposta1 == 99 else None
+        # Cria o padrinho
+        Padrinho.objects.create(
+            user=user,
+            pais=padrinho_data["pais"],
+            estado=padrinho_data["estado"],
+            data_nascimento=nascimento,
+            idade=idade,
+            telefone=padrinho_data["telefone"],
+            estilo_vida=resposta1,
+            estilo_vida_outro=resposta1_outro if resposta1 == 99 else None,
+            area_escolar = resposta2,
+            area_escolar_outro = resposta2_outro if resposta2 == 99 else None,
+            tempo_livre = resposta3,
+            tempo_livre_outro = resposta3_outro if resposta3 == 99 else None,
+            inspiracao = resposta4,
+            inspiracao_outro = resposta4_outro if resposta4 == 99 else None,
+            valor_representa = resposta5,
+            valor_representa_outro = resposta5_outro if resposta5 == 99 else None,
+            extra = resposta6,
+            extra_outro = resposta6_outro if resposta6 == 99 else None
+        )
 
-        padrinho.area_escolar = resposta2
-        padrinho.area_escolar_outro = resposta2_outro if resposta2 == 99 else None
-
-        padrinho.tempo_livre = resposta3
-        padrinho.tempo_livre_outro = resposta3_outro if resposta3 == 99 else None
-
-        padrinho.inspiracao = resposta4
-        padrinho.inspiracao_outro = resposta4_outro if resposta4 == 99 else None
-
-        padrinho.valor_representa = resposta5
-        padrinho.valor_representa_outro = resposta5_outro if resposta5 == 99 else None
-
-        padrinho.extra = resposta6
-        padrinho.extra_outro = resposta6_outro if resposta6 == 99 else None
-
-        padrinho.save()
+        request.session.pop("cadastro_user_id", None)
+        request.session.pop("padrinho_data", None)
 
         messages.success(request, "Informações salvas com sucesso!")
         return redirect("escolherApadrinhado")
