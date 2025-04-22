@@ -13,6 +13,7 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 - [**Ricardo**](https://github.com/whosricardo) – [C.C]
 - [**André Avelino**](https://github.com/avelinoandre) – [C.C]
 - [**Eric**](https://github.com/eric-albuquer) – [C.C]
+- [**João Passos**](https://github.com/iampassos) – [C.C]
 
 
 
