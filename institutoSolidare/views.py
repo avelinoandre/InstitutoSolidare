@@ -59,7 +59,7 @@ def cadastrarApadrinhados(request):
                 (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
         )
 
-        Apadrinhados.objects.create(
+        novo_apadrinhado = Apadrinhados.objects.create(
             nome=nome,
             idade=int(idade),
             data_nascimento=data_nascimento,
@@ -68,7 +68,7 @@ def cadastrarApadrinhados(request):
         )
 
         messages.success(request, "Apadrinhado cadastrado com sucesso!")
-        return redirect("informacoesExtrasApadrinhado")
+        return redirect("informacoesExtrasApadrinhado", id=novo_apadrinhado.id)
 
     return render(request, "institutoSolidare/cadastro-apadrinhados.html")
 
@@ -248,5 +248,21 @@ def informacoesPadrinho (request):
 
     return render(request, "institutoSolidare/informacoes-padrinho.html")
 
-def informacoesExtrasApadrinhado (request):
-    return render(request, "institutoSolidare/informacoes-extras-apadrinhado.html")
+def informacoesExtrasApadrinhado (request, id):
+    apadrinhado = get_object_or_404(Apadrinhados, id=id)
+    if request.method == "POST":
+        apadrinhado.estilo_vida = int(request.POST.get("estilo_vida"))
+
+        apadrinhado.area_escolar = int(request.POST.get("materia_preferida"))
+
+        apadrinhado.tempo_livre = int(request.POST.get("tempo_livre"))
+
+        apadrinhado.inspiracao = int(request.POST.get("inspiracao"))
+
+        apadrinhado.valor_representa = int(request.POST.get("representa"))
+
+        apadrinhado.palavras_chave = request.POST.get("palavras_chave")
+
+        messages.success(request, "Informações salvas com sucesso!")
+        return redirect("admMain")
+    return render(request, "institutoSolidare/informacoes-extras-apadrinhado.html", {"apadrinhado": apadrinhado})
