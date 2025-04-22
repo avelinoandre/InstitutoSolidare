@@ -96,6 +96,14 @@ def informacoesApadrinhados(request, nome):
                     (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
                 )
                 apadrinhado.idade = idade
+
+            apadrinhado.estilo_vida = request.POST.get("estilo_vida")
+            apadrinhado.area_escolar = request.POST.get("materia_preferida")
+            apadrinhado.tempo_livre = request.POST.get("tempo_livre")
+            apadrinhado.inspiracao = request.POST.get("inspiracao")
+            apadrinhado.valor_representa = request.POST.get("representa")
+
+            apadrinhado.palavras_chave = request.POST.get("palavras_chave")
             # so add outros campos dps
             apadrinhado.save()
             messages.success(request, "Apadrinhado atualizado com sucesso!")
