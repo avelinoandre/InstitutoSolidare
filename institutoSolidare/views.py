@@ -68,7 +68,7 @@ def cadastrarApadrinhados(request):
         )
 
         messages.success(request, "Apadrinhado cadastrado com sucesso!")
-        return redirect("cadastroStatus")
+        return redirect("informacoesExtrasApadrinhado")
 
     return render(request, "institutoSolidare/cadastro-apadrinhados.html")
 
@@ -247,3 +247,6 @@ def informacoesPadrinho (request):
         return redirect("escolherApadrinhado")
 
     return render(request, "institutoSolidare/informacoes-padrinho.html")
+
+def informacoesExtrasApadrinhado (request):
+    return render(request, "institutoSolidare/informacoes-extras-apadrinhado.html")
