@@ -176,10 +176,10 @@ def cadastroPadrinhos(request):
             messages.error(request, "Já existe um usuário com esse e-mail.")
             return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
-        user = User.objects.create_user(username=nome, email=email, password=senha, first_name=nome)
-
-        request.session["cadastro_user_id"] = user.id
-        request.session["padrinho_data"] = {
+        request.session["cadastro_user_data"] = {
+            "nome": nome,
+            "email": email,
+            "senha": senha,
             "pais": pais,
             "estado": estado,
             "data_nascimento": data_nascimento,
@@ -195,21 +195,25 @@ def cadastroPadrinhos(request):
 
 def informacoesPadrinho (request):
     if request.method == "POST":
-        user_id = request.session.get("cadastro_user_id")
-        padrinho_data = request.session.get("padrinho_data")
+        cadastro_data = request.session.get("cadastro_user_data")
 
-        if not user_id or not padrinho_data:
+        if not cadastro_data:
             messages.error(request, "Erro ao recuperar os dados do cadastro.")
             return redirect("cadastroPadrinhos")
         
-        user = User.objects.get(id=user_id)
+        user = User.objects.create_user(
+            username=cadastro_data["email"],  # ou pode usar o nome
+            email=cadastro_data["email"],
+            password=cadastro_data["senha"],
+            first_name=cadastro_data["nome"]
+        )
 
         login(request, user)
 
-        nascimento = datetime.strptime(padrinho_data["data_nascimento"], "%Y-%m-%d").date()
+        nascimento = datetime.strptime(cadastro_data["data_nascimento"], "%Y-%m-%d").date()
         hoje = date.today()
         idade = hoje.year - nascimento.year - ((hoje.month, hoje.day) < (nascimento.month, nascimento.day))
-        
+
         resposta1 = int(request.POST.get("estilo_vida"))
         resposta1_outro = request.POST.get("estilo_vida_outro", "").strip()
 
@@ -231,11 +235,11 @@ def informacoesPadrinho (request):
         # Cria o padrinho
         Padrinho.objects.create(
             user=user,
-            pais=padrinho_data["pais"],
-            estado=padrinho_data["estado"],
+            pais=cadastro_data["pais"],
+            estado=cadastro_data["estado"],
             data_nascimento=nascimento,
             idade=idade,
-            telefone=padrinho_data["telefone"],
+            telefone=cadastro_data["telefone"],
             estilo_vida=resposta1,
             estilo_vida_outro=resposta1_outro if resposta1 == 99 else None,
             area_escolar = resposta2,
@@ -250,8 +254,7 @@ def informacoesPadrinho (request):
             extra_outro = resposta6_outro if resposta6 == 99 else None
         )
 
-        request.session.pop("cadastro_user_id", None)
-        request.session.pop("padrinho_data", None)
+        request.session.pop("cadastro_user_data", None)
 
         messages.success(request, "Informações salvas com sucesso!")
         return redirect("escolherApadrinhado")
