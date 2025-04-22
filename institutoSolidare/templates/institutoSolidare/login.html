@@ -13,7 +13,8 @@
         {% endif %}
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="e-mail" class="login-input" required>
+            <input type="text" name="username" placeholder="Usuario" class="login-input" required>
+            <input type="email" name="email" placeholder="email" class="login-input" required>
             <input type="password" name="password" placeholder="Senha" class="login-input" required>
             <button type="submit" class="login-button">Login</button>
         </form>
