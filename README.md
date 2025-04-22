@@ -39,6 +39,55 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 <details>
 <summary><strong>📁 SR1 – Primeira Entrega</strong></summary>
 
+# 📁 SR1 – Primeira Entrega
+
+## 📜**Histórias de Usuário**
+
+### **História 1 - Cadastro de Padrinho**
+Como um usuário interessado em participar do sistema de apadrinhamento, quero me cadastrar, para poder acessar a plataforma e iniciar minha jornada como padrinho.
+
+#### **Cenário 1: Falha no Cadastro devido ao Erro no Preenchimento de Campos**
+- **Dado** que o usuário está fazendo o cadastramento e deixou um ou mais campos obrigatórios em branco,
+- **Quando** o usuário seleciona em "confirmar cadastro",
+- **Então** o sistema alerta que não pode seguir para a próxima etapa, pois o cadastro precisa estar totalmente preenchido.
+
+#### **Cenário 2: Sucesso na Visualização**
+- **Dado** que o usuário preencheu todos os campos obrigatórios corretamente,
+- **Quando** o usuário seleciona em "prosseguir",
+- **Então** o sistema deve registrar os dados do usuário,
+- **E** exibir uma mensagem de sucesso,
+- **E** redirecionar o usuário para a próxima etapa da plataforma.
+
+---
+
+### **História 2 - Cadastro e Gerenciamento de Apadrinhados**
+Como administrador, quero poder cadastrar e gerenciar apadrinhados para garantir que os dados dos apadrinhados sejam registrados e mantidos atualizados.
+
+#### **Cenário 1: Falha no Cadastramento devido a Campos Não Preenchidos Corretamente**
+- **Dado** que o usuário preencheu os dados de cadastramento, mas não preencheu todos de forma correta,
+- **Quando** o usuário seleciona a opção "efetuar cadastramento",
+- **Então** o sistema alerta quais campos não foram cadastrados de forma correta e pede para que eles sejam preenchidos.
+
+#### **Cenário 2: Sucesso no Cadastramento de um Apadrinhado**
+- **Dado** que o usuário preencheu os dados de cadastramento corretamente,
+- **Quando** o usuário seleciona a opção "efetuar cadastramento",
+- **Então** o sistema alerta que o cadastramento foi efetuado com sucesso, demonstrando os dados cadastrados e exibindo se ele deseja cadastrar outro apadrinhado.
+
+#### **Cenário 3: Excluir Apadrinhado do Sistema**
+- **Dado** que o usuário está na página de gerenciar apadrinhados,
+- **Quando** o administrador seleciona o apadrinhado e clica em "apagar do sistema",
+- **Então** o sistema alerta se deseja prosseguir e, caso confirmado, o sistema deleta todos os dados do banco de dados.
+
+## 🔄**Diagrama de atividade**
+
+![Storyboard da Historia 1](InstitutoSolidare/img_readme/diagrama_atividade_1.png)
+
+![Storyboard da Historia 2](InstitutoSolidare/img_readme/diagrama_atividade_2.png)
+
+
+## 🖼️**Storyboards**
+
+
 
 </details>
 
