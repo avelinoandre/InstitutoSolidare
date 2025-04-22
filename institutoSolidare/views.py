@@ -171,7 +171,7 @@ def cadastroPadrinhos(request):
             messages.error(request, "As senhas não coincidem.")
             return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
-        if User.objects.filter(username=email).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, "Já existe um usuário com esse e-mail.")
             return render(request, "institutoSolidare/cadastro-padrinhos.html")
         
