@@ -129,13 +129,13 @@ def loginPadrinho(request):
         if user is not None and not user.is_superuser and user.email == email:
             login(request, user)
             messages.success(request, "Login confirmado!")
-            return redirect("meusAfiliados")
+            return redirect("meusApadrinhados")
         else:
             messages.error(request, "Usuário, email ou senha inválidos.")
 
     return render(request, "institutoSolidare/login.html")
 
-def meusAfiliados(request):
+def meusApadrinhados(request):
     padrinho = Padrinho.objects.get(user=request.user)
     apadrinhados = padrinho.apadrinhados.all()
 
@@ -153,7 +153,7 @@ def meusAfiliados(request):
         "dados_apadrinhados": dados_apadrinhados
     }
 
-    return render(request, "institutoSolidare/meus-afiliados.html", context)
+    return render(request, "institutoSolidare/meus-apadrinhados.html", context)
 
 def infoMeuApadrinhado(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
@@ -170,8 +170,8 @@ def infoMeuApadrinhado(request, nome):
 
     return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", context)
 
-def novoAfiliado(request):
-    return render(request, "institutoSolidare/novo-afiliado.html")
+def novoApadrinhado(request):
+    return render(request, "institutoSolidare/novo-apadrinhado.html")
 
 @login_required
 def escolherApadrinhado(request):
@@ -188,7 +188,7 @@ def escolherApadrinhado(request):
             apadrinhado.padrinhos.add(padrinho)
 
         messages.success(request, "Apadrinhados selecionados com sucesso!")
-        return redirect("meusAfiliados")
+        return redirect("meusApadrinhados")
 
     apadrinhados_disponiveis = Apadrinhados.objects.exclude(padrinhos=request.user.padrinho)
     return render(request, "institutoSolidare/escolher-apadrinhados.html", {"apadrinhados": apadrinhados_disponiveis})
