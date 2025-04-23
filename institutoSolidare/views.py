@@ -126,6 +126,7 @@ def informacoesApadrinhados(request, nome):
 
 # views padrinhos
 
+
 def loginPadrinho(request):
     if request.method == "POST":
         email = request.POST.get("email")
