@@ -8,10 +8,12 @@ from datetime import datetime, date
 
 # Create your views here.
 
+
 def index(request):
     return render(request, "institutoSolidare/index.html")
 
 # views de adm
+
 
 def admLogin(request):
     if request.method == "POST":
@@ -25,20 +27,24 @@ def admLogin(request):
                 login(request, user)
                 return redirect("admMain")
             else:
-                messages.error(request, "Apenas superusuários podem fazer login.")
+                messages.error(
+                    request, "Apenas superusuários podem fazer login.")
         else:
             messages.error(request, "Usuário ou senha inválidos.")
 
     return render(request, "institutoSolidare/adm-login.html")
+
 
 def admMain(request):
     return render(request, "institutoSolidare/adm-main.html")
 
 # views de apadrinhados
 
+
 def gerenciarApadrinhados(request):
     apadrinhados = Apadrinhados.objects.all()
-    return render(request, "institutoSolidare/gerenciar-apadrinhados.html", {"apadrinhados" : apadrinhados})
+    return render(request, "institutoSolidare/gerenciar-apadrinhados.html", {"apadrinhados": apadrinhados})
+
 
 def cadastrarApadrinhados(request):
     if request.method == "POST":
@@ -50,14 +56,14 @@ def cadastrarApadrinhados(request):
         if not all([nome, data_nascimento, genero]):
             messages.error(request, "Todos os campos são obrigatórios.")
             return render(request, "institutoSolidare/cadastro-apadrinhados.html")
-        
+
         if data_nascimento:
             nascimento = datetime.strptime(data_nascimento, '%Y-%m-%d').date()
-            
+
             hoje = date.today()
             idade = hoje.year - nascimento.year - (
                 (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
-        )
+            )
 
         request.session["cadastro_apadrinhado_data"] = {
             "nome": nome,
@@ -74,8 +80,10 @@ def cadastrarApadrinhados(request):
 
     return render(request, "institutoSolidare/cadastro-apadrinhados.html")
 
+
 def cadastroStatus(request):
     return render(request, "institutoSolidare/cadastro-status.html")
+
 
 def informacoesApadrinhados(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
@@ -92,8 +100,9 @@ def informacoesApadrinhados(request, nome):
             apadrinhado.genero = request.POST.get("genero")
             apadrinhado.info = request.POST.get("info")
             if apadrinhado.data_nascimento:
-                nascimento = datetime.strptime(apadrinhado.data_nascimento, '%Y-%m-%d').date()
-            
+                nascimento = datetime.strptime(
+                    apadrinhado.data_nascimento, '%Y-%m-%d').date()
+
                 hoje = date.today()
                 idade = hoje.year - nascimento.year - (
                     (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
@@ -115,25 +124,24 @@ def informacoesApadrinhados(request, nome):
     return render(request, "institutoSolidare/informacoes-apadrinhado.html", {"apadrinhado": apadrinhado})
 
 
-
 # views padrinhos
 
 def loginPadrinho(request):
     if request.method == "POST":
-        username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, password=password, username=email)
 
         if user is not None and not user.is_superuser and user.email == email:
             login(request, user)
             messages.success(request, "Login confirmado!")
             return redirect("meusApadrinhados")
         else:
-            messages.error(request, "Usuário, email ou senha inválidos.")
+            messages.error(request, "Email ou senha inválidos.")
 
     return render(request, "institutoSolidare/login.html")
+
 
 def meusApadrinhados(request):
     padrinho = Padrinho.objects.get(user=request.user)
@@ -141,7 +149,8 @@ def meusApadrinhados(request):
 
     dados_apadrinhados = []
     for apadrinhado in apadrinhados:
-        iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
+        iniciais = ".".join([parte[0].lower()
+                            for parte in apadrinhado.nome.split()])
         data_formatada = apadrinhado.data_nascimento.strftime("%d/%m")
         dados_apadrinhados.append({
             "apadrinhado": apadrinhado,
@@ -155,10 +164,12 @@ def meusApadrinhados(request):
 
     return render(request, "institutoSolidare/meus-apadrinhados.html", context)
 
+
 def infoMeuApadrinhado(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
 
-    iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
+    iniciais = ".".join([parte[0].lower()
+                        for parte in apadrinhado.nome.split()])
 
     dataNascimentoFormatada = apadrinhado.data_nascimento.strftime("%d/%m")
 
@@ -170,8 +181,10 @@ def infoMeuApadrinhado(request, nome):
 
     return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", context)
 
+
 def novoApadrinhado(request):
     return render(request, "institutoSolidare/novo-apadrinhado.html")
+
 
 @login_required
 def escolherApadrinhado(request):
@@ -186,7 +199,8 @@ def escolherApadrinhado(request):
         messages.success(request, "Apadrinhados selecionados com sucesso!")
         return redirect("meusApadrinhados")
 
-    apadrinhados_disponiveis = Apadrinhados.objects.exclude(padrinhos=request.user.padrinho)
+    apadrinhados_disponiveis = Apadrinhados.objects.exclude(
+        padrinhos=request.user.padrinho)
 
     apadrinhados_formatados = []
     for apadrinhado in apadrinhados_disponiveis:
@@ -237,19 +251,21 @@ def cadastroPadrinhos(request):
 
         request.session.modified = True
 
-        messages.success(request, "Cadastro básico feito! Agora complete suas informações.")
+        messages.success(
+            request, "Cadastro básico feito! Agora complete suas informações.")
         return redirect("informacoesPadrinho")
 
     return render(request, "institutoSolidare/cadastro-padrinhos.html")
 
-def informacoesPadrinho (request):
+
+def informacoesPadrinho(request):
     if request.method == "POST":
         cadastro_data = request.session.get("cadastro_user_data")
 
         if not cadastro_data:
             messages.error(request, "Erro ao recuperar os dados do cadastro.")
             return redirect("cadastroPadrinhos")
-        
+
         user = User.objects.create_user(
             username=cadastro_data["email"],  # ou pode usar o nome
             email=cadastro_data["email"],
@@ -259,15 +275,18 @@ def informacoesPadrinho (request):
 
         login(request, user)
 
-        nascimento = datetime.strptime(cadastro_data["data_nascimento"], "%Y-%m-%d").date()
+        nascimento = datetime.strptime(
+            cadastro_data["data_nascimento"], "%Y-%m-%d").date()
         hoje = date.today()
-        idade = hoje.year - nascimento.year - ((hoje.month, hoje.day) < (nascimento.month, nascimento.day))
+        idade = hoje.year - nascimento.year - \
+            ((hoje.month, hoje.day) < (nascimento.month, nascimento.day))
 
         resposta1 = int(request.POST.get("estilo_vida"))
         resposta1_outro = request.POST.get("estilo_vida_outro", "").strip()
 
         resposta2 = int(request.POST.get("materia_preferida"))
-        resposta2_outro = request.POST.get("materia_preferida_outro", "").strip()
+        resposta2_outro = request.POST.get(
+            "materia_preferida_outro", "").strip()
 
         resposta3 = int(request.POST.get("tempo_livre"))
         resposta3_outro = request.POST.get("tempo_livre_outro", "").strip()
@@ -291,16 +310,16 @@ def informacoesPadrinho (request):
             telefone=cadastro_data["telefone"],
             estilo_vida=resposta1,
             estilo_vida_outro=resposta1_outro if resposta1 == 99 else None,
-            area_escolar = resposta2,
-            area_escolar_outro = resposta2_outro if resposta2 == 99 else None,
-            tempo_livre = resposta3,
-            tempo_livre_outro = resposta3_outro if resposta3 == 99 else None,
-            inspiracao = resposta4,
-            inspiracao_outro = resposta4_outro if resposta4 == 99 else None,
-            valor_representa = resposta5,
-            valor_representa_outro = resposta5_outro if resposta5 == 99 else None,
-            extra = resposta6,
-            extra_outro = resposta6_outro if resposta6 == 99 else None
+            area_escolar=resposta2,
+            area_escolar_outro=resposta2_outro if resposta2 == 99 else None,
+            tempo_livre=resposta3,
+            tempo_livre_outro=resposta3_outro if resposta3 == 99 else None,
+            inspiracao=resposta4,
+            inspiracao_outro=resposta4_outro if resposta4 == 99 else None,
+            valor_representa=resposta5,
+            valor_representa_outro=resposta5_outro if resposta5 == 99 else None,
+            extra=resposta6,
+            extra_outro=resposta6_outro if resposta6 == 99 else None
         )
 
         request.session.pop("cadastro_user_data", None)
@@ -310,7 +329,8 @@ def informacoesPadrinho (request):
 
     return render(request, "institutoSolidare/informacoes-padrinho.html")
 
-def informacoesExtrasApadrinhado (request):
+
+def informacoesExtrasApadrinhado(request):
     if request.method == "POST":
         apadrinhado_data = request.session.get("cadastro_apadrinhado_data")
         foto = request.FILES.get("foto")
@@ -323,12 +343,12 @@ def informacoesExtrasApadrinhado (request):
             info=apadrinhado_data["info"],
             foto=foto,
             foto_para_padrinho=foto_para_padrinho,
-            estilo_vida = int(request.POST.get("estilo_vida")),
-            area_escolar = int(request.POST.get("materia_preferida")),
-            tempo_livre = int(request.POST.get("tempo_livre")),
-            inspiracao = int(request.POST.get("inspiracao")),
-            valor_representa = int(request.POST.get("representa")),
-            palavras_chave = request.POST.get("palavras_chave"),
+            estilo_vida=int(request.POST.get("estilo_vida")),
+            area_escolar=int(request.POST.get("materia_preferida")),
+            tempo_livre=int(request.POST.get("tempo_livre")),
+            inspiracao=int(request.POST.get("inspiracao")),
+            valor_representa=int(request.POST.get("representa")),
+            palavras_chave=request.POST.get("palavras_chave"),
         )
         request.session.pop("cadastro_apadrinhado_data", None)
 
