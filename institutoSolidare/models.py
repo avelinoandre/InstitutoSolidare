@@ -9,6 +9,7 @@ class Apadrinhados(models.Model):
     data_nascimento = models.DateField()
     genero = models.CharField(max_length=15, null = False)
     foto = models.ImageField(upload_to="fotos/")
+    foto_para_padrinho=models.ImageField(upload_to="fotos/")
     info = models.CharField(max_length=200, null=False)
 
     padrinhos = models.ManyToManyField('Padrinho', related_name='apadrinhados', blank=True)
