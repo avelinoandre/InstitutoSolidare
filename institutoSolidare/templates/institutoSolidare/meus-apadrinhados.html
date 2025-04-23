@@ -1,0 +1,66 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button class="admin-btn">Não implementado Meus dados</button>
+            <button class="admin-btn">Não implementado Cartas</button>
+            <button class="admin-btn">Não implementado</button>
+            <button class="admin-btn">Não implementado</button>
+            <button class="admin-btn">Não implementado</button>
+            <a href="{% url 'novoApadrinhado' %}">
+                <button class="submit-btn">(Não implementado)Novo Apadrinhamento</button>
+            </a>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="afilhado-content">
+            <!-- Barra de pesquisa -->
+            <input 
+                type="text" 
+                id="searchInput"
+                class="login-input" 
+                placeholder="Pesquise seu apadrinhado por nome">
+
+            <div class="children-grid">
+                {% for item in dados_apadrinhados %}
+                <a href="{% url 'infoMeuApadrinhado' item.apadrinhado.nome %}" class="child-card-link">
+                    <div class="child-card">
+                        {% if item.apadrinhado.foto %}
+                        <div class="photo-placeholder">
+                            <img src="{{ item.apadrinhado.foto.url }}" alt="Foto de {{ item.apadrinhado.nome }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        {% else %}
+                        <div class="photo-placeholder"></div>
+                        {% endif %}
+                        <p class="child-name">{{ item.iniciais }} - {{ item.data_nascimento_formatada }}</p>
+                    </div>
+                </a>
+                {% empty %}
+                <p>Nenhum apadrinhado cadastrado ainda.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+  document.getElementById("searchInput").addEventListener("keyup", function() {
+    const filtro = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".child-card-link");
+
+    cards.forEach(card => {
+      const nome = card.querySelector(".child-name").textContent.toLowerCase();  
+      if (nome.includes(filtro)) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+</script>
+
+{% endblock %}

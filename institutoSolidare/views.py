@@ -129,24 +129,49 @@ def loginPadrinho(request):
         if user is not None and not user.is_superuser and user.email == email:
             login(request, user)
             messages.success(request, "Login confirmado!")
-            return redirect("meusAfiliados")
+            return redirect("meusApadrinhados")
         else:
             messages.error(request, "Usuário, email ou senha inválidos.")
 
     return render(request, "institutoSolidare/login.html")
 
-def meusAfiliados(request):
+def meusApadrinhados(request):
     padrinho = Padrinho.objects.get(user=request.user)
     apadrinhados = padrinho.apadrinhados.all()
-    return render(request, "institutoSolidare/meus-afiliados.html", {"apadrinhados": apadrinhados})
+
+    dados_apadrinhados = []
+    for apadrinhado in apadrinhados:
+        iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
+        data_formatada = apadrinhado.data_nascimento.strftime("%d/%m")
+        dados_apadrinhados.append({
+            "apadrinhado": apadrinhado,
+            "iniciais": iniciais,
+            "data_nascimento_formatada": data_formatada
+        })
+
+    context = {
+        "dados_apadrinhados": dados_apadrinhados
+    }
+
+    return render(request, "institutoSolidare/meus-apadrinhados.html", context)
 
 def infoMeuApadrinhado(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
 
-    return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", {"apadrinhado": apadrinhado})
+    iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
 
-def novoAfiliado(request):
-    return render(request, "institutoSolidare/novo-afiliado.html")
+    dataNascimentoFormatada = apadrinhado.data_nascimento.strftime("%d/%m")
+
+    context = {
+        "apadrinhado": apadrinhado,
+        "iniciais": iniciais,
+        "dataNascimentoFormatada": dataNascimentoFormatada
+    }
+
+    return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", context)
+
+def novoApadrinhado(request):
+    return render(request, "institutoSolidare/novo-apadrinhado.html")
 
 @login_required
 def escolherApadrinhado(request):
@@ -154,16 +179,16 @@ def escolherApadrinhado(request):
         padrinho = get_object_or_404(Padrinho, user=request.user)
         selecionados_ids = request.POST.getlist("apadrinhados")
 
-        if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
-            messages.error(request, "Você só pode escolher até 2 apadrinhados.")
-            return redirect("escolherApadrinhado")
+        # if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
+        #     messages.error(request, "Você só pode escolher até 2 apadrinhados.")
+        #     return redirect("escolherApadrinhado")
 
         for apadrinhado_id in selecionados_ids:
             apadrinhado = get_object_or_404(Apadrinhados, id=apadrinhado_id)
             apadrinhado.padrinhos.add(padrinho)
 
         messages.success(request, "Apadrinhados selecionados com sucesso!")
-        return redirect("meusAfiliados")
+        return redirect("meusApadrinhados")
 
     apadrinhados_disponiveis = Apadrinhados.objects.exclude(padrinhos=request.user.padrinho)
     return render(request, "institutoSolidare/escolher-apadrinhados.html", {"apadrinhados": apadrinhados_disponiveis})

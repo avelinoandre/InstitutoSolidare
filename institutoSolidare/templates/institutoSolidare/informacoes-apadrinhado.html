@@ -44,10 +44,6 @@
                         </select>
                 </div>
                 <div class="input-group">
-                    <label>Informações exibidas ao padrinho</label>
-                    <input type="text" name="info" class="register-input" value="{{ apadrinhado.info }}" readonly>
-                </div>
-                <div class="input-group">
                     <label>Como você se descreve no seu dia a dia?</label>
                     <div class="combo-container">
                         <select name="estilo_vida" class="register-input" disabled>
@@ -106,6 +102,10 @@
                             <option value="5" {% if apadrinhado.valor_representa == 5 %}selected{% endif %}>Alegria – tento sempre espalhar boas energias por onde passo</option>
                         </select>
                     </div>
+                </div>
+                <div class="input-group full-width">
+                    <label>Informações exibidas ao padrinho</label>
+                    <textarea class="register-input" name="palavras_chave" rows="4" readonly>{{ apadrinhado.info }}</textarea>
                 </div>
                 <div class="input-group full-width">
                     <label>Palavras Chaves</label>

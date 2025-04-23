@@ -241,6 +241,11 @@ button {
     font-weight: 500;
 }
 
+textarea {
+    font-family: Arial, sans-serif;
+}
+  
+
 .register-input {
     padding: 8px;
     border: 1px solid #ccc;
