@@ -18,17 +18,17 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label>Nome Completo</label>
-                    <input type="text" name="nome" class="register-input" value="{{ apadrinhado.nome }}" readonly>
+                    <label>iniciais</label>
+                    <input type="text" name="nome" class="register-input" value="{{ iniciais }}" readonly>
                 </div>
                 <div class="input-group">
-                    <label>Data Nascimento</label>
-                    <input type="date" name="data_nascimento" class="register-input" value="{{ apadrinhado.data_nascimento|date:'Y-m-d' }}" readonly>
-                </div>
-                <div class="input-group">
+                    <label>Aniversário</label>
+                    <input type="text" name="data_nascimento" class="register-input" value="{{ dataNascimentoFormatada }}" readonly>
+                </div>                
+                {% comment %} <div class="input-group">
                     <label>Idade</label>
                     <input type="number" name="idade" class="register-input" value="{{ apadrinhado.idade }}" readonly>
-                </div>
+                </div> {% endcomment %}
                 <div class="input-group">
                     <label>Gênero</label>
                     <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}" readonly>

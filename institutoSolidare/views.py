@@ -138,12 +138,37 @@ def loginPadrinho(request):
 def meusAfiliados(request):
     padrinho = Padrinho.objects.get(user=request.user)
     apadrinhados = padrinho.apadrinhados.all()
-    return render(request, "institutoSolidare/meus-afiliados.html", {"apadrinhados": apadrinhados})
+
+    dados_apadrinhados = []
+    for apadrinhado in apadrinhados:
+        iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
+        data_formatada = apadrinhado.data_nascimento.strftime("%d/%m")
+        dados_apadrinhados.append({
+            "apadrinhado": apadrinhado,
+            "iniciais": iniciais,
+            "data_nascimento_formatada": data_formatada
+        })
+
+    context = {
+        "dados_apadrinhados": dados_apadrinhados
+    }
+
+    return render(request, "institutoSolidare/meus-afiliados.html", context)
 
 def infoMeuApadrinhado(request, nome):
     apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
 
-    return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", {"apadrinhado": apadrinhado})
+    iniciais = ".".join([parte[0].lower() for parte in apadrinhado.nome.split()])
+
+    dataNascimentoFormatada = apadrinhado.data_nascimento.strftime("%d/%m")
+
+    context = {
+        "apadrinhado": apadrinhado,
+        "iniciais": iniciais,
+        "dataNascimentoFormatada": dataNascimentoFormatada
+    }
+
+    return render(request, "institutoSolidare/informacoes-meu-apadrinhado.html", context)
 
 def novoAfiliado(request):
     return render(request, "institutoSolidare/novo-afiliado.html")
@@ -154,9 +179,9 @@ def escolherApadrinhado(request):
         padrinho = get_object_or_404(Padrinho, user=request.user)
         selecionados_ids = request.POST.getlist("apadrinhados")
 
-        if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
-            messages.error(request, "Você só pode escolher até 2 apadrinhados.")
-            return redirect("escolherApadrinhado")
+        # if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
+        #     messages.error(request, "Você só pode escolher até 2 apadrinhados.")
+        #     return redirect("escolherApadrinhado")
 
         for apadrinhado_id in selecionados_ids:
             apadrinhado = get_object_or_404(Apadrinhados, id=apadrinhado_id)
