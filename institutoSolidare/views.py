@@ -314,6 +314,7 @@ def informacoesExtrasApadrinhado (request):
     if request.method == "POST":
         apadrinhado_data = request.session.get("cadastro_apadrinhado_data")
         foto = request.FILES.get("foto")
+        foto_para_padrinho = request.FILES.get("foto_para_padrinho")
         Apadrinhados.objects.create(
             nome=apadrinhado_data["nome"],
             idade=apadrinhado_data["idade"],
@@ -321,6 +322,7 @@ def informacoesExtrasApadrinhado (request):
             genero=apadrinhado_data["genero"],
             info=apadrinhado_data["info"],
             foto=foto,
+            foto_para_padrinho=foto_para_padrinho,
             estilo_vida = int(request.POST.get("estilo_vida")),
             area_escolar = int(request.POST.get("materia_preferida")),
             tempo_livre = int(request.POST.get("tempo_livre")),
