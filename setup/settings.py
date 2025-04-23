@@ -14,19 +14,17 @@ TARGET_ENV = os.getenv('TARGET_ENV')
 NOT_PROD = not TARGET_ENV.lower().startswith('prod')
 
 if NOT_PROD:
+    # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
+    # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-d2(zkn7hcg74w)u7gxyjc5&-ih=1xujz_4%n7=803do*n$myi$'
-    
-    ALLOWED_HOSTS = ['nossosonho.azurewebsites.net']
-    CSRF_TRUSTED_ORIGINS = ['https://nossosonho.azurewebsites.net']
-    
+    ALLOWED_HOSTS = []
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
 else:
     SECRET_KEY = os.getenv('SECRET_KEY')
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
