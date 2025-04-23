@@ -179,10 +179,6 @@ def escolherApadrinhado(request):
         padrinho = get_object_or_404(Padrinho, user=request.user)
         selecionados_ids = request.POST.getlist("apadrinhados")
 
-        # if len(selecionados_ids) + padrinho.apadrinhados.count() > 2:
-        #     messages.error(request, "Você só pode escolher até 2 apadrinhados.")
-        #     return redirect("escolherApadrinhado")
-
         for apadrinhado_id in selecionados_ids:
             apadrinhado = get_object_or_404(Apadrinhados, id=apadrinhado_id)
             apadrinhado.padrinhos.add(padrinho)
@@ -191,7 +187,24 @@ def escolherApadrinhado(request):
         return redirect("meusApadrinhados")
 
     apadrinhados_disponiveis = Apadrinhados.objects.exclude(padrinhos=request.user.padrinho)
-    return render(request, "institutoSolidare/escolher-apadrinhados.html", {"apadrinhados": apadrinhados_disponiveis})
+
+    apadrinhados_formatados = []
+    for apadrinhado in apadrinhados_disponiveis:
+        iniciais = ".".join([parte[0] for parte in apadrinhado.nome.split()])
+        data_nasc = apadrinhado.data_nascimento.strftime("%d/%m")
+        apadrinhados_formatados.append({
+            "id": apadrinhado.id,
+            "iniciais": iniciais,
+            "idade": apadrinhado.idade,
+            "data_nascimento": data_nasc,
+            "foto": apadrinhado.foto
+        })
+
+    context = {
+        "apadrinhados": apadrinhados_formatados
+    }
+    return render(request, "institutoSolidare/escolher-apadrinhados.html", context)
+
 
 def cadastroPadrinhos(request):
     if request.method == "POST":
