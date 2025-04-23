@@ -665,3 +665,45 @@ button {
     min-width: 200px;
     flex-shrink: 0;
 }
+
+.child-photos {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.child-photo-wrapper {
+    text-align: center;
+}
+
+.child-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.child-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.child-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.child-photo p {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 1rem;
+}
