@@ -45,9 +45,8 @@ def cadastrarApadrinhados(request):
         nome = request.POST.get("nome")
         data_nascimento = request.POST.get("data_nascimento")
         genero = request.POST.get("genero")
-        foto = request.FILES.get("foto")
 
-        if not all([nome, data_nascimento, genero, foto]):
+        if not all([nome, data_nascimento, genero]):
             messages.error(request, "Todos os campos são obrigatórios.")
             return render(request, "institutoSolidare/cadastro-apadrinhados.html")
         
@@ -59,16 +58,17 @@ def cadastrarApadrinhados(request):
                 (hoje.month, hoje.day) < (nascimento.month, nascimento.day)
         )
 
-        novo_apadrinhado = Apadrinhados.objects.create(
-            nome=nome,
-            idade=int(idade),
-            data_nascimento=data_nascimento,
-            genero=genero,
-            foto=foto
-        )
+        request.session["cadastro_apadrinhado_data"] = {
+            "nome": nome,
+            "idade": int(idade),
+            "data_nascimento": data_nascimento,
+            "genero": genero,
+        }
+
+        request.session.modified = True
 
         messages.success(request, "Apadrinhado cadastrado com sucesso!")
-        return redirect("informacoesExtrasApadrinhado", id=novo_apadrinhado.id)
+        return redirect("informacoesExtrasApadrinhado")
 
     return render(request, "institutoSolidare/cadastro-apadrinhados.html")
 
@@ -269,21 +269,25 @@ def informacoesPadrinho (request):
 
     return render(request, "institutoSolidare/informacoes-padrinho.html")
 
-def informacoesExtrasApadrinhado (request, id):
-    apadrinhado = get_object_or_404(Apadrinhados, id=id)
+def informacoesExtrasApadrinhado (request):
     if request.method == "POST":
-        apadrinhado.estilo_vida = int(request.POST.get("estilo_vida"))
-
-        apadrinhado.area_escolar = int(request.POST.get("materia_preferida"))
-
-        apadrinhado.tempo_livre = int(request.POST.get("tempo_livre"))
-
-        apadrinhado.inspiracao = int(request.POST.get("inspiracao"))
-
-        apadrinhado.valor_representa = int(request.POST.get("representa"))
-
-        apadrinhado.palavras_chave = request.POST.get("palavras_chave")
+        apadrinhado_data = request.session.get("cadastro_apadrinhado_data")
+        foto = request.FILES.get("foto")
+        Apadrinhados.objects.create(
+            nome=apadrinhado_data["nome"],
+            idade=apadrinhado_data["idade"],
+            data_nascimento=apadrinhado_data["data_nascimento"],
+            genero=apadrinhado_data["genero"],
+            foto=foto,
+            estilo_vida = int(request.POST.get("estilo_vida")),
+            area_escolar = int(request.POST.get("materia_preferida")),
+            tempo_livre = int(request.POST.get("tempo_livre")),
+            inspiracao = int(request.POST.get("inspiracao")),
+            valor_representa = int(request.POST.get("representa")),
+            palavras_chave = request.POST.get("palavras_chave"),
+        )
+        request.session.pop("cadastro_apadrinhado_data", None)
 
         messages.success(request, "Informações salvas com sucesso!")
         return redirect("admMain")
-    return render(request, "institutoSolidare/informacoes-extras-apadrinhado.html", {"apadrinhado": apadrinhado})
+    return render(request, "institutoSolidare/informacoes-extras-apadrinhado.html")

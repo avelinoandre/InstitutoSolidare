@@ -31,7 +31,10 @@
                 </div>
                 <div class="input-group">
                     <label>Gênero</label>
-                    <input type="text" name="genero" class="register-input" value="{{ apadrinhado.genero }}" readonly>
+                    <select name="genero" class="register-input" disabled>
+                        <option value="masculino" {% if apadrinhado.genero == "masculino" %}selected{% endif %}>Masculino</option>
+                        <option value="feminino" {% if apadrinhado.genero == "feminino" %}selected{% endif %}>Feminino</option>
+                        </select>
                 </div>
                 <div class="input-group">
                     <label>Status</label>
@@ -41,11 +44,11 @@
                     <label>Como você se descreve no seu dia a dia?</label>
                     <div class="combo-container">
                         <select name="estilo_vida" class="register-input" disabled>
-                        <option value="1" {% if apadrinhado.estilo_vida == '1' %}selected{% endif %}>Gosto de conversar, contar histórias e estar perto de gente</option>
-                        <option value="2" {% if apadrinhado.estilo_vida == '2' %}selected{% endif %}>Sou mais tranquilo(a), prefiro ouvir e observar</option>
-                        <option value="3" {% if apadrinhado.estilo_vida == '3' %}selected{% endif %}>Penso bastante antes de agir, gosto de entender bem as coisas</option>
-                        <option value="4" {% if apadrinhado.estilo_vida == '4' %}selected{% endif %}>Tenho uma mente cheia de sonhos e ideias</option>
-                        <option value="5" {% if apadrinhado.estilo_vida == '5' %}selected{% endif %}>Me preocupo muito com os outros e gosto de ajudar sempre que posso</option>
+                        <option value="1" {% if apadrinhado.estilo_vida == 1 %}selected{% endif %}>Gosto de conversar, contar histórias e estar perto de gente</option>
+                        <option value="2" {% if apadrinhado.estilo_vida == 2 %}selected{% endif %}>Sou mais tranquilo(a), prefiro ouvir e observar</option>
+                        <option value="3" {% if apadrinhado.estilo_vida == 3 %}selected{% endif %}>Penso bastante antes de agir, gosto de entender bem as coisas</option>
+                        <option value="4" {% if apadrinhado.estilo_vida == 4 %}selected{% endif %}>Tenho uma mente cheia de sonhos e ideias</option>
+                        <option value="5" {% if apadrinhado.estilo_vida == 5 %}selected{% endif %}>Me preocupo muito com os outros e gosto de ajudar sempre que posso</option>
                         </select>
                     </div>
                 </div>
@@ -53,11 +56,11 @@
                     <label>Na escola, qual área mais te chamava atenção?</label>
                     <div class="combo-container">
                         <select name="materia_preferida" class="register-input" disabled>
-                            <option value="1" {% if apadrinhado.area_escolar == '1' %}selected{% endif %}>Números, cálculos e raciocínio lógico</option>
-                            <option value="2" {% if apadrinhado.area_escolar == '2' %}selected{% endif %}>A natureza, os experimentos e o funcionamento das coisas</option>
-                            <option value="3" {% if apadrinhado.area_escolar == '3' %}selected{% endif %}>Escrever, ler, se comunicar</option>
-                            <option value="4" {% if apadrinhado.area_escolar == '4' %}selected{% endif %}>Aprender sobre o mundo, lugares, pessoas e suas histórias</option>
-                            <option value="5" {% if apadrinhado.area_escolar == '5' %}selected{% endif %}>Criar com arte, desenhar, tocar instrumentos, inventar coisas</option>
+                            <option value="1" {% if apadrinhado.area_escolar == 1 %}selected{% endif %}>Números, cálculos e raciocínio lógico</option>
+                            <option value="2" {% if apadrinhado.area_escolar == 2 %}selected{% endif %}>A natureza, os experimentos e o funcionamento das coisas</option>
+                            <option value="3" {% if apadrinhado.area_escolar == 3 %}selected{% endif %}>Escrever, ler, se comunicar</option>
+                            <option value="4" {% if apadrinhado.area_escolar == 4 %}selected{% endif %}>Aprender sobre o mundo, lugares, pessoas e suas histórias</option>
+                            <option value="5" {% if apadrinhado.area_escolar == 5 %}selected{% endif %}>Criar com arte, desenhar, tocar instrumentos, inventar coisas</option>
                         </select>
                     </div>
                 </div>
@@ -65,11 +68,11 @@
                     <label>E no tempo livre, o que te dá mais prazer fazer?</label>
                     <div class="combo-container">
                         <select name="tempo_livre" class="register-input" disabled>
-                            <option value="1" {% if apadrinhado.tempo_livre == '1' %}selected{% endif %}>Praticar esportes, caminhar, me movimentar</option>
-                            <option value="2" {% if apadrinhado.tempo_livre == '2' %}selected{% endif %}>Assistir algo, ler ou buscar aprender novas coisas</option>
-                            <option value="3" {% if apadrinhado.tempo_livre == '3' %}selected{% endif %}>Fazer algo com as mãos, desenhar, pintar, montar</option>
-                            <option value="4" {% if apadrinhado.tempo_livre == '4' %}selected{% endif %}>Jogar, seja no videogame, celular ou em jogos de tabuleiro</option>
-                            <option value="5" {% if apadrinhado.tempo_livre == '5' %}selected{% endif %}>Cuidar da casa, das plantas, dos bichinhos ou das pessoas próximas</option>
+                            <option value="1" {% if apadrinhado.tempo_livre == 1 %}selected{% endif %}>Praticar esportes, caminhar, me movimentar</option>
+                            <option value="2" {% if apadrinhado.tempo_livre == 2 %}selected{% endif %}>Assistir algo, ler ou buscar aprender novas coisas</option>
+                            <option value="3" {% if apadrinhado.tempo_livre == 3 %}selected{% endif %}>Fazer algo com as mãos, desenhar, pintar, montar</option>
+                            <option value="4" {% if apadrinhado.tempo_livre == 4 %}selected{% endif %}>Jogar, seja no videogame, celular ou em jogos de tabuleiro</option>
+                            <option value="5" {% if apadrinhado.tempo_livre == 5 %}selected{% endif %}>Cuidar da casa, das plantas, dos bichinhos ou das pessoas próximas</option>
                         </select>
                     </div>
                 </div>
@@ -77,11 +80,11 @@
                     <label>Qual dessas coisas mais te inspira hoje?</label>
                     <div class="combo-container">
                         <select name="inspiracao" class="register-input" disabled>
-                            <option value="1" {% if apadrinhado.inspiracao == '1' %}selected{% endif %}>Ajudar alguém e causar um impacto positivo na vida dela</option>
-                            <option value="2" {% if apadrinhado.inspiracao == '2' %}selected{% endif %}>Conhecer novas culturas, lugares e formas de ver o mundo</option>
-                            <option value="3" {% if apadrinhado.inspiracao == '3' %}selected{% endif %}>Ter uma vida tranquila e próxima de quem eu amo</option>
-                            <option value="4" {% if apadrinhado.inspiracao == '4' %}selected{% endif %}>Trabalhar com o que eu gosto e me sentir valorizado(a)</option>
-                            <option value="5" {% if apadrinhado.inspiracao == '5' %}selected{% endif %}>Aprender constantemente e crescer como pessoa</option>
+                            <option value="1" {% if apadrinhado.inspiracao == 1 %}selected{% endif %}>Ajudar alguém e causar um impacto positivo na vida dela</option>
+                            <option value="2" {% if apadrinhado.inspiracao == 2 %}selected{% endif %}>Conhecer novas culturas, lugares e formas de ver o mundo</option>
+                            <option value="3" {% if apadrinhado.inspiracao == 3 %}selected{% endif %}>Ter uma vida tranquila e próxima de quem eu amo</option>
+                            <option value="4" {% if apadrinhado.inspiracao == 4 %}selected{% endif %}>Trabalhar com o que eu gosto e me sentir valorizado(a)</option>
+                            <option value="5" {% if apadrinhado.inspiracao == 5 %}selected{% endif %}>Aprender constantemente e crescer como pessoa</option>
                         </select>
                     </div>
                 </div>
@@ -89,11 +92,11 @@
                     <label>E pra fechar, qual desses valores mais representa você?</label>
                     <div class="combo-container">
                         <select name="representa" class="register-input" disabled>
-                            <option value="1" {% if apadrinhado.valor_representa == '1' %}selected{% endif %}>Empatia – me importo e tento entender o outro</option>
-                            <option value="2" {% if apadrinhado.valor_representa == '2' %}selected{% endif %}>Coragem – encaro desafios mesmo com medo</option>
-                            <option value="3" {% if apadrinhado.valor_representa == '3' %}selected{% endif %}>Paciência – sei respeitar o tempo das coisas</option>
-                            <option value="4" {% if apadrinhado.valor_representa == '4' %}selected{% endif %}>Dedicação – me entrego de verdade no que faço</option>
-                            <option value="5" {% if apadrinhado.valor_representa == '5' %}selected{% endif %}>Alegria – tento sempre espalhar boas energias por onde passo</option>
+                            <option value="1" {% if apadrinhado.valor_representa == 1 %}selected{% endif %}>Empatia – me importo e tento entender o outro</option>
+                            <option value="2" {% if apadrinhado.valor_representa == 2 %}selected{% endif %}>Coragem – encaro desafios mesmo com medo</option>
+                            <option value="3" {% if apadrinhado.valor_representa == 3 %}selected{% endif %}>Paciência – sei respeitar o tempo das coisas</option>
+                            <option value="4" {% if apadrinhado.valor_representa == 4 %}selected{% endif %}>Dedicação – me entrego de verdade no que faço</option>
+                            <option value="5" {% if apadrinhado.valor_representa == 5 %}selected{% endif %}>Alegria – tento sempre espalhar boas energias por onde passo</option>
                         </select>
                     </div>
                 </div>

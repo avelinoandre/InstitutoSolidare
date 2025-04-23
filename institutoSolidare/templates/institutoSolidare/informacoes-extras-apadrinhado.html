@@ -13,9 +13,13 @@
                 <p style="color: green;">{{ message }}</p>
             {% endfor %}
         {% endif %}
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="register-grid">
+                <div class="input-group">
+                    <label>Foto</label>
+                    <input type="file" name="foto" class="register-input file-input" accept="image/*">
+                  </div>
                 <!-- primeira combo box -->
                 <div class="input-group">
                     <label>Como você se descreve no seu dia a dia?</label>
