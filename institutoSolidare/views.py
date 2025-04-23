@@ -45,6 +45,7 @@ def cadastrarApadrinhados(request):
         nome = request.POST.get("nome")
         data_nascimento = request.POST.get("data_nascimento")
         genero = request.POST.get("genero")
+        info = request.POST.get("info")
 
         if not all([nome, data_nascimento, genero]):
             messages.error(request, "Todos os campos são obrigatórios.")
@@ -63,6 +64,7 @@ def cadastrarApadrinhados(request):
             "idade": int(idade),
             "data_nascimento": data_nascimento,
             "genero": genero,
+            "info": info
         }
 
         request.session.modified = True
@@ -88,6 +90,7 @@ def informacoesApadrinhados(request, nome):
             apadrinhado.nome = request.POST.get("nome")
             apadrinhado.data_nascimento = request.POST.get("data_nascimento")
             apadrinhado.genero = request.POST.get("genero")
+            apadrinhado.info = request.POST.get("info")
             if apadrinhado.data_nascimento:
                 nascimento = datetime.strptime(apadrinhado.data_nascimento, '%Y-%m-%d').date()
             
@@ -278,6 +281,7 @@ def informacoesExtrasApadrinhado (request):
             idade=apadrinhado_data["idade"],
             data_nascimento=apadrinhado_data["data_nascimento"],
             genero=apadrinhado_data["genero"],
+            info=apadrinhado_data["info"],
             foto=foto,
             estilo_vida = int(request.POST.get("estilo_vida")),
             area_escolar = int(request.POST.get("materia_preferida")),
