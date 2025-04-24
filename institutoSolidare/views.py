@@ -298,9 +298,6 @@ def informacoesPadrinho(request):
         resposta5 = int(request.POST.get("representa"))
         resposta5_outro = request.POST.get("representa_outro", "").strip()
 
-        resposta6 = int(request.POST.get("extra"))
-        resposta6_outro = request.POST.get("extra_outro", "").strip()
-
         # Cria o padrinho
         Padrinho.objects.create(
             user=user,
@@ -319,8 +316,6 @@ def informacoesPadrinho(request):
             inspiracao_outro=resposta4_outro if resposta4 == 99 else None,
             valor_representa=resposta5,
             valor_representa_outro=resposta5_outro if resposta5 == 99 else None,
-            extra=resposta6,
-            extra_outro=resposta6_outro if resposta6 == 99 else None
         )
 
         request.session.pop("cadastro_user_data", None)
