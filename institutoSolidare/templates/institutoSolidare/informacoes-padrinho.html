@@ -8,11 +8,11 @@
     <h1 class="register-title">Informações sobre você</h1>
     <p class="register-subtitle">Responda as questões e nos conte um pouco sobre você, seus ideais, seus sonhos etc</p>
     <div class="register-container">
-        {% if messages %}
+        {% comment %} {% if messages %}
             {% for message in messages %}
                 <p style="color: green;">{{ message }}</p>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
         <form method="POST">
             {% csrf_token %}
             <div class="register-grid">

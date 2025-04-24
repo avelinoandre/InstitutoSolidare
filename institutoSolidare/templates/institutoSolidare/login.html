@@ -6,11 +6,11 @@
     <h2 class="login-title">Faça seu login</h2>
 
     <div class="login-container">
-        {% if messages %}
+        {% comment %} {% if messages %}
             {% for message in messages %}
                 <p style="color: rgb(255, 0, 0);">{{ message }}</p>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
         <form method="POST">
             {% csrf_token %}
             <input type="email" name="email" placeholder="Email" class="login-input" required>

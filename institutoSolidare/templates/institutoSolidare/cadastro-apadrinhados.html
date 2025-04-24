@@ -7,11 +7,11 @@
     <h1 class="register-title">Cadastro de apadrinhados</h1>
     <p class="register-subtitle">Insira os dados sobre o apadrinhado abaixo:</p>
     <div class="register-container">
-        {% if messages %}
+        {% comment %} {% if messages %}
             {% for message in messages %}
                 <p style="color: yellow;">{{ message }}</p>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="register-grid">

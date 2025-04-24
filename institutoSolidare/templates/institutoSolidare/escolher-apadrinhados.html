@@ -5,13 +5,13 @@
 <main>
     <h1 class="management-title">Escolha seu apadrinhado</h1>
 
-    {% if messages %}
+    {% comment %} {% if messages %}
         {% for message in messages %}
             <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
                 {{ message }}
             </p>
         {% endfor %}
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     <form method="POST">
         {% csrf_token %}

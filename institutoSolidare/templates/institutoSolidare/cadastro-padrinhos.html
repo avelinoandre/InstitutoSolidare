@@ -7,11 +7,11 @@
 <main>
     <h1 class="register-title">Cadastro de Padrinhos</h1>
     <div class="register-container">
-        {% if messages %}
+        {% comment %} {% if messages %}
             {% for message in messages %}
                 <p style="color: rgb(255, 0, 0);">{{ message }}</p>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %}
         <form method="POST">
             {% csrf_token %}
             <div class="register-grid">

@@ -4,11 +4,11 @@
 {% block content %}
 <main>
     <h1 class="management-title">Gerenciamento de apadrinhados</h1>
-    {% if messages %}
+    {% comment %} {% if messages %}
         {% for message in messages %}
             <p style="color: green;">{{ message }}</p>
         {% endfor %}
-    {% endif %}
+    {% endif %} {% endcomment %}
     <div class="children-grid">
         {% for apadrinhado in apadrinhados %}
         <a href="{% url 'informacoesApadrinhados' apadrinhado.nome %}" class="child-card-link">
