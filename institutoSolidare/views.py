@@ -218,7 +218,7 @@ def escolherApadrinhado(request):
             "iniciais": iniciais,
             "idade": apadrinhado.idade,
             "data_nascimento": data_nasc,
-            "foto": apadrinhado.foto
+            "foto_para_padrinho": apadrinhado.foto_para_padrinho
         })
 
     context = {

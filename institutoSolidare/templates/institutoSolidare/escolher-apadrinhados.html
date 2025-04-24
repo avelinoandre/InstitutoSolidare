@@ -18,9 +18,9 @@
         <div class="children-grid" id="apadrinhados-list">
             {% for apadrinhado in apadrinhados %}
             <div class="child-card selectable-card" data-id="{{ apadrinhado.id }}">
-                {% if apadrinhado.foto %}
+                {% if apadrinhado.foto_para_padrinho %}
                 <div class="photo-placeholder">
-                    <img src="{{ apadrinhado.foto.url }}" alt="Foto de {{ apadrinhado.iniciais }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                    <img src="{{ apadrinhado.foto_para_padrinho.url }}" alt="Foto de {{ apadrinhado.iniciais }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
                 </div>
                 {% else %}
                 <div class="photo-placeholder"></div>
