@@ -17,8 +17,9 @@
                                     <img src="{{ apadrinhado.foto.url }}" alt="Foto do apadrinhado" class="child-photo">
                                 {% else %}
                                     <p>Sem foto</p>
-                                {% endif %}
+                                {% endif %} 
                             </div>
+                            <input type="file" name="foto" class="register-input" accept="image/*" disabled>
                         </div>
 
                         <div class="child-photo-wrapper">
@@ -28,8 +29,9 @@
                                     <img src="{{ apadrinhado.foto_para_padrinho.url }}" alt="Foto do apadrinhado" class="child-photo">
                                 {% else %}
                                     <p>Sem foto</p>
-                                {% endif %}
+                                {% endif %} 
                             </div>
+                            <input type="file" name="foto_para_padrinho" class="register-input" accept="image/*" disabled>
                         </div>
                     </div>
                 </div>
@@ -145,7 +147,7 @@
 
     editBtn.addEventListener("click", () => {
         inputs.forEach(input => {
-            if (input.tagName === 'SELECT') {
+            if (input.tagName === 'SELECT' | input.type === 'file') {
                 input.removeAttribute("disabled");
             } else {
                 input.removeAttribute("readonly");

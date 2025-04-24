@@ -99,6 +99,12 @@ def informacoesApadrinhados(request, nome):
             apadrinhado.data_nascimento = request.POST.get("data_nascimento")
             apadrinhado.genero = request.POST.get("genero")
             apadrinhado.info = request.POST.get("info")
+            foto = request.FILES.get("foto")
+            if foto:
+                apadrinhado.foto = foto
+            foto_para_padrinho = request.FILES.get("foto_para_padrinho")
+            if foto_para_padrinho:
+                apadrinhado.foto_para_padrinho = foto_para_padrinho
             if apadrinhado.data_nascimento:
                 nascimento = datetime.strptime(
                     apadrinhado.data_nascimento, '%Y-%m-%d').date()
