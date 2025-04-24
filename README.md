@@ -12,18 +12,22 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 
 - [**Mircio Ferreira**](https://github.com/Mircio-Ferreira) – [C.C]
 - [**Gabriel Miranda**](https://github.com/GMiranda21ML) – [C.C]
-- [**Ricardo**](https://github.com/whosricardo) – [C.C]
+- [**Ricardo Sergio**](https://github.com/whosricardo) – [C.C]
 - [**André Avelino**](https://github.com/avelinoandre) – [C.C]
-- [**Eric**](https://github.com/eric-albuquer) – [C.C]
-- [**João Passos**](https://github.com/iampassos) – [C.C]
+- [**Eric Gonçalve**](https://github.com/eric-albuquer) – [C.C]
+- [**Thiago Fernandes**]() – [C.C]
+- [**Caio Mathews**]() – [C.C]
+- [**Gabriel Aniceto**]() – [C.C]
+- [**João Passos**]() – [C.C]
+
 
 ---
 
 ## 🎓 Orientadores
 
-- **Manuela Beatriz** – [Designer]
-- **[?]** – [a confirmar]
-- **Ana Carolina** – [C.C]
+- [**Manuela Beatriz**](https://www.linkedin.com/in/manucorreia/) – [Designer]
+- [**Eduardo Nascimento**]() – [C.C]
+- [**Ana Carolina**](https://www.linkedin.com/in/carolmello--/) – [C.C]
 
 ---
 
@@ -86,6 +90,9 @@ Como administrador, quero poder cadastrar e gerenciar apadrinhados para garantir
 
 
 ## 🖼️**Storyboards**
+
+
+## 📝**Relatório de Programação**
 
 
 
