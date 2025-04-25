@@ -30,6 +30,17 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 - [**Ana Carolina**](https://www.linkedin.com/in/carolmello--/) – [C.C]
 
 ---
+## 🌐 Site no ar
+https://nossosonho.azurewebsites.net/
+
+### Super usuário (Usado para logar como AMD)
+
+login: institutoadmg6
+
+
+senha: ADM%G6
+
+---
 
 ## 📦 Tecnologias Utilizadas
 
