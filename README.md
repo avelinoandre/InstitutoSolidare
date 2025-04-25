@@ -20,12 +20,17 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 - [**Gabriel Aniceto**](https://github.com/gabrielaniceto1) – [C.C]
 - [**João Passos**](https://github.com/iampassos) – [C.C]
 
+- **Guilherme José** – [Designer]
+- [**Rafael Lima**](https://www.linkedin.com/in/rafael-rocha-a89150361/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) – [Designer]
+- [**Gabriela Britto**](https://www.linkedin.com/in/gabriela-sampaio-98b587362) – [Designer]
+
+
 ---
 
 ## 🎓 Orientadores
 
 - [**Manuela Beatriz**](https://www.linkedin.com/in/manucorreia/) – [Designer]
-- [**Eduardo Nascimento**]() – [C.C]
+- **Eduardo Nascimento** – [C.C]
 - [**Ana Carolina**](https://www.linkedin.com/in/carolmello--/) – [C.C]
 
 ---
