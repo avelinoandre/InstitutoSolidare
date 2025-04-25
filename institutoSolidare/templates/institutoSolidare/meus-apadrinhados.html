@@ -27,7 +27,7 @@
 
             <div class="children-grid">
                 {% for item in dados_apadrinhados %}
-                <a href="{% url 'infoMeuApadrinhado' item.apadrinhado.nome %}" class="child-card-link">
+                <a href="{% url 'infoMeuApadrinhado' item.apadrinhado.id %}" class="child-card-link">
                     <div class="child-card">
                         {% if item.apadrinhado.foto %}
                         <div class="photo-placeholder">

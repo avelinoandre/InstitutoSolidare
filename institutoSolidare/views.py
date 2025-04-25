@@ -172,8 +172,8 @@ def meusApadrinhados(request):
     return render(request, "institutoSolidare/meus-apadrinhados.html", context)
 
 
-def infoMeuApadrinhado(request, nome):
-    apadrinhado = get_object_or_404(Apadrinhados, nome=nome)
+def infoMeuApadrinhado(request, id):
+    apadrinhado = get_object_or_404(Apadrinhados, id=id)
 
     iniciais = ".".join([parte[0].lower()
                         for parte in apadrinhado.nome.split()])

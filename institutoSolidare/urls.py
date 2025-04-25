@@ -23,7 +23,7 @@ urlpatterns = [
     path("login/", loginPadrinho, name="login"),
     path("meus-apadrinhados", meusApadrinhados, name="meusApadrinhados"),
     path("novo-apadrinhado", novoApadrinhado, name="novoApadrinhado"),
-    path("informacao-meu-apadrinhado/<str:nome>/",
+    path("informacao-meu-apadrinhado/<int:id>/",
          infoMeuApadrinhado, name="infoMeuApadrinhado"),
     path("escolher-apadrinhado", escolherApadrinhado, name="escolherApadrinhado")
 ]
