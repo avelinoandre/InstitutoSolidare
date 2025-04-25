@@ -1,4 +1,4 @@
-# 🌟 Nome do Projeto
+# 🌟 
 
 ## 📝 Descrição
 
@@ -105,7 +105,7 @@ Como administrador, quero poder cadastrar e gerenciar apadrinhados para garantir
 
 ## 📝**Relatório de Programação**
 
-
+## 🚨**issue/bug tracker**
 
 </details>
 
