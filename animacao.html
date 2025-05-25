@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Circular Expansível</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .circle-menu {
+            position: fixed;
+            bottom: -130px;
+            left: -70px;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background-color: rgb(255, 251, 251);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: width 0.4s ease, height 0.4s ease;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .circle-menu.expanded {
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            gap: 25px;
+            transform: translate(10px, -40px);
+            /* direita, cima */
+            transition: transform 0.4s ease;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 25px;
+            transition: gap 0.4s ease;
+        }
+
+        /* Container para cada botão + legenda */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.4s ease;
+        }
+
+        /* Botões - tamanho e padding mudam de acordo com expandido */
+        .circle-menu button {
+            background-color: rgb(217, 217, 217);
+            border: none;
+            width: 40px;
+            height: 40px;
+            padding: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: width 0.4s ease, height 0.4s ease, padding 0.4s ease, font-size 0.4s ease;
+        }
+
+        /* Textos começam escondidos */
+        .button-label {
+            font-size: 0;
+            font-weight: bold;
+            color: #222;
+            user-select: none;
+            opacity: 0;
+            transform: scaleY(0);
+            transition: opacity 0.3s ease, font-size 0.3s ease;
+            height: auto;
+            overflow: hidden;
+            text-align: center;
+            max-width: 100px;
+            word-break: break-word;
+            white-space: normal;
+            line-height: 1.1;
+        }
+
+        .circle-menu.expanded .menu-buttons {
+            gap: 100px;
+            /* maior gap vertical */
+        }
+
+        .circle-menu.expanded .button-row {
+            gap: 70px;
+            /* maior gap horizontal */
+        }
+
+
+        .circle-menu.expanded button {
+            width: 90px;
+            height: 90px;
+            padding: 15px;
+        }
+
+        .circle-menu.expanded .button-label {
+            opacity: 1;
+            font-size: 1.3rem;
+            transform: scaleY(1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="circle-menu" id="menu" onclick="toggleMenu()">
+        <div class="menu-buttons">
+            <div class="button-row">
+                <div class="button-container">
+                    <button title="A"></button>
+                    <span class="button-label">Perfil</span>
+                </div>
+                <div class="button-container">
+                    <button title="B"></button>
+                    <span class="button-label">Afilhados</span>
+                </div>
+                <div class="button-container">
+                    <button title="C"></button>
+                    <span class="button-label">Cartas</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <button title="D"></button>
+                    <span class="button-label">Doação livre</span>
+                </div>
+                <div class="button-container">
+                    <button title="E"></button>
+                    <span class="button-label">Apadrinhe novamente</span>
+                </div>
+                <div class="button-container">
+                    <button title="F"></button>
+                    <span class="button-label">Feed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("expanded");
+        }
+    </script>
+
+</body>
+
+</html>
