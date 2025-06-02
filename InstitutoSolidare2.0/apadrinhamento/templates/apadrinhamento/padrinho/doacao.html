@@ -13,9 +13,13 @@
         <h2>Escolha a forma de pagamento para afiliar {{ apadrinhado.nome }}</h2>
 
         <div class="pagamento-opcoes">
-            <a href="{% url 'padrinhoFeed' %}" class="pagamento-btn">PIX</a>
-            <a href="{% url 'padrinhoFeed' %}" class="pagamento-btn">Cartão de Crédito / Débito</a>
-            <a href="{% url 'padrinhoFeed' %}" class="pagamento-btn">Boleto</a>
+            <label><input type="radio" name="forma_pagamento" value="PIX" required> PIX</label><br>
+            <label><input type="radio" name="forma_pagamento" value="Cartão"> Cartão de Crédito / Débito</label><br>
+            <label><input type="radio" name="forma_pagamento" value="Boleto"> Boleto</label>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <button class="pagamento-btn" onclick="finalizarPagamento()">Finalizar Pagamento</button>
         </div>
     </div>
 
@@ -24,5 +28,36 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
         </a>
     </footer>
+
+    <script>
+        function finalizarPagamento() {
+            const forma = document.querySelector('input[name="forma_pagamento"]:checked');
+            if (!forma) {
+                alert("Selecione uma forma de pagamento.");
+                return;
+            }
+
+            // Simular um "pagamento"
+            const confirmar = confirm(`Deseja realmente realizar o pagamento via ${forma.value}?`);
+            if (!confirmar) return;
+
+            fetch("", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ pagamento: forma.value })
+            })
+            .then(resp => {
+                if (resp.ok) {
+                    window.location.href = "{% url 'padrinhoFeed' %}";
+                } else {
+                    alert("Erro ao processar pagamento.");
+                }
+            })
+            .catch(() => alert("Erro ao conectar com o servidor."));
+        }
+    </script>
 </body>
 </html>
