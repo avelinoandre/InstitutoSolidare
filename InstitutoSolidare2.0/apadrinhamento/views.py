@@ -513,6 +513,32 @@ def adm_home(request):
 def adm_gerenciar_afilhados(request):
     return render(request, "apadrinhamento/adm/gerenciar_afilhados.html")
 
+def lista_afilhados(request):
+    afilhados = Apadrinhado.objects.all()
+    return render(request, 'apadrinhamento/adm/gerenciar_afilhados.html', {'Apadrinhado': afilhados})
+
+@csrf_exempt
+def editar_afilhado(request, id):
+    afilhado = get_object_or_404(Apadrinhado, id=id)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        afilhado.nome = data.get("nome", afilhado.nome)
+        afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
+        afilhado.usuario = data.get("usuario", afilhado.usuario)
+        afilhado.endereco = data.get("endereco", afilhado.endereco)
+        afilhado.tags = data.get("tags", afilhado.tags)
+        afilhado.curso = data.get("curso", afilhado.curso)
+        afilhado.sonho = data.get("sonho", afilhado.sonho)
+        afilhado.save()
+        return JsonResponse({"sucesso": True, "mensagem": "Afilhado atualizado com sucesso."})
+
+    return render(request, 'apadrinhamento/adm/afilhado_editar.html', {'afilhado': afilhado})
+
+def excluir_afilhado(request, id):
+    afilhado = get_object_or_404(Apadrinhado, id=id)
+    afilhado.delete()
+    return redirect('lista_afilhados')
 
 def adm_gerenciar_feed(request):
     return render(request, "apadrinhamento/adm/gerenciar_feed.html")
