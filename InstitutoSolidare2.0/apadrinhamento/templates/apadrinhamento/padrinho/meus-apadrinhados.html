@@ -33,10 +33,6 @@
         <p style="text-align:center; margin-top: 20px;">Você ainda não possui afiliados.</p>
     {% endif %}
 
-    <footer class="footer-home-button">
-        <a href="{% url 'padrinhoFeed' %}">
-            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
-        </a>
-    </footer>
+    {% include 'partials/circle-button.html' %}
 </body>
 </html>
