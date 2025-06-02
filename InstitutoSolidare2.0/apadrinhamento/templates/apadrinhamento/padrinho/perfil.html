@@ -3,18 +3,21 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
-<form method="POST" onsubmit="event.preventDefault(); enviarDados();">
+<form method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); enviarDados();">
     {% csrf_token %}
 <div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
     <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
 
         <!-- Coluna lateral com foto e botões -->
         <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            <!-- Foto -->
-            <div style="width: 100%; height: 220px; background-color: white; border-radius: 8px;"></div>
+            {% if foto %}
+            <img id="foto-preview" src="{{ foto.url }}" alt="Foto do Padrinho" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            {% else %}
+            <p id="foto-preview" style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
+            {% endif %}
 
-            <!-- Botões -->
-            <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar foto</a>
+    <input type="file" id="foto" name="foto" accept="image/*" style="width: 100%;"/>
+
             <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar dados</a>
             <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar valores</a>
         </div>
@@ -66,41 +69,43 @@ function exibirPopup(texto, sucesso = true) {
 function enviarDados() {
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    const data = {
-        nome: document.getElementById('nome').value.trim(),
-        endereco: document.getElementById('endereco').value.trim(),
-        pais: document.getElementById('pais').value.trim(),
-        cidade: document.getElementById('cidade').value.trim(),
-        numero: document.getElementById('numero').value.trim(),
-        complemento: document.getElementById('complemento').value.trim(),
-        telefone: document.getElementById('telefone').value.trim(),
-    };
+    const formData = new FormData();
+    formData.append('nome', document.getElementById('nome').value.trim());
+    formData.append('endereco', document.getElementById('endereco').value.trim());
+    formData.append('pais', document.getElementById('pais').value.trim());
+    formData.append('cidade', document.getElementById('cidade').value.trim());
+    formData.append('numero', document.getElementById('numero').value.trim());
+    formData.append('complemento', document.getElementById('complemento').value.trim());
+    formData.append('telefone', document.getElementById('telefone').value.trim());
 
-    // Validação básica
-    if (!data.nome || !data.endereco || !data.pais || !data.cidade || !data.numero || !data.telefone) {
-        exibirPopup('Preencha todos os campos obrigatórios.', false);
-        return;
+    // Foto (se selecionada)
+    const fotoInput = document.getElementById('foto');
+    if (fotoInput.files.length > 0) {
+        formData.append('foto', fotoInput.files[0]);
     }
 
     fetch("", {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": csrftoken,
+            "X-CSRFToken": csrftoken
         },
-        body: new URLSearchParams(data),
+        body: formData
     })
     .then(response => response.json())
     .then(json => {
-        if (json.status === 'ok') {
-            exibirPopup(json.mensagem, true);
-        } else {
-            exibirPopup('Erro ao atualizar dados.', false);
+    if (json.status === 'ok') {
+        exibirPopup(json.mensagem, true);
+        if (json.nova_foto_url) {
+            const img = document.getElementById('foto-preview');
+            if (img && img.tagName === 'IMG') {
+                img.src = json.nova_foto_url + '?v=' + new Date().getTime(); // força atualização da imagem
+            }
         }
-    })
-    .catch(() => {
-        exibirPopup('Erro de conexão com o servidor.', false);
-    });
+    } else {
+        exibirPopup('Erro ao atualizar dados.', false);
+    }
+})
+
 }
 </script>
     </div>

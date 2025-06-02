@@ -146,30 +146,44 @@ def padrinho_feed(request):
 
 @login_required
 def padrinho_perfil(request):
-    padrinho = get_object_or_404(Padrinho, user=request.user)
+    padrinho = request.user.padrinho
 
-    if request.method == 'POST':
-        data = request.POST
+    if request.method == "POST":
+        # Dados normais
+        padrinho.user.username = request.POST.get('nome')
+        padrinho.endereco = request.POST.get('endereco')
+        padrinho.pais = request.POST.get('pais')
+        padrinho.cidade = request.POST.get('cidade')
+        padrinho.numero_rua = request.POST.get('numero')
+        padrinho.complemento_rua = request.POST.get('complemento')
+        padrinho.telefone = request.POST.get('telefone')
 
-        padrinho.user.first_name = data.get('nome', padrinho.user.first_name)
-        padrinho.endereco = data.get('endereco', padrinho.endereco)
-        padrinho.pais = data.get('pais', padrinho.pais)
-        padrinho.cidade = data.get('cidade', padrinho.cidade)
-        padrinho.complemento_rua = data.get('numero', padrinho.numero)
-        padrinho.telefone = data.get('telefone', padrinho.telefone)
-        padrinho.save()
+        # Se o campo 'foto' estiver no POST, atualiza a imagem
+        if 'foto' in request.FILES:
+            padrinho.foto = request.FILES['foto']
 
-        return JsonResponse({'status': 'ok', 'mensagem': 'Dados atualizados com sucesso!'})
+        try:
+            padrinho.user.save()  # Salva o usuário relacionado também
+            padrinho.save()
+            return JsonResponse({
+            'status': 'ok',
+            'mensagem': 'Dados atualizados com sucesso!',
+            'nova_foto_url': padrinho.foto.url if padrinho.foto else ''
+        })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'mensagem': str(e)})
 
+    # GET - renderiza o template
     context = {
-        'nome': padrinho.user.first_name,
-        'email': request.user.email,
+        'nome': padrinho.user.username,
+        'email': padrinho.user.email,
         'endereco': padrinho.endereco,
         'pais': padrinho.pais,
         'cidade': padrinho.cidade,
         'numero': padrinho.numero_rua,
         'complemento': padrinho.complemento_rua,
         'telefone': padrinho.telefone,
+        'foto': padrinho.foto
     }
     return render(request, 'apadrinhamento/padrinho/perfil.html', context)
 
