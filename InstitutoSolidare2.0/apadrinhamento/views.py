@@ -519,4 +519,13 @@ def adm_gerenciar_feed(request):
 
 
 def adm_gerenciar_cartas(request):
-    return render(request, "apadrinhamento/adm/gerenciar_cartas.html")
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html")
+
+def adm_escrever_carta(request):
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
+
+def adm_programado(request):
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
+
+def adm_respondidas(request):
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")

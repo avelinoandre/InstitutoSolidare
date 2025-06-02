@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensagens Programadas</title>
-    <link rel="stylesheet" href="/apadrinhamento/static/css/cartas.css">
+    <link rel="stylesheet" href="{% static 'css/cartas.css' %}?v=123">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -18,26 +19,26 @@
 
         <main class="content-area">
             <aside class="sidebar">
-                <div class="sidebar-item">
-                    <div class="circle yellow"></div>
-                    <span>Caixa de entrada</span>
-                </div>
-                <div class="sidebar-item">
-                    <div class="circle white"></div>
-                    <span>Escreva uma carta</span>
-                </div>
-                <div class="sidebar-item active">
-                    <div class="circle dark-blue"></div>
-                    <span>Programados</span>
-                </div>
-                <div class="sidebar-item">
-                    <div class="circle white"></div>
-                    <span>Respondidas</span>
-                </div>
-                <div class="sidebar-bottom-arrow">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-            </aside>
+            <a href="{% url 'gerenciarCartas' %}" class="sidebar-item">
+                <div class="circle white"></div>
+                <span>Caixa de entrada</span>
+            </a>
+            <a href="{% url 'admEscreverCarta' %}" class="sidebar-item">
+                <div class="circle white"></div>
+                <span>Escreva uma carta</span>
+            </a>
+            <a href="{% url 'admProgramado' %}" class="sidebar-item active">
+                <div class="circle yellow"></div>
+                <span>Programados</span>
+            </a>
+            <a href="{% url 'admRespondidas' %}" class="sidebar-item">
+                <div class="circle white"></div>
+                <span>Respondidas</span>
+            </a>
+            <div class="sidebar-bottom-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+        </aside>
 
             <section class="main-content">
                 <div class="message-header">
