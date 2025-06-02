@@ -28,57 +28,17 @@
         </aside>
 
             <section class="main-content">
-                <div class="message-header">
-                    <span>Nome do afilhado / Nome do padrinho / Assunto</span>
+                {% for carta in cartas %}
+                <div class="message-item">
+                    <span>Mensagem de {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}</span>
+                    <span>{{ carta.data_envio }}</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
-                <div class="message-list">
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="message-item">
-                        <span>Mensagem de ___________________________________</span>
-                        <span>Data</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+                {% empty %}
+                <div class="message-item">
+                    <span>Nenhuma carta pendente de aprovação.</span>
                 </div>
+                {% endfor %}
             </section>
         </main>
     {% endblock %}

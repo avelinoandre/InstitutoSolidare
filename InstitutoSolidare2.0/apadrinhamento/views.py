@@ -541,11 +541,12 @@ def excluir_afilhado(request, id):
     return redirect('lista_afilhados')
 
 def adm_gerenciar_feed(request):
-    return render(request, "apadrinhamento/adm/gerenciar_feed.html")
-
+    publicacoes = Publicacao.objects.all()
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/gerenciamento_feed_adm.html", {"publicacoes": publicacoes})
 
 def adm_gerenciar_cartas(request):
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html")
+    cartas_pendentes = Carta.objects.filter(aprovada=False)
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
 def adm_escrever_carta(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
