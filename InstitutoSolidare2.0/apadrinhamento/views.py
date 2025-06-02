@@ -334,7 +334,7 @@ def padrinho_doacao_livre_checkout(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
 
 def padrinho_perguntas_view(request):
-    return render(request, "perfil_perguntas.html")
+    return render(request, "apadrinhamento/padrinho/perfil_perguntas.html")
 
 #=====================================================================
 #LOGIN ADMIN

@@ -1,5 +1,86 @@
-{% {% extends "shared/base_logout.html" %}%}
+{% extends "shared/base_logout.html" %}
 {% load static %}
 {%  block content %}
+<div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
+    <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px;">
 
+        <div id="perguntas-container" style="display: flex; flex-direction: column; gap: 30px;">
+            {% for pergunta in perguntas %}
+            <div>
+                <div style="
+                    background-color: #f1f1dc;
+                    padding: 12px;
+                    text-align: center;
+                    font-weight: bold;
+                    border-radius: 8px;
+                    width: 100%;
+                ">
+                    {{ pergunta.texto }}
+                </div>
+
+                <select id="resposta-{{ forloop.counter0 }}" style="
+                    margin-top: 10px;
+                    background-color: #f1f1dc;
+                    padding: 10px;
+                    width: 100%;
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: bold;
+                ">
+                    {% for opcao in pergunta.opcoes %}
+                        <option value="{{ opcao }}" {% if opcao == pergunta.resposta %}selected{% endif %}>{{ opcao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <button onclick="salvarRespostas()" style="
+                background-color: #ffd43b;
+                font-weight: bold;
+                padding: 12px 24px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            " onmouseover="this.style.backgroundColor='#e6c237'" onmouseout="this.style.backgroundColor='#ffd43b'">
+                SALVAR RESPOSTAS
+            </button>
+        </div>
+
+        <div id="popup" style="display:none; margin-top: 20px; text-align: center; font-weight: bold;"></div>
+    </div>
+</div>
+
+<script>
+function salvarRespostas() {
+    const respostas = [];
+    const total = document.querySelectorAll('[id^="resposta-"]').length;
+
+    for (let i = 0; i < total; i++) {
+        const select = document.getElementById(`resposta-${i}`);
+        respostas.push(select.value);
+    }
+
+    // Enviar para backend via fetch (POST)
+    fetch("{% url 'salvar_respostas' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({ respostas: respostas })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const popup = document.getElementById("popup");
+        popup.style.display = 'block';
+        popup.style.color = data.sucesso ? '#155724' : '#721c24';
+        popup.style.backgroundColor = data.sucesso ? '#d4edda' : '#f8d7da';
+        popup.style.border = data.sucesso ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+        popup.innerText = data.mensagem;
+    });
+}
+</script> 
+{% include 'partials/circle-button.html' %}
 {% endblock %}
