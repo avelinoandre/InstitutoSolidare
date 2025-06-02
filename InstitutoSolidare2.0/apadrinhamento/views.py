@@ -481,8 +481,23 @@ perguntas_apadrinhado = [
 ]
 
 def adm_login(request):
-    return render(request, "apadrinhamento/adm/adm-login.html")
+    if request.method == "POST" and request.content_type == 'application/json':
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+        except Exception:
+            return JsonResponse({"success": False, "error": "Dados inválidos"}, status=400)
 
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return JsonResponse({"success": True})
+        else:
+            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."})
+    else:
+        # Se acessar via GET, mostra a página
+        return render(request, "apadrinhamento/adm/adm-login.html")
 
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")

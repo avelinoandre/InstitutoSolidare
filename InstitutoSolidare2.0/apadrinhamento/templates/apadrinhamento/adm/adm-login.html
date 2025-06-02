@@ -1,41 +1,78 @@
 {% extends "shared/new_base.html" %}
-
 {% load static %}
 
 {% block content %}
 <main>
     <h1 class="login-title">ADM login</h1>
-    <div class="login-container">
-        <div id="login-error" style="color:red;"></div>
 
-        <input type="text" id="username" placeholder="Usuário" class="login-input" required>
-        <input type="password" id="password" placeholder="Senha" class="login-input" required>
-        <button onclick="fazerLogin()" class="login-button">Login</button>
-    </div>
+    <div id="login-error" style="color:red; margin-bottom: 10px;"></div>
 
-    <div class="navigation-buttons">
+    <input type="text" id="username" placeholder="Usuário" class="login-input" required>
+    <input type="password" id="password" placeholder="Senha" class="login-input" required>
+    <button onclick="fazerLogin()" class="login-button">Login</button>
+
+    <div class="navigation-buttons" style="margin-top: 20px;">
         <a href="{% url 'home' %}" class="button-link">
-            <button class="nav-btn">← Voltar</button>
+            <button class="nav-btn" type="button">← Voltar</button>
         </a>
     </div>
 </main>
 
 <script>
-    function fazerLogin() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+async function fazerLogin() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const erroDiv = document.getElementById('login-error');
 
-        if (!username || !password) {
-            document.getElementById('login-error').innerText = 'Preencha todos os campos.';
-            return;
-        }
+    erroDiv.innerText = '';
 
-        // Aqui você pode fazer uma chamada AJAX ou fetch para enviar os dados ao servidor
-        console.log('Usuário:', username, 'Senha:', password);
-
-        // Exemplo de redirecionamento (remova se for usar AJAX):
-        // window.location.href = '/painel/';
+    if (!username || !password) {
+        erroDiv.innerText = 'Preencha todos os campos.';
+        return;
     }
-</script>
 
-{% endblock  %}
+    // Fetch para enviar os dados para a view Django via POST
+    try {
+        const response = await fetch("{% url 'admLogin' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            if (data.success) {
+                // Redirecionar para a página desejada
+                window.location.href = "{% url 'admHome' %}";
+            } else {
+                erroDiv.innerText = data.error || 'Usuário ou senha inválidos.';
+            }
+        } else {
+            erroDiv.innerText = 'Erro no servidor. Tente novamente.';
+        }
+    } catch (e) {
+        erroDiv.innerText = 'Erro de conexão. Tente novamente.';
+    }
+}
+
+// Função para pegar cookie CSRF do Django
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}
