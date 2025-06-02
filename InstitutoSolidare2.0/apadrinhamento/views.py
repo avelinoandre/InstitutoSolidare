@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # =====================================================================
@@ -336,13 +337,43 @@ def padrinho_doacao_livre_checkout(request):
 
 @login_required
 def padrinho_alterar_valores(request):
-    return render(request, "apadrinhamento/padrinho/alterar-valores.html")
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            respostas_usuario = data.get("respostas", [])
+            padrinho = request.user.padrinho
+
+            padrinho.area_escolar = int(respostas_usuario[0])
+            padrinho.profissao_desejada_quando_crianca = int(respostas_usuario[1])
+            padrinho.profissao_atual = int(respostas_usuario[2])
+            padrinho.hobby = int(respostas_usuario[3])
+            padrinho.inspiracoes = int(respostas_usuario[4])
+            padrinho.valores = int(respostas_usuario[5])
+
+            padrinho.save()
+
+            # Aqui você pode salvar no banco, etc.
+            return JsonResponse({"mensagem": "Respostas salvas com sucesso!"})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"mensagem": "Erro ao processar dados."}, status=400)
+
+    # GET: carregar página
+    context = {
+        "perguntas": perguntas,
+        "respostas_usuario": [],
+    }
+    return render(request, "apadrinhamento/padrinho/alterar-valores.html", context)
 
 @login_required
 def padrinho_meus_apadrinhados(request):
     padrinho = request.user.padrinho
     apadrinhados = padrinho.apadrinhados.all()
     return render(request, 'apadrinhamento/padrinho/meus-apadrinhados.html', {'apadrinhados': apadrinhados})
+@login_required
+def cartas(request):
+    padrinho = request.user.padrinho
+    return render(request, 'apadrinhamento/padrinho/cartas.html')
 
 #=====================================================================
 #LOGIN ADMIN

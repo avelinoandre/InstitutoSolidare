@@ -7,28 +7,11 @@
         <div id="perguntas-container" style="display: flex; flex-direction: column; gap: 30px;">
             {% for pergunta in perguntas %}
             <div>
-                <div style="
-                    background-color: #f1f1dc;
-                    padding: 12px;
-                    text-align: center;
-                    font-weight: bold;
-                    border-radius: 8px;
-                    width: 100%;
-                ">
-                    {{ pergunta.texto }}
-                </div>
+                <div>{{ pergunta.pergunta }}</div>
 
-                <select id="resposta-{{ forloop.counter0 }}" style="
-                    margin-top: 10px;
-                    background-color: #f1f1dc;
-                    padding: 10px;
-                    width: 100%;
-                    border-radius: 8px;
-                    border: none;
-                    font-weight: bold;
-                ">
-                    {% for opcao in pergunta.opcoes %}
-                        <option value="{{ opcao }}" {% if opcao == pergunta.resposta %}selected{% endif %}>{{ opcao }}</option>
+                <select id="resposta-{{ forloop.counter0 }}">
+                    {% for opcao in pergunta.respostas %}
+                        <option value="{{ forloop.counter0 }}">{{ opcao }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -51,36 +34,30 @@
         <div id="popup" style="display:none; margin-top: 20px; text-align: center; font-weight: bold;"></div>
     </div>
 </div>
-
 <script>
 function salvarRespostas() {
+    const selects = document.querySelectorAll('[id^="resposta-"]');
     const respostas = [];
-    const total = document.querySelectorAll('[id^="resposta-"]').length;
 
-    for (let i = 0; i < total; i++) {
-        const select = document.getElementById(`resposta-${i}`);
+    selects.forEach((select, index) => {
         respostas.push(select.value);
-    }
+    });
 
-    // Enviar para backend via fetch (POST)
-    fetch("{% url 'padrinhoPerfil' %}", {
+    fetch("{% url 'padrinhoAlterarValores' %}", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}"
+            "X-CSRFToken": "{{ csrf_token }}",  // garante que o Django aceite o POST
         },
         body: JSON.stringify({ respostas: respostas })
     })
     .then(response => response.json())
     .then(data => {
         const popup = document.getElementById("popup");
-        popup.style.display = 'block';
-        popup.style.color = data.sucesso ? '#155724' : '#721c24';
-        popup.style.backgroundColor = data.sucesso ? '#d4edda' : '#f8d7da';
-        popup.style.border = data.sucesso ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
-        popup.innerText = data.mensagem;
+        popup.innerText = data.mensagem || "Respostas salvas com sucesso!";
+        popup.style.display = "block";
     });
 }
-</script> 
+</script>
 {% include 'partials/circle-button.html' %}
 {% endblock %}
