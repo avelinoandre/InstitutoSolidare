@@ -1,0 +1,55 @@
+% extends 'shared/base_logout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+  <!-- Layout principal -->
+  <div style="display: flex; height: calc(100vh - 70px);">
+
+    <!-- Menu Lateral -->
+    <nav style="width: 200px; background-color: #a3c5e0; padding-top: 20px;">
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin: 20px 0; text-align: center;">
+          <div style="width: 40px; height: 40px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
+          <p>Caixa de entrada</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          <p>Escreva uma carta</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          <p>Rascunhos</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          <p>Programados</p>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main style="flex-grow: 1; background-color: #dcdcdc; padding: 30px;">
+      <div style="background-color: white; padding: 20px; border-radius: 10px;">
+        <input type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
+
+        <!-- Lista de mensagens -->
+        <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+          <span>Mensagem de __</span>
+          <span>Data ▼</span>
+        </div>
+        <!-- Repita o bloco acima para mais mensagens -->
+        <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+          <span>Mensagem de __</span>
+          <span>Data ▼</span>
+        </div>
+        <!-- ... -->
+      </div>
+    </main>
+
+  </div>
+
+</body>
+</html>
+{% endblock %}

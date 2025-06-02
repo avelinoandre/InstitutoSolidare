@@ -18,6 +18,7 @@ urlpatterns = [
     path('padrinho/doacao-livre/', padrinho_doacao_livre, name='padrinhoDoacaoLivre'),
     path('padrinho/doacao-livre-checkout/', padrinho_doacao_livre_checkout, name='padrinhoDoacaoLivreCheckout'),
     path('padrinho/meus-apadrinhados/', padrinho_meus_apadrinhados, name='padrinhoMeusApadrinhados'),
+    path('padrinho/cartas', cartas, name = 'cartas'),
     path('adm/login/', adm_login ,name="adm_login"),
     path('adm/home/', adm_home, name="adm_home"),
     path('adm/gerenciar-afilhados/', gerenciar_afilhados, name='gerenciar_afilhados'),
