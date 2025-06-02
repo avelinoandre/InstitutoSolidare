@@ -3,6 +3,8 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+<form method="POST" onsubmit="event.preventDefault(); enviarDados();">
+    {% csrf_token %}
 <div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
     <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
 
@@ -47,6 +49,7 @@
         </div>
     </div>
 </div>
+</form>
 
 {% include 'partials/circle-button.html' %}
 
@@ -61,22 +64,43 @@ function exibirPopup(texto, sucesso = true) {
 }
 
 function enviarDados() {
-    const nome = document.getElementById('nome').value.trim();
-    const endereco = document.getElementById('endereco').value.trim();
-    const pais = document.getElementById('pais').value.trim();
-    const cidade = document.getElementById('cidade').value.trim();
-    const numero = document.getElementById('numero').value.trim();
-    const complemento = document.getElementById('complemento').value.trim();
-    const telefone = document.getElementById('telefone').value.trim();
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    const data = {
+        nome: document.getElementById('nome').value.trim(),
+        endereco: document.getElementById('endereco').value.trim(),
+        pais: document.getElementById('pais').value.trim(),
+        cidade: document.getElementById('cidade').value.trim(),
+        numero: document.getElementById('numero').value.trim(),
+        complemento: document.getElementById('complemento').value.trim(),
+        telefone: document.getElementById('telefone').value.trim(),
+    };
 
     // Validação básica
-    if (!nome || !endereco || !pais || !cidade || !numero || !telefone) {
+    if (!data.nome || !data.endereco || !data.pais || !data.cidade || !data.numero || !data.telefone) {
         exibirPopup('Preencha todos os campos obrigatórios.', false);
         return;
     }
 
-    // Simulação de sucesso (substitua por chamada fetch real se quiser salvar no servidor)
-    exibirPopup('Dados atualizados com sucesso!', true);
+    fetch("", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrftoken,
+        },
+        body: new URLSearchParams(data),
+    })
+    .then(response => response.json())
+    .then(json => {
+        if (json.status === 'ok') {
+            exibirPopup(json.mensagem, true);
+        } else {
+            exibirPopup('Erro ao atualizar dados.', false);
+        }
+    })
+    .catch(() => {
+        exibirPopup('Erro de conexão com o servidor.', false);
+    });
 }
 </script>
     </div>

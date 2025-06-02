@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Apadrinhados(models.Model):
+class Apadrinhado(models.Model):
     nome = models.CharField(max_length=200, null = False)
     idade = models.IntegerField(null = False)
     data_nascimento = models.DateField()
@@ -12,7 +12,7 @@ class Apadrinhados(models.Model):
     foto_para_padrinho=models.ImageField(upload_to="fotos/")
     info = models.CharField(max_length=200, null=False)
 
-    padrinhos = models.ManyToManyField('Padrinho', related_name='apadrinhados', blank=True)
+    padrinho = models.ForeignKey('Padrinho', related_name='apadrinhados', on_delete=models.SET_NULL, null=True, blank=True)
 
     area_escolar = models.IntegerField(null=True, blank=True)
     profissao_desejada = models.IntegerField(null=True, blank=True)
@@ -26,10 +26,12 @@ class Apadrinhados(models.Model):
 class Padrinho(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     data_nascimento = models.DateField()
-    idade = models.IntegerField()
+    endereco = models.CharField(max_length=100)
     pais = models.CharField(max_length=100)
-    estado = models.CharField(max_length=100)
-    telefone = models.CharField(max_length=20)
+    cidade = models.CharField(max_length=100)
+    numero_rua = models.CharField(max_length=50)
+    complemento_rua = models.CharField(max_length=50)
+    telefone = models.CharField(max_length=30)
     foto = models.ImageField(upload_to="fotos/")
 
     area_escolar = models.IntegerField(null=True, blank=True)
@@ -60,3 +62,28 @@ class Publicacao(models.Model):
         if self.publica:
             return f"Carta pública: {self.titulo}"
         return f"Carta privada para {self.padrinho.user.get_full_name()}"
+    
+class Carta(models.Model):
+    titulo = models.CharField(max_length=255)
+    conteudo = models.TextField()
+    data_envio = models.DateField(auto_now_add=True)
+    aprovada = models.BooleanField(default=False)
+
+    padrinho = models.ForeignKey(
+        Padrinho,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Remetente ou destinatário, dependendo da direção da carta."
+    )
+
+    apadrinhado = models.ForeignKey(
+        Apadrinhado,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Remetente ou destinatário, dependendo da direção da carta."
+    )
+
+    def __str__(self):
+        return f"{self.titulo} - {'Aprovada' if self.aprovada else 'Pendente'}"
