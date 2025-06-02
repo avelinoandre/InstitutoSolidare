@@ -205,13 +205,13 @@ def padrinho_cadastro(request):
             email=novo_usuario["email"],
             password=novo_usuario["password"],
         )
-        user.first_name = nome_completo
         user.save()
 
         respostas = request.session.get("respostas_questionario", {})
 
         # Cria o Padrinho
         Padrinho.objects.create(
+            nome_completo=nome_completo,
             user=user,
             data_nascimento=data_nascimento,
             endereco=endereco,
@@ -240,7 +240,8 @@ def padrinho_cadastro(request):
 
 @login_required
 def padrinho_escolher_apadrinhado(request):
-    apadrinhados = Apadrinhado.objects.all()[:3]
+    padrinho_atual = request.user.padrinho  # Pega o padrinho logado
+    apadrinhados = Apadrinhado.objects.exclude(padrinho=padrinho_atual)[:3]
     return render(
         request,
         "apadrinhamento/padrinho/escolher-apadrinhado.html",
@@ -288,7 +289,7 @@ def padrinho_perfil(request):
 
     if request.method == "POST":
         # Dados normais
-        padrinho.user.username = request.POST.get("nome")
+        padrinho.nome_completo = request.POST.get("nome")
         padrinho.endereco = request.POST.get("endereco")
         padrinho.pais = request.POST.get("pais")
         padrinho.cidade = request.POST.get("cidade")
@@ -315,7 +316,7 @@ def padrinho_perfil(request):
 
     # GET - renderiza o template
     context = {
-        "nome": padrinho.user.username,
+        "nome": padrinho.nome_completo,
         "email": padrinho.user.email,
         "endereco": padrinho.endereco,
         "pais": padrinho.pais,
@@ -335,6 +336,12 @@ def padrinho_doacao_livre_checkout(request):
 
 def padrinho_perguntas_view(request):
     return render(request, "apadrinhamento/padrinho/perfil_perguntas.html")
+
+@login_required
+def padrinho_meus_apadrinhados(request):
+    padrinho = request.user.padrinho
+    apadrinhados = padrinho.apadrinhados.all()
+    return render(request, 'apadrinhamento/padrinho/meus-apadrinhados.html', {'apadrinhados': apadrinhados})
 
 #=====================================================================
 #LOGIN ADMIN

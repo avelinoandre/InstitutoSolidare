@@ -25,6 +25,7 @@ class Apadrinhado(models.Model):
     
 class Padrinho(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nome_completo = models.CharField(max_length=100)
     data_nascimento = models.DateField()
     endereco = models.CharField(max_length=100)
     pais = models.CharField(max_length=100)

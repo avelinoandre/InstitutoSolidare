@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Afiliados</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <h2 style="text-align:center">Meus Afiliados</h2>
+
+    {% if apadrinhados %}
+    <div class="apadrinhados-grid">
+        {% for a in apadrinhados %}
+        <div class="apadrinhado-card">
+            <img src="{{ a.foto.url }}" alt="Foto de {{ a.nome }}">
+            <h3>{{ a.nome }}</h3>
+            <p><strong>Idade:</strong> {{ a.idade }} anos</p>
+
+            <div class="gostos">
+                {% if a.hobby %}<p><strong>Hobby:</strong> {{ a.hobby }}</p>{% endif %}
+                {% if a.inspiracoes %}<p><strong>Inspirações:</strong> {{ a.inspiracoes }}</p>{% endif %}
+                {% if a.valores %}<p><strong>Valores:</strong> {{ a.valores }}</p>{% endif %}
+                {% if a.area_escolar %}<p><strong>Área escolar:</strong> {{ a.area_escolar }}</p>{% endif %}
+                {% if a.profissao_desejada %}<p><strong>Profissão desejada:</strong> {{ a.profissao_desejada }}</p>{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p style="text-align:center; margin-top: 20px;">Você ainda não possui afiliados.</p>
+    {% endif %}
+
+    <footer class="footer-home-button">
+        <a href="{% url 'padrinhoFeed' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>
