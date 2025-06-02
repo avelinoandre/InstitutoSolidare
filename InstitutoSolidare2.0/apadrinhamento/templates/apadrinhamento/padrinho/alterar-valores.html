@@ -63,7 +63,7 @@ function salvarRespostas() {
     }
 
     // Enviar para backend via fetch (POST)
-    fetch("{% url 'salvar_respostas' %}", {
+    fetch("{% url 'padrinhoPerfil' %}", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

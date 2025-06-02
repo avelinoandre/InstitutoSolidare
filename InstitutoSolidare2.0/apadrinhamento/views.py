@@ -337,6 +337,9 @@ def padrinho_doacao_livre_checkout(request):
 def padrinho_perguntas_view(request):
     return render(request, "apadrinhamento/padrinho/perfil_perguntas.html")
 
+def padrinho_alterar_valores(request):
+    return render(request, "apadrinhamento/padrinho/alterar-valores.html")
+
 @login_required
 def padrinho_meus_apadrinhados(request):
     padrinho = request.user.padrinho
