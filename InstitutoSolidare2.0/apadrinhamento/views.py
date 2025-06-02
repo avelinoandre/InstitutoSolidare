@@ -416,6 +416,11 @@ def padrinho_cartas(request):
     context = {"cartas_recebidas": cartas_recebidas}
     return render(request, "apadrinhamento/padrinho/cartas.html", context)
 
+@login_required
+def escrita_cartas(request):
+    padrinho = request.user.padrinho
+    return render(request, "apadrinhamento/padrinho/escrita_cartas.html")
+
 
 # =====================================================================
 # LOGIN ADMIN
