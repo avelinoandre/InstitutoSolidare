@@ -11,6 +11,12 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 
 
+class Pergunta:
+    def __init__(self, pergunta, *respostas):
+        self.pergunta = pergunta
+        self.respostas = respostas
+
+
 # =====================================================================
 # PÄGINA HOME
 # =====================================================================
@@ -44,13 +50,7 @@ def padrinho_cadastro_explicativo(request):
     return render(request, "apadrinhamento/padrinho/cadastro-explicativo.html")
 
 
-class Pergunta:
-    def __init__(self, pergunta, *respostas):
-        self.pergunta = pergunta
-        self.respostas = respostas
-
-
-perguntas = [
+perguntas_padrinho = [
     Pergunta(
         "1. Na escola, qual área te chamava mais atenção?",
         "Linguagens",
@@ -124,9 +124,9 @@ perguntas = [
 
 
 def padrinho_questionario(request, indice=0):
-    pergunta_atual = perguntas[indice]
+    pergunta_atual = perguntas_padrinho[indice]
     opcoes_resposta = list(enumerate(pergunta_atual.respostas))
-    total_perguntas = len(perguntas)
+    total_perguntas = len(perguntas_padrinho)
 
     return render(
         request,
@@ -283,12 +283,15 @@ def padrinho_feed(request):
         request, "apadrinhamento/padrinho/feed.html", {"publicacoes": publicacoes}
     )
 
+
 @login_required
 def padrinho_perfil(request):
     try:
         padrinho = request.user.padrinho
     except ObjectDoesNotExist:
-        return JsonResponse({"status": "error", "mensagem": "Perfil de padrinho não encontrado."})
+        return JsonResponse(
+            {"status": "error", "mensagem": "Perfil de padrinho não encontrado."}
+        )
 
     if request.method == "POST":
         # Dados do modelo Padrinho
@@ -307,11 +310,13 @@ def padrinho_perfil(request):
         try:
             padrinho.user.save()
             padrinho.save()
-            return JsonResponse({
-                "status": "ok",
-                "mensagem": "Dados atualizados com sucesso!",
-                "nova_foto_url": padrinho.foto.url if padrinho.foto else "",
-            })
+            return JsonResponse(
+                {
+                    "status": "ok",
+                    "mensagem": "Dados atualizados com sucesso!",
+                    "nova_foto_url": padrinho.foto.url if padrinho.foto else "",
+                }
+            )
         except Exception as e:
             return JsonResponse({"status": "error", "mensagem": str(e)})
 
@@ -329,11 +334,14 @@ def padrinho_perfil(request):
     }
     return render(request, "apadrinhamento/padrinho/perfil.html", context)
 
+
 def padrinho_doacao_livre(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre.html")
 
+
 def padrinho_doacao_livre_checkout(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
+
 
 @login_required
 def padrinho_alterar_valores(request):
@@ -360,47 +368,113 @@ def padrinho_alterar_valores(request):
 
     # GET: carregar página
     context = {
-        "perguntas": perguntas,
+        "perguntas": perguntas_padrinho,
         "respostas_usuario": [],
     }
     return render(request, "apadrinhamento/padrinho/alterar-valores.html", context)
+
 
 @login_required
 def padrinho_meus_apadrinhados(request):
     padrinho = request.user.padrinho
     apadrinhados = padrinho.apadrinhados.all()
-    return render(request, 'apadrinhamento/padrinho/meus-apadrinhados.html', {'apadrinhados': apadrinhados})
+    return render(
+        request,
+        "apadrinhamento/padrinho/meus-apadrinhados.html",
+        {"apadrinhados": apadrinhados},
+    )
+
 
 @login_required
 def padrinho_cartas(request):
     padrinho = request.user.padrinho
 
     cartas_recebidas = Carta.objects.filter(
-        padrinho=padrinho,
-        remetente_tipo="apadrinhado",
-        aprovada=True
+        padrinho=padrinho, remetente_tipo="apadrinhado", aprovada=True
     ).order_by("-data_envio")
 
-    context = {
-        "cartas_recebidas": cartas_recebidas
-    }
-    return render(request, 'apadrinhamento/padrinho/cartas.html', context)
+    context = {"cartas_recebidas": cartas_recebidas}
+    return render(request, "apadrinhamento/padrinho/cartas.html", context)
 
-#=====================================================================
-#LOGIN ADMIN
-#=====================================================================
+
+# =====================================================================
+# LOGIN ADMIN
+# =====================================================================
+
+perguntas_apadrinhado = [
+    Pergunta(
+        "1. Qual matéria  da escola você mais gosta?",
+        "Português (Linguagens)",
+        "Inglês (Linguagens)",
+        "Matemática",
+        "Ciências",
+        "Historia (Humanas)",
+        "Geografia (Humanas)",
+        "Artes",
+    ),
+    Pergunta(
+        "2. Você quer ser o que quando crescer?",
+        "Médico(a)",
+        "Professor(a)",
+        "Bombeiro(a)",
+        "Atleta ou Jogador(a) de futebol",
+        "Artista",
+        "Ator",
+        "Engenheiro(a)",
+        "Arquiteto(a)",
+        "Veterinário(a)",
+        "Empresário(a)",
+        "Juiz",
+    ),
+    Pergunta(
+        "3. Você possui algum hobby?",
+        "Saúde",
+        "Educação",
+        "Legislativa",
+        "Tecnologia",
+        "Negócios",
+        "Engenharia",
+        "Artes e Cultura",
+        "Comunicação e Marketing",
+        "Esportes/Atividades físicas",
+        "Serviço público",
+    ),
+    Pergunta(
+        "4. O que mais te inspira hoje? (O que faz o seu olho brilhar e querer estudar?)",
+        "Ler",
+        "Cozinhar",
+        "Praticar esportes",
+        "Tocar instrumentos musicais",
+        "Desenhar ou pintar",
+        "Escrever",
+        "Dançar",
+    ),
+    Pergunta(
+        "5. Escolha 3 valores que você acha importante e quer levar para a vida",
+        "Família",
+        "Meus amigos",
+        "Impactar positivamente a vida de outras pessoas",
+        "Buscar conhecimento e crescimento",
+        "Realizar sonhos de infância",
+        "Fé ou espiritualidade",
+    ),
+]
 
 def adm_login(request):
     return render(request, "apadrinhamento/adm/adm-login.html")
 
+
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")
 
+
 def gerenciar_afilhados(request):
-    return render(request, 'apadrinhamento/adm/gerenciar_afilhados.html')
+    return render(request, "apadrinhamento/adm/gerenciar_afilhados.html")
+
 
 def gerenciar_feed(request):
-    return render(request, 'apadrinhamento/adm/gerenciar_feed.html')
+    return render(request, "apadrinhamento/adm/gerenciar_feed.html")
+
 
 def gerenciar_cartas(request):
-    return render(request, 'apadrinhamento/adm/gerenciar_cartas.html')
+    return render(request, "apadrinhamento/adm/gerenciar_cartas.html")
