@@ -370,6 +370,10 @@ def padrinho_meus_apadrinhados(request):
     padrinho = request.user.padrinho
     apadrinhados = padrinho.apadrinhados.all()
     return render(request, 'apadrinhamento/padrinho/meus-apadrinhados.html', {'apadrinhados': apadrinhados})
+@login_required
+def cartas(request):
+    padrinho = request.user.padrinho
+    return render(request, 'apadrinhamento/padrinho/cartas.html')
 
 #=====================================================================
 #LOGIN ADMIN
@@ -377,3 +381,15 @@ def padrinho_meus_apadrinhados(request):
 
 def adm_login(request):
     return render(request, "apadrinhamento/adm-login.html")
+
+def adm_home(request):
+    return render(request, "apadrinhamento/adm/adm_home.html")
+
+def gerenciar_afilhados(request):
+    return render(request, 'apadrinhamento/adm/gerenciar_afilhados.html')
+
+def gerenciar_feed(request):
+    return render(request, 'apadrinhamento/adm/gerenciar_feed.html')
+
+def gerenciar_cartas(request):
+    return render(request, 'apadrinhamento/adm/gerenciar_cartas.html')
