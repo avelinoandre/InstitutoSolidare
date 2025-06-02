@@ -509,17 +509,13 @@ def adm_login(request):
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")
 
-
-def adm_gerenciar_afilhados(request):
-    return render(request, "apadrinhamento/adm/gerenciar_afilhados.html")
-
 def lista_afilhados(request):
     afilhados = Apadrinhado.objects.all()
-    return render(request, 'apadrinhamento/adm/gerenciar_afilhados.html', {'Apadrinhado': afilhados})
+    return render(request, 'apadrinhamento/adm/gerenciar_afilhado.html', {'Apadrinhado': afilhados})
 
 @csrf_exempt
-def editar_afilhado(request, id):
-    afilhado = get_object_or_404(Apadrinhado, id=id)
+def editar_afilhado(request, apadrinhado_id):
+    afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
 
     if request.method == 'POST':
         data = json.loads(request.body)
