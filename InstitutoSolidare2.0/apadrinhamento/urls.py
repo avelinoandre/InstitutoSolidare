@@ -24,7 +24,7 @@ urlpatterns = [
     # ---------------------------------
     path('adm/login/', adm_login ,name="admLogin"),
     path('adm/home/', adm_home, name="admHome"),
-    path('adm/gerenciar-afilhados/', gerenciar_afilhados, name='gerenciar_afilhados'),
-    path('adm/gerenciar-feed/', gerenciar_feed, name='gerenciar_feed'),
-    path('adm/gerenciar-cartas/', gerenciar_cartas, name='gerenciar_cartas'),
+    path('adm/gerenciar-afilhados/', adm_gerenciar_afilhados, name='gerenciarAfilhados'),
+    path('adm/gerenciar-feed/', adm_gerenciar_feed, name='gerenciarFeed'),
+    path('adm/gerenciar-cartas/', adm_gerenciar_cartas, name='gerenciarCartas'),
 ]

@@ -503,13 +503,13 @@ def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")
 
 
-def gerenciar_afilhados(request):
+def adm_gerenciar_afilhados(request):
     return render(request, "apadrinhamento/adm/gerenciar_afilhados.html")
 
 
-def gerenciar_feed(request):
+def adm_gerenciar_feed(request):
     return render(request, "apadrinhamento/adm/gerenciar_feed.html")
 
 
-def gerenciar_cartas(request):
+def adm_gerenciar_cartas(request):
     return render(request, "apadrinhamento/adm/gerenciar_cartas.html")
