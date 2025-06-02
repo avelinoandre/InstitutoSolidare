@@ -35,15 +35,14 @@
         <input type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
 
         <!-- Lista de mensagens -->
-        <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-          <span>Mensagem de __</span>
-          <span>Data ▼</span>
-        </div>
-        <!-- Repita o bloco acima para mais mensagens -->
-        <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-          <span>Mensagem de __</span>
-          <span>Data ▼</span>
-        </div>
+        {% for carta in cartas_recebidas %}
+          <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+            <span>{{ carta.apadrinhado.nome }} - {{ carta.titulo }}</span>
+            <span>{{ carta.data_envio|date:"d/m/Y" }}</span>
+          </div>
+        {% empty %}
+          <p style="text-align: center; color: gray;">Nenhuma carta recebida até o momento.</p>
+        {% endfor %}
         <!-- ... -->
       </div>
     </main>

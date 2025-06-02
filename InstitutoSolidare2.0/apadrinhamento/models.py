@@ -72,20 +72,32 @@ class Carta(models.Model):
     aprovada = models.BooleanField(default=False)
 
     padrinho = models.ForeignKey(
-        Padrinho,
+        "Padrinho",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        help_text="Remetente ou destinatário, dependendo da direção da carta."
+        help_text="Referência ao padrinho envolvido (remetente ou destinatário)."
     )
 
     apadrinhado = models.ForeignKey(
-        Apadrinhado,
+        "Apadrinhado",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        help_text="Remetente ou destinatário, dependendo da direção da carta."
+        help_text="Referência ao apadrinhado envolvido (remetente ou destinatário)."
     )
 
+    REMETENTE_CHOICES = (
+        ("padrinho", "Padrinho"),
+        ("apadrinhado", "Apadrinhado"),
+    )
+    remetente_tipo = models.CharField(max_length=20, choices=REMETENTE_CHOICES)
+
     def __str__(self):
-        return f"{self.titulo} - {'Aprovada' if self.aprovada else 'Pendente'}"
+        return f"{self.titulo} - De: {self.remetente_tipo} - {'Aprovada' if self.aprovada else 'Pendente'}"
+
+    def get_remetente(self):
+        return self.padrinho if self.remetente_tipo == "padrinho" else self.apadrinhado
+
+    def get_destinatario(self):
+        return self.apadrinhado if self.remetente_tipo == "padrinho" else self.padrinho

@@ -374,7 +374,17 @@ def padrinho_meus_apadrinhados(request):
 @login_required
 def padrinho_cartas(request):
     padrinho = request.user.padrinho
-    return render(request, 'apadrinhamento/padrinho/cartas.html')
+
+    cartas_recebidas = Carta.objects.filter(
+        padrinho=padrinho,
+        remetente_tipo="apadrinhado",
+        aprovada=True
+    ).order_by("-data_envio")
+
+    context = {
+        "cartas_recebidas": cartas_recebidas
+    }
+    return render(request, 'apadrinhamento/padrinho/cartas.html', context)
 
 #=====================================================================
 #LOGIN ADMIN
