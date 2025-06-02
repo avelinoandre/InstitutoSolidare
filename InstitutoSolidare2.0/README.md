@@ -165,6 +165,181 @@ https://nossosonho.azurewebsites.net/
 <details>
 <summary><strong>📁 SR2 – Segunda Entrega</strong></summary>
 
-🎯 *Vazio*
+<details>
+<summary><strong>📜 Histórias de Usuário</strong></summary>
+
+<details>
+<summary><strong>📌 História 3 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+<details>
+<summary><strong>📌 História 4 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+<details>
+<summary><strong>📌 História 5 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+
+<details>
+<summary><strong>📌 História 6 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+
+<details>
+<summary><strong>📌 História 7 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+
+
+</details>
+
+<details>
+<summary><strong>🔄 Diagrama de Atividade</strong></summary>
+
+### História 3  
+![Diagrama da História 3]()
+
+### História 4  
+![Diagrama da História 4]()
+
+### História 5  
+![Diagrama da História 5]()
+
+### História 6  
+![Diagrama da História 6]()
+
+### História 7
+![Diagrama da História 7]()
+
+
+</details>
+
+<details>
+<summary><strong>🖼️ Storyboards</strong></summary>
+
+- Link do docs com as Storyboards:  
+  [INSIRA O LINK AQUI]
+
+</details>
+
+<details>
+<summary><strong>📝 Relatório de Programação</strong></summary>
+
+- Link do docs com o relatório de programação:  
+  [INSIRA O LINK AQUI]
+
+</details>
+
+<details>
+<summary><strong>🚨 Issue / Bug Tracker</strong></summary>
+
+### Bug Open ??:
+![Open 1](img_readme/BUGOPEN1.PNG)
+
+### Bug closed ??:
+![Closed 1](img_readme/BUGCLOSED1.PNG)
+
+</details>
 
 </details>
