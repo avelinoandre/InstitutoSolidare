@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <div class="login-wrapper">
+        <div class="container">
+            <h2 class="login-title">Crie seu usuário</h2>
+            <form class="login-form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label for="nome_completo" class="form-label">Nome completo</label>
+                <input type="text" id="nome_completo" name="nome_completo" class="form-input">
+
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" id="endereco" name="endereco" class="form-input">
+
+                <label for="pais" class="form-label">País</label>
+                <input type="text" id="pais" name="pais" class="form-input">
+
+                <label for="cidade" class="form-label">Cidade</label>
+                <input type="text" id="cidade" name="cidade" class="form-input">
+
+                <label for="numero_complemento" class="form-label">Número / Complemento</label>
+                <input type="text" id="numero_complemento" name="numero_complemento" class="form-input">
+
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" class="form-input">
+
+                <label for="foto_perfil" class="form-label">Imagem de perfil</label>
+                <input type="file" id="foto_perfil" name="foto_perfil" accept="image/*" class="form-input">
+
+                <button type="submit" class="btn-login">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-home-button">
+        <a href="{% url 'criarUsuario' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Home" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>

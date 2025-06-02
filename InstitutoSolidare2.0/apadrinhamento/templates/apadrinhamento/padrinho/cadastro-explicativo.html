@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Explicação do Cadastro</title>
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     {% include 'partials/new_header.html' %}
@@ -14,7 +14,7 @@
             <p class="explicativo-text">
                 Texto explicativo sobre o funcionamento do cadastro ao sistema de apadrinhamento
             </p>
-            <a href="questionario" class="btn-continue">Continue</a>
+            <a href="{% url "questionario" %}" class="btn-continue">Continue</a>
         </div>
     </div>
 

@@ -1,0 +1,110 @@
+body {
+    background-color: #9ec9f0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container principal */
+.container-doacao {
+    background-color: #d9d9d9;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80vh;
+}
+
+/* Texto explicativo */
+.texto-explicativo {
+    width: 60%;
+}
+
+.texto-explicativo h3 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.texto-explicativo p {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+/* Bloco da doação */
+.bloco-doacao {
+    width: 30%;
+    text-align: center;
+}
+
+.botao-doacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffd43b;
+    width: 100%;
+    height: 80px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.botao-doacao:hover {
+    background-color: #e6c237;
+}
+
+/* header */
+
+.header-doacao {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    position: relative;
+    z-index: 100;
+}
+
+.header-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-centro {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo-centro a {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.logout-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logout-btn a {
+    font-weight: 500;
+    text-decoration: none;
+    color: #e74c3c;
+    background-color: transparent;
+    border: 2px solid #e74c3c;
+    padding: 5px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn a:hover {
+    background-color: #e74c3c;
+    color: white;
+}

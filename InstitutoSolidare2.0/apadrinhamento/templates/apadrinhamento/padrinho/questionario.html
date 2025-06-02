@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionario</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <div class="question-wrapper">
+        <div class="question-container">
+            <div class="question-text">
+                {{ pergunta_texto }}
+            </div>
+
+            <div class="answer-box">
+                <label for="resposta" class="form-label">Selecione sua resposta:</label>
+                <select id="resposta" name="resposta" class="form-select">
+                    {% for opcao in opcoes_resposta %}
+                        <option value="{{ opcao.id }}">{{ opcao.texto }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <a href="{% url 'criarUsuario' %}" class="btn-continue">Continue</a>
+        </div>
+    </div>
+
+    <div class="progress-indicator">
+        {% for i in total_perguntas|make_list %}
+            <div class="progress-dot {% if i == pergunta_atual %}active{% endif %}"></div>
+        {% endfor %}
+    </div>
+
+    <footer class="footer-nav-button">
+        <a href="{{ pergunta_anterior_url }}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Pergunta Anterior" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>

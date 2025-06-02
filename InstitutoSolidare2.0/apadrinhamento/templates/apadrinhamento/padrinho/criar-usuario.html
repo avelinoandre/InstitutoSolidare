@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Registro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <div class="login-wrapper">
+        <div class="container">
+            <h2 class="login-title">Crie seu usuário</h2>
+            <div class="login-form">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" id="username" name="username" class="form-input">
+
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input">
+
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" name="password" class="form-input">
+
+                <label for="password_confirm" class="form-label">Confirmar Senha</label>
+                <input type="password" id="password_confirm" name="password_confirm" class="form-input">
+
+                <a href="{% url 'cadastro' %}" class="btn-login">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-home-button">
+        <a href="{% url 'questionario' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Home" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>

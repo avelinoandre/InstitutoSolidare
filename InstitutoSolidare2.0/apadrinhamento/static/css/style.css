@@ -1,0 +1,722 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EDEDDD;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.logo {
+    background-color: #D9D9D9;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    left: 20px;
+    font-size: 1.2rem;
+}
+
+.login-title {
+    color: black;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-container {
+    background-color: #808080;
+    padding: 3rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.login-input {
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.login-button {
+    background-color: #D9D9D9;
+    padding: 1rem 2rem;
+    width: 150px;
+    margin: 1rem auto 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #c4c4c4;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 5rem;
+    margin-top: 3rem;
+}
+
+.nav-btn {
+    background-color: #808080;
+    padding: 0.8rem 2rem;
+    min-width: 150px;
+    font-size: 1rem;
+}
+
+.login-title {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.login-button {
+    background-color: #D9D9D9;
+    padding: 0.5rem;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background-color: #808080;
+    padding: 0.5rem 1rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    gap: 2rem;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 2rem;
+}
+
+button {
+    background-color: #808080;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub-text {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.adm-btn {
+    background-color: #D9D9D9;
+    padding: 0.5rem 2rem;
+}
+
+.button-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.admin-container {
+    background-color: #808080;
+    padding: 4rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.admin-btn {
+    background-color: #D9D9D9;
+    padding: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+.admin-btn:hover {
+    background-color: #c4c4c4;
+}
+
+.management-title {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.register-subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.register-container {
+    background-color: #808080;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.register-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+textarea {
+    font-family: Arial, sans-serif;
+}
+  
+
+.register-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.register-input[rows] {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.register-nav {
+    padding: 0 !important;
+    margin-top: 0 !important;
+}
+
+.children-grid {
+    background-color: #808080;
+    padding: 2rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+.child-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.child-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.photo-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+}
+
+.child-name {
+    background-color: #D9D9D9;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+.success-container {
+    background-color: #808080;
+    padding: 3rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 600px;
+}
+
+.success-message {
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.success-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.success-btn {
+    background-color: #4A4A4A;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.combo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.combo-select {
+    width: 100%;
+    height: 100%;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background-color: #D9D9D9;
+    padding: 1rem 2rem;
+    width: 200px;
+    margin: 2rem auto 0;
+    display: block;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #c4c4c4;
+}
+
+.other-input {
+    margin-top: 0.5rem;
+}
+
+.file-input {
+    padding: 8px;
+    background-color: white;
+    width: 100%;
+    height: 40px;
+}
+
+.file-input::-webkit-file-upload-button {
+    height: 24px;
+    padding: 0 1rem;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.file-input::-webkit-file-upload-button:hover {
+    background-color: #c4c4c4;
+}
+
+.child-photo-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.child-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.update-btn {
+    background-color: #4444ff;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 200px;
+    text-align: center;
+}
+
+.update-btn:hover {
+    background-color: #0000cc;
+}
+
+.delete-btn {
+    background-color: #ff4444;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 200px;
+    text-align: center;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+.dashboard-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+    padding: 2rem;
+    align-items: flex-start;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.afilhado-content {
+    background-color: #808080;
+    padding: 2rem;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 100%;
+}
+
+.children-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.child-photo-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.child-card:hover {
+    transform: scale(1.05);
+}
+
+.photo-placeholder {
+    margin-left: 25px;
+    margin-top: 25px;
+    width: 100px;
+    height: 100px;
+    background-color: #4A4A4A;
+    border-radius: 10px;
+  }
+
+.child-name {
+    background-color: #B8B8B8;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.photo-label {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+header {
+    background-color: #406694;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    height: 100px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 20px;
+}
+
+.logo,
+.institute-name {
+    background-color: #8AB8DB;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.logout form {
+    display: inline; 
+}
+
+.logout button {
+    background-color: #e63946;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.logout button:hover {
+    background-color: #d62828;
+}
+
+.logo {
+    left: 20px;
+}
+
+.institute-name {
+    right: 20px;
+}
+
+.login-title {
+    color: #406694;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.login-container,
+.admin-container,
+.register-container,
+.success-container,
+.children-grid,
+.afilhado-content {
+    background-color: #8AB8DB;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.login-input,
+.register-input,
+.combo-select,
+.file-input {
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #EDEDDD;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.login-button,
+.submit-btn,
+.admin-btn,
+.success-btn,
+.update-btn,
+.delete-btn {
+    background-color: #FF954E;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.login-button:hover,
+.submit-btn:hover,
+.admin-btn:hover,
+.success-btn:hover {
+    background-color: #e67f2e;
+}
+
+.update-btn {
+    background-color: #406694;
+}
+
+.update-btn:hover {
+    background-color: #304c70;
+}
+
+.delete-btn {
+    background-color: #FF4444;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background-color: #406694;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background-color: #304c70;
+}
+
+button {
+    background-color: #FF954E;
+    border: none;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.child-name {
+    background-color: #406694;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}
+
+.photo-placeholder,
+.child-photo-container {
+    background-color: #EDEDDD;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.child-photos {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.child-photo-wrapper {
+    text-align: center;
+}
+
+.child-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.child-photo-container {
+    width: 200px;
+    height: 200px;
+    background-color: #EDEDDD;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.child-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+.admin-btn {
+  display: block;
+  padding: 12px;
+  background-color: #8AB8DB;
+  color: white;
+  text-decoration: none; 
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+.admin-btn:hover {
+  background-color: #FF954E;
+}
