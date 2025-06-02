@@ -251,21 +251,19 @@ def padrinho_escolher_apadrinhado(request):
 
 
 @login_required
+@csrf_exempt
 def padrinho_doacao(request, apadrinhado_id):
     apadrinhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
 
-    if not hasattr(request.user, "padrinho"):
-        messages.error(request, "Complete seu cadastro para poder doar.")
-        return redirect("padrinhoCadastro")
-
-    padrinho = request.user.padrinho
-
+    # Evita reprocessar se já estiver afiliado
     if apadrinhado.padrinho is not None:
-        messages.error(request, "Este apadrinhado já possui um padrinho.")
-        return redirect("alguma_pagina")
+        return redirect('padrinhoFeed')  # ou uma página de erro personalizada
 
-    apadrinhado.padrinho = padrinho
-    apadrinhado.save()
+    if request.method == "POST":
+        padrinho = request.user.padrinho
+        apadrinhado.padrinho = padrinho
+        apadrinhado.save()
+        return JsonResponse({"status": "ok"})
 
     return render(
         request, "apadrinhamento/padrinho/doacao.html", {"apadrinhado": apadrinhado}
