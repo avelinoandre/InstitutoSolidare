@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
@@ -21,6 +22,13 @@ class Apadrinhado(models.Model):
 
     def __str__(self):
         return self.nome
+    
+    @property
+    def idade(self):
+        hoje = date.today()
+        return hoje.year - self.data_nascimento.year - (
+            (hoje.month, hoje.day) < (self.data_nascimento.month, self.data_nascimento.day)
+        )
     
 class Padrinho(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='padrinho')
