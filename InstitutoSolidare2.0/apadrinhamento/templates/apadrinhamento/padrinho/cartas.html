@@ -32,13 +32,16 @@
     <!-- Conteúdo Principal -->
     <main style="flex-grow: 1; background-color: #dcdcdc; padding: 30px;">
       <div style="background-color: white; padding: 20px; border-radius: 10px;">
-        <input type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
+        <input id="filtro-afilhado" type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
 
-        <!-- Lista de mensagens -->
+<!-- Lista de mensagens -->
         {% for carta in cartas_recebidas %}
-          <div style="display: flex; justify-content: space-between; background-color: #e6e6e6; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-            <span>{{ carta.apadrinhado.nome }} - {{ carta.titulo }}</span>
-            <span>{{ carta.data_envio|date:"d/m/Y" }}</span>
+          <div class="carta" data-nome="{{ carta.apadrinhado.nome|lower }}" style="background-color: #e6e6e6; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+              <strong>{{ carta.apadrinhado.nome }} - {{ carta.titulo }}</strong>
+              <span>{{ carta.data_envio|date:"d/m/Y" }}</span>
+            </div>
+            <div style="margin-top: 10px; white-space: pre-line;">{{ carta.conteudo }}</div>
           </div>
         {% empty %}
           <p style="text-align: center; color: gray;">Nenhuma carta recebida até o momento.</p>
@@ -48,7 +51,20 @@
     </main>
 
   </div>
-
+<script>
+  const inputFiltro = document.getElementById('filtro-afilhado');
+  inputFiltro.addEventListener('input', () => {
+    const termo = inputFiltro.value.toLowerCase();
+    document.querySelectorAll('.carta').forEach(div => {
+      const nome = div.getAttribute('data-nome');
+      if (nome.includes(termo)) {
+        div.style.display = 'block';
+      } else {
+        div.style.display = 'none';
+      }
+    });
+  });
+</script>
 </body>
 </html>
 {% endblock %}
