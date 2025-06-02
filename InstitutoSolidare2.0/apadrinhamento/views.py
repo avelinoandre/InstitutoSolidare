@@ -349,7 +349,7 @@ def padrinho_meus_apadrinhados(request):
 #=====================================================================
 
 def adm_login(request):
-    return render(request, "apadrinhamento/adm-login.html")
+    return render(request, "apadrinhamento/adm/adm-login.html")
 
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")
