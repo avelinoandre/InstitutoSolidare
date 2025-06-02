@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escrever Carta</title>
+    <link rel="stylesheet" href="/apadrinhamento/static/css/cartas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-hand-holding-heart logo-icon"></i>
+            </div>
+            <button class="logout-btn">Log out</button>
+        </header>
+
+        <main class="content-area">
+            <aside class="sidebar">
+                <div class="sidebar-item">
+                    <div class="circle yellow"></div>
+                    <span>Caixa de entrada</span>
+                </div>
+                <div class="sidebar-item active">
+                    <div class="circle dark-blue"></div>
+                    <span>Escreva uma carta</span>
+                </div>
+                <div class="sidebar-item">
+                    <div class="circle white"></div>
+                    <span>Programados</span>
+                </div>
+                <div class="sidebar-item">
+                    <div class="circle white"></div>
+                    <span>Respondidas</span>
+                </div>
+                <div class="sidebar-bottom-arrow">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+            </aside>
+
+            <section class="main-content message-compose">
+                <div class="recipient-select">
+                    <input type="text" placeholder="Nome do padrinho para que deseja escrever..." class="text-input">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <textarea placeholder="" class="message-textarea"></textarea>
+                <div class="message-send-box">
+                    <input type="text" placeholder="Escreva sua mensagem..." class="text-input send-input">
+                    <button class="send-button">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
