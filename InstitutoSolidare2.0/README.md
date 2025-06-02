@@ -335,10 +335,10 @@ https://nossosonho.azurewebsites.net/
 <summary><strong>🚨 Issue / Bug Tracker</strong></summary>
 
 ### Bug Open ??:
-![Open 1](img_readme/BUGOPEN1.PNG)
+![Open 1]()
 
 ### Bug closed ??:
-![Closed 1](img_readme/BUGCLOSED1.PNG)
+![Closed 1]()
 
 </details>
 
