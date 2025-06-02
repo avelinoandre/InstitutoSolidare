@@ -1,0 +1,39 @@
+<div class="circle-menu" id="menu" onclick="toggleMenu()">
+        <div class="menu-buttons">
+            <div class="button-row">
+                <div class="button-container">
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <span class="button-label">Perfil</span>
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <span class="button-label">Afilhados</span>
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <span class="button-label">Cartas</span>
+                </div>
+            </div>
+            <div class="button-row">
+                <div class="button-container">
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <span class="button-label">Doação livre</span>
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <span class="button-label">Apadrinhe novamente</span>
+                </div>
+                <div class="button-container">
+                    <a href="{% url 'padrinhoFeed' %}" title="Feed"></a>
+                    <span class="button-label">Feed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("expanded");
+        }
+    </script>

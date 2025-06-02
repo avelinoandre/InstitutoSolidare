@@ -1,0 +1,26 @@
+
+    {% extends "shared/base_logout.html" %}
+    {% load static %}
+
+    {% block content %}
+
+    <div class="cartas-grid">
+        {% for publicacao in publicacoes %}
+            <div class="publicacao">
+                <h3>{{ publicacao.titulo }}</h3>
+                <p>{{ publicacao.conteudo }}</p>
+                <small>
+                    Tipo: 
+                    {% if publicacao.publica %}
+                        Pública
+                    {% else %}
+                        Privada
+                    {% endif %}
+                </small>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% include 'partials/circle-button.html' %}
+    {% endblock %}

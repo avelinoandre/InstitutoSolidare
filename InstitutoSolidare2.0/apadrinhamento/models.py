@@ -42,7 +42,7 @@ class Padrinho(models.Model):
     def __str__(self):
         return self.user.get_full_name()
     
-class Carta(models.Model):
+class Publicacao(models.Model):
     titulo = models.CharField(max_length=255)
     conteudo = models.TextField()
     data_envio = models.DateField(auto_now_add=True)

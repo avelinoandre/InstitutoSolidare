@@ -1,0 +1,87 @@
+{% extends "shared/base_logout.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+<div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
+    <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
+
+        <!-- Coluna lateral com foto e botões -->
+        <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <!-- Foto -->
+            <div style="width: 100%; height: 220px; background-color: white; border-radius: 8px;"></div>
+
+            <!-- Botões -->
+            <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar foto</a>
+            <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar dados</a>
+            <a href="#" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar valores</a>
+        </div>
+
+        <div style="flex: 1; background-color: white; border-radius: 8px; padding: 30px;">
+            <!-- Pop-up -->
+            <div id="popup" style="display: none; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold;"></div>
+
+            <!-- Campos -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <label>Nome Completo<br><input id="nome" type="text" value="{{ nome }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+
+                <label>Email<br><input id="email" type="email" value="{{ email }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+
+                <div style="display: flex; gap: 20px;">
+                    <label style="flex: 2;">Endereço<br><input id="endereco" type="text" value="{{ endereco }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                    <label style="flex: 1;">País<br><input id="pais" type="text" value="{{ pais }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                </div>
+
+                <div style="display: flex; gap: 20px;">
+                    <label style="flex: 2;">Cidade<br><input id="cidade" type="text" value="{{ cidade }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                    <label style="flex: 1;">Número<br><input id="numero" type="text" value="{{ numero }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                    <label style="flex: 1;">Complemento<br><input id="complemento" type="text" value="{{ complemento }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                </div>
+
+                <label>Telefone<br><input id="telefone" type="text" value="{{ telefone }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+
+                <button onclick="enviarDados()" style="margin-top: 20px; background-color: #ffd43b; font-weight: bold; border: none; border-radius: 8px; padding: 10px 20px; cursor: pointer;">
+                    Salvar alterações
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/circle-button.html' %}
+
+<script>
+function exibirPopup(texto, sucesso = true) {
+    const popup = document.getElementById('popup');
+    popup.innerText = texto;
+    popup.style.display = 'block';
+    popup.style.backgroundColor = sucesso ? '#d4edda' : '#f8d7da';
+    popup.style.color = sucesso ? '#155724' : '#721c24';
+    popup.style.border = sucesso ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+}
+
+function enviarDados() {
+    const nome = document.getElementById('nome').value.trim();
+    const endereco = document.getElementById('endereco').value.trim();
+    const pais = document.getElementById('pais').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const complemento = document.getElementById('complemento').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+
+    // Validação básica
+    if (!nome || !endereco || !pais || !cidade || !numero || !telefone) {
+        exibirPopup('Preencha todos os campos obrigatórios.', false);
+        return;
+    }
+
+    // Simulação de sucesso (substitua por chamada fetch real se quiser salvar no servidor)
+    exibirPopup('Dados atualizados com sucesso!', true);
+}
+</script>
+    </div>
+</div>
+
+</html>
+{% endblock %}
+

@@ -13,18 +13,21 @@
         <div class="container">
             <h2 class="login-title">Faça seu login</h2>
             <div class="login-form">
-                <label for="username" class="form-label">Usuário</label>
-                <input type="text" id="username" name="username" class="form-input">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="username" class="form-label">Usuário</label>
+                    <input type="text" id="username" name="username" class="form-input">
 
-                <label for="password" class="form-label">Senha</label>
-                <input type="password" id="password" name="password" class="form-input">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" id="password" name="password" class="form-input">
 
-                <a href="#" class="btn-login">Login</a>
+                    <button type="submit" class="btn-login">Login</button>
+                </form>
             </div>
 
             <div class="register">
                 Ainda não é padrinho?
-                <a href="{% url 'cadastroExplicativo' %}" class="register-link">Inscreva-se aqui!</a>
+                <a href="{% url 'padrinhoCadastroExplicativo' %}" class="register-link">Inscreva-se aqui!</a>
             </div>
         </div>
     </div>
