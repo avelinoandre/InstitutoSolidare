@@ -18,5 +18,10 @@ urlpatterns = [
     path('padrinho/doacao-livre/', padrinho_doacao_livre, name='padrinhoDoacaoLivre'),
     path('padrinho/doacao-livre-checkout/', padrinho_doacao_livre_checkout, name='padrinhoDoacaoLivreCheckout'),
     path('padrinho/meus-apadrinhados/', padrinho_meus_apadrinhados, name='padrinhoMeusApadrinhados'),
+    path('adm/home/', adm_home, name="adm_home"),
+    path('adm/gerenciar-afilhados/', gerenciar_afilhados, name='gerenciar_afilhados'),
+    path('adm/gerenciar-feed/', gerenciar_feed, name='gerenciar_feed'),
+    path('adm/gerenciar-cartas/', gerenciar_cartas, name='gerenciar_cartas'),
+
     # ---------------------------------
 ]
