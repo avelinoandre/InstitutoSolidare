@@ -1,0 +1,30 @@
+{% extends "shared/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<main>
+    <h1 class="login-title">ADM login</h1>
+    <div class="login-container">
+        {% comment %} {% if messages %}
+            {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %} {% endcomment %}
+        <form method="POST">    
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Usuário" class="login-input" required>
+            <input type="password" name="password" placeholder="Senha" class="login-input", required>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+    <div class="navigation-buttons">
+        <a href="{% url "index" %}" class="button-link">
+            <button class="nav-btn">← Voltar</button>
+        </a>
+        {% comment %} <a href"#" class="button-link">
+            <button class="nav-btn">Próximo →</button>
+        </a> {% endcomment %}
+    </div>
+</main>
+{% endblock  %}

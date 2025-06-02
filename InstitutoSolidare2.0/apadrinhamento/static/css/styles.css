@@ -1,0 +1,398 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #add3f1;
+  color: #000;
+}
+
+header {
+  background-color: #6aaee0;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo-btn {
+  padding: 5px 10px;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.icons span {
+  margin-left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.btn-cta {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #fca311;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.section h2 {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.impacto-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.video-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.conheca-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.text-box {
+  background-color: #f4f0ec;
+  padding: 15px;
+  border-radius: 15px;
+  max-width: 500px;
+  text-align: left;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.faq-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.icons-login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-btn {
+  background-color: orange;
+  border: 2px solid white;
+  color: rgb(0, 0, 0);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none; /* remove sublinhado */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.login-btn:hover {
+  background-color: white;
+  color: #6aaee0;
+}
+
+
+.flags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.flags img {
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+.flags img:hover {
+  transform: scale(1.1);
+}
+
+.map-image {
+  max-width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+/* Em telas menores que 600px, limita ainda mais o tamanho */
+@media (max-width: 600px) {
+  .map-image {
+    width: 90%;
+    max-height: 250px;
+    object-fit: cover;
+  }
+}
+
+/* Login / Registro */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #7cb6d6;
+}
+
+.container {
+  max-width: 400px;
+  background-color: #f7f7e9;
+  padding: 2rem;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.form-label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #e5e5e5;
+}
+
+.btn-login {
+  display: block;
+  width: 100%;
+  background-color: #ffd400;
+  color: #000;
+  border: none;
+  padding: 0.6rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+.register {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.register-link {
+  color: #3366cc;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+.footer-home-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.back-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+/* Cadastro Explicativo */
+
+.cadastro-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #7cb6d6;
+}
+
+.cadastro-container {
+  max-width: 400px;
+  background-color: #f7f7e9;
+  padding: 2rem;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.explicativo-text {
+  font-size: 1rem;
+  color: #000;
+  margin-bottom: 2rem;
+}
+
+.btn-continue {
+  display: inline-block;
+  background-color: #ffd400;
+  color: #000;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Questionario */
+
+.question-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #7cb6d6;
+  overflow: hidden;
+}
+
+.question-container {
+  max-width: 400px;
+  background-color: #f7f7e9;
+  padding: 2rem;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem;
+  background-color: #f7f7e9;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.answer-box {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f7f7e9;
+  font-size: 1rem;
+}
+
+.progress-indicator {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.progress-dot.active {
+  width: 20px;
+  height: 20px;
+  background-color: #ffd400;
+}

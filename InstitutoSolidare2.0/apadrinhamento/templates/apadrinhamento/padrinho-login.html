@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Registro</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <div class="login-wrapper">
+        <div class="container">
+            <h2 class="login-title">Faça seu login</h2>
+            <div class="login-form">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" id="username" name="username" class="form-input">
+
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" name="password" class="form-input">
+
+                <a href="#" class="btn-login">Login</a>
+            </div>
+
+            <div class="register">
+                Ainda não é padrinho?
+                <a href="{% url 'cadastroExplicativo' %}" class="register-link">Inscreva-se aqui!</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-home-button">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Home" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>

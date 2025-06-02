@@ -1,0 +1,15 @@
+<header>
+    <div class="logo">LOGO AQUI</div>
+    <div class="header-right">
+        {% if request.user.is_authenticated %}
+            <div class="logout">
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="/" />
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        {% endif %}
+        <div class="institute-name">Instituto Solidare</div>
+    </div>
+</header>

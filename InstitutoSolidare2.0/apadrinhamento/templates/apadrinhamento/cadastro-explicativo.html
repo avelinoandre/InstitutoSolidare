@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Explicação do Cadastro</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+    <div class="cadastro-wrapper">
+        <div class="cadastro-container">
+            <p class="explicativo-text">
+                Texto explicativo sobre o funcionamento do cadastro ao sistema de apadrinhamento
+            </p>
+            <a href="questionario" class="btn-continue">Continue</a>
+        </div>
+    </div>
+
+    <footer class="footer-home-button">
+        <a href="{% url 'padrinhoLogin' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Home" class="back-icon">
+        </a>
+    </footer>
+</body>
+</html>
