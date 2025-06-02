@@ -77,6 +77,7 @@ class Carta(models.Model):
     conteudo = models.TextField()
     data_envio = models.DateField(auto_now_add=True)
     aprovada = models.BooleanField(default=False)
+    respondida = models.BooleanField(default=False)
 
     padrinho = models.ForeignKey(
         "Padrinho",

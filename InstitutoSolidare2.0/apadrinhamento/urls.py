@@ -1,8 +1,10 @@
 from apadrinhamento.views import *
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", home, name="home"),
+    path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     # ---------------------------------
     path("padrinho/login/", padrinho_login, name="padrinhoLogin"),
     path("padrinho/cadastro-explicativo/", padrinho_cadastro_explicativo, name="padrinhoCadastroExplicativo"),
@@ -24,6 +26,5 @@ urlpatterns = [
     path('adm/gerenciar-afilhados/', gerenciar_afilhados, name='gerenciar_afilhados'),
     path('adm/gerenciar-feed/', gerenciar_feed, name='gerenciar_feed'),
     path('adm/gerenciar-cartas/', gerenciar_cartas, name='gerenciar_cartas'),
-
     # ---------------------------------
 ]

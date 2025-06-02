@@ -9,17 +9,43 @@
         right: 20px;
         top: 50%;
         transform: translateY(-50%);">
-        <a href="{% url 'home' %}" style="
-            font-weight: 500;
-            text-decoration: none;
-            color: #FFD02F;
-            background-color: transparent;
-            border: 2px solid #FFD02F;
-            padding: 5px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;"
-            onmouseover="this.style.backgroundColor='#FFD02F'; this.style.color='white';"
-            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#FFD02F';"
-        >Log out</a>
+        <a href="#" id="logout-link"
+   style="
+     font-weight: 500;
+     text-decoration: none;
+     color: #FFD02F;
+     background-color: transparent;
+     border: 2px solid #FFD02F;
+     padding: 5px 12px;
+     border-radius: 8px;
+     transition: all 0.3s ease;"
+   onmouseover="this.style.backgroundColor='#FFD02F'; this.style.color='white';"
+   onmouseout="this.style.backgroundColor='transparent'; this.style.color='#FFD02F';"
+>
+  Log out
+</a>
     </div>
+
+   <script>
+        document.getElementById('logout-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        if (confirm('Você realmente deseja sair?')) {
+            fetch("{% url 'logout' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: ''
+            }).then(response => {
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                // Caso o logout não redirecione, força a home
+                window.location.href = "{% url 'home' %}";
+            }
+            });
+        }
+        });
+</script>
 </header>
