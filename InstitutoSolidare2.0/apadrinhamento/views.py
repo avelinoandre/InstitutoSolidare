@@ -282,39 +282,39 @@ def padrinho_feed(request):
         request, "apadrinhamento/padrinho/feed.html", {"publicacoes": publicacoes}
     )
 
-
 @login_required
 def padrinho_perfil(request):
-    padrinho = request.user.padrinho
+    try:
+        padrinho = request.user.padrinho
+    except ObjectDoesNotExist:
+        return JsonResponse({"status": "error", "mensagem": "Perfil de padrinho não encontrado."})
 
     if request.method == "POST":
-        # Dados normais
-        padrinho.nome_completo = request.POST.get("nome")
-        padrinho.endereco = request.POST.get("endereco")
-        padrinho.pais = request.POST.get("pais")
-        padrinho.cidade = request.POST.get("cidade")
-        padrinho.numero_rua = request.POST.get("numero")
-        padrinho.complemento_rua = request.POST.get("complemento")
-        padrinho.telefone = request.POST.get("telefone")
+        # Dados do modelo Padrinho
+        padrinho.nome_completo = request.POST.get("nome", "").strip()
+        padrinho.endereco = request.POST.get("endereco", "").strip()
+        padrinho.pais = request.POST.get("pais", "").strip()
+        padrinho.cidade = request.POST.get("cidade", "").strip()
+        padrinho.numero_rua = request.POST.get("numero", "").strip()
+        padrinho.complemento_rua = request.POST.get("complemento", "").strip()
+        padrinho.telefone = request.POST.get("telefone", "").strip()
 
-        # Se o campo 'foto' estiver no POST, atualiza a imagem
+        # Atualiza a imagem, se enviada
         if "foto" in request.FILES:
             padrinho.foto = request.FILES["foto"]
 
         try:
-            padrinho.user.save()  # Salva o usuário relacionado também
+            padrinho.user.save()
             padrinho.save()
-            return JsonResponse(
-                {
-                    "status": "ok",
-                    "mensagem": "Dados atualizados com sucesso!",
-                    "nova_foto_url": padrinho.foto.url if padrinho.foto else "",
-                }
-            )
+            return JsonResponse({
+                "status": "ok",
+                "mensagem": "Dados atualizados com sucesso!",
+                "nova_foto_url": padrinho.foto.url if padrinho.foto else "",
+            })
         except Exception as e:
             return JsonResponse({"status": "error", "mensagem": str(e)})
 
-    # GET - renderiza o template
+    # GET - renderiza o template com os dados do padrinho
     context = {
         "nome": padrinho.nome_completo,
         "email": padrinho.user.email,
@@ -334,9 +334,7 @@ def padrinho_doacao_livre(request):
 def padrinho_doacao_livre_checkout(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
 
-def padrinho_perguntas_view(request):
-    return render(request, "apadrinhamento/padrinho/perfil_perguntas.html")
-
+@login_required
 def padrinho_alterar_valores(request):
     return render(request, "apadrinhamento/padrinho/alterar-valores.html")
 

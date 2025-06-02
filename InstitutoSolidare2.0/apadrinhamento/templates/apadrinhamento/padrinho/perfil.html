@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
-<form method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); enviarDados();">
-    {% csrf_token %}
+
 <div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
     <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
 
@@ -16,12 +16,13 @@
             <p id="foto-preview" style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
             {% endif %}
 
-    <input type="file" id="foto" name="foto" accept="image/*" style="width: 100%;"/>
+            <input type="file" id="foto" name="foto" accept="image/*" style="width: 100%;"/>
 
             <a href="{% url 'padrinhoPerfil' %}" style="background-color: #1c2c3c; color: white; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar dados</a>
             <a href="{% url 'padrinhoAlterarValores' %}" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar valores</a>
         </div>
 
+        <!-- Coluna principal -->
         <div style="flex: 1; background-color: white; border-radius: 8px; padding: 30px;">
             <!-- Pop-up -->
             <div id="popup" style="display: none; padding: 12px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold;"></div>
@@ -30,7 +31,7 @@
             <div style="display: flex; flex-direction: column; gap: 20px;">
                 <label>Nome Completo<br><input id="nome" type="text" value="{{ nome }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
 
-                <label>Email<br><input id="email" type="email" value="{{ email }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
+                <label>Email<br><input id="email" type="email" value="{{ email }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;" disabled></label>
 
                 <div style="display: flex; gap: 20px;">
                     <label style="flex: 2;">Endereço<br><input id="endereco" type="text" value="{{ endereco }}" style="width: 100%; height: 35px; border-radius: 6px; background-color: #d9d9d9; border: none; padding: 5px;"></label>
@@ -52,7 +53,6 @@
         </div>
     </div>
 </div>
-</form>
 
 {% include 'partials/circle-button.html' %}
 
@@ -78,7 +78,6 @@ function enviarDados() {
     formData.append('complemento', document.getElementById('complemento').value.trim());
     formData.append('telefone', document.getElementById('telefone').value.trim());
 
-    // Foto (se selecionada)
     const fotoInput = document.getElementById('foto');
     if (fotoInput.files.length > 0) {
         formData.append('foto', fotoInput.files[0]);
@@ -93,24 +92,19 @@ function enviarDados() {
     })
     .then(response => response.json())
     .then(json => {
-    if (json.status === 'ok') {
-        exibirPopup(json.mensagem, true);
-        if (json.nova_foto_url) {
-            const img = document.getElementById('foto-preview');
-            if (img && img.tagName === 'IMG') {
-                img.src = json.nova_foto_url + '?v=' + new Date().getTime(); // força atualização da imagem
+        if (json.status === 'ok') {
+            exibirPopup(json.mensagem, true);
+            if (json.nova_foto_url) {
+                const img = document.getElementById('foto-preview');
+                if (img && img.tagName === 'IMG') {
+                    img.src = json.nova_foto_url + '?v=' + new Date().getTime(); // força atualização
+                }
             }
+        } else {
+            exibirPopup('Erro ao atualizar dados.', false);
         }
-    } else {
-        exibirPopup('Erro ao atualizar dados.', false);
-    }
-})
-
+    });
 }
 </script>
-    </div>
-</div>
 
-</html>
 {% endblock %}
-
