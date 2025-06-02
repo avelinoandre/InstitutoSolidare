@@ -30,4 +30,7 @@ urlpatterns = [
     path('adm/afilhado/<int:id>/excluir/', excluir_afilhado, name='excluir_afilhado'),
     path('adm/gerenciar-feed/', adm_gerenciar_feed, name='gerenciarFeed'),
     path('adm/gerenciar-cartas/', adm_gerenciar_cartas, name='gerenciarCartas'),
+    path('adm/escrever-carta/', adm_escrever_carta, name='admEscreverCarta'),
+    path('adm/programado/', adm_programado, name='admProgramado'),
+    path('adm/respondidas/', adm_respondidas, name='admRespondidas'),
 ]
