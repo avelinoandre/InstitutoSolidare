@@ -11,15 +11,9 @@
     --upload-btn-bg: #cccccc; /* Nova cor para o botão Upload... */
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
     font-family: Arial, sans-serif;
-    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -80,6 +74,8 @@ body {
 }
 
 .content-area {
+    min-width: 100vw;
+    min-height: 90vh;
     display: flex;
     flex: 1;
     background-color: var(--main-bg);
@@ -154,6 +150,7 @@ body {
 
 .main-content {
     flex: 1;
+    min-width: 100vw;
     background-color: white;
     border-radius: var(--border-radius);
     padding: 20px;
