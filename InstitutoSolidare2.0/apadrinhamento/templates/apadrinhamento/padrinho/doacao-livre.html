@@ -1,0 +1,64 @@
+{% extends 'shared/base_logout.html' %}
+{% load static %}
+
+{% block content %}
+<div style="background-color:#7cb6d6; padding: 40px; min-height: 100vh;">
+    <!-- Área principal -->
+    <div style="background-color: #d9d9d9; border-radius: 20px; padding: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <!-- Texto explicativo -->
+        <div style="width: 60%;">
+            <h3 style="text-align: center; font-weight: bold;">texto explicativo sobre as doações extras</h3>
+            <p style="text-align: center; margin-top: 20px; line-height: 1.6;">
+                Sua doação transforma vidas.<br>
+                Com sua ajuda, conseguimos levar<br>
+                educação, alimentação e acolhimento<br>
+                para centenas de crianças e famílias<br>
+                em situação de vulnerabilidade social.<br>
+                <br>
+                Cada contribuição é investida em<br>
+                projetos que geram impacto real:<br>
+                reforço escolar, oficinas culturais,<br>
+                ações de saúde, distribuição de cestas<br>
+                básicas e muito mais.<br>
+                <br>
+                O Instituto Solidare acredita no poder<br>
+                da solidariedade para construir um<br>
+                futuro mais justo. E você pode fazer<br>
+                parte disso com apenas um gesto.<br>
+                <br>
+                Ajude-nos a continuar espalhando<br>
+                esperança, oportunidades e amor.<br>
+                Doe agora e seja a mudança que o<br>
+                mundo precisa.<br>
+            </p>
+        </div>
+
+        <!-- Caixa de doação -->
+        <div style="width: 30%; text-align: center;">
+            <a href="{% url 'padrinhoDoacaoLivreCheckout' %}" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffd43b;
+                width: 100%;
+                height: 80px;
+                border-radius: 10px;
+                font-weight: bold;
+                text-decoration: none;
+                color: black;
+                margin-top: 20px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transition: background-color 0.3s ease;
+            " onmouseover="this.style.backgroundColor='#e6c237'" onmouseout="this.style.backgroundColor='#ffd43b'">
+                faça sua doação
+            </a>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/circle-button.html' %}
+
+</body>
+
+</html>
+{% endblock %}

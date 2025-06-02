@@ -327,6 +327,11 @@ def padrinho_perfil(request):
     }
     return render(request, "apadrinhamento/padrinho/perfil.html", context)
 
+def padrinho_doacao_livre(request):
+    return render(request, "apadrinhamento/padrinho/doacao-livre.html")
+
+def padrinho_doacao_livre_checkout(request):
+    return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
 
 # =====================================================================
 # LOGIN ADMIN
