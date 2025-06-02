@@ -184,53 +184,77 @@ def padrinho_cadastro(request):
     novo_usuario = request.session.get("novo_usuario")
 
     if not novo_usuario:
-        messages.error(
-            request, "Erro no fluxo de cadastro. Por favor, inicie novamente."
-        )
+        messages.error(request, "Erro no fluxo de cadastro. Por favor, inicie novamente.")
         return redirect("padrinhoCriarUsuario")
 
     if request.method == "POST":
-        nome_completo = request.POST.get("nome_completo")
-        endereco = request.POST.get("endereco")
-        pais = request.POST.get("pais")
-        cidade = request.POST.get("cidade")
-        complemento_rua = request.POST.get("complemento_rua")
-        numero_rua = request.POST.get("numero_rua")
-        telefone = request.POST.get("telefone")
-        data_nascimento = request.POST.get("data_nascimento")
+        nome_completo = request.POST.get("nome_completo", "").strip()
+        endereco = request.POST.get("endereco", "").strip()
+        pais = request.POST.get("pais", "").strip()
+        cidade = request.POST.get("cidade", "").strip()
+        complemento_rua = request.POST.get("complemento_rua", "").strip()
+        numero_rua = request.POST.get("numero_rua", "").strip()
+        telefone = request.POST.get("telefone", "").strip()
+        data_nascimento = request.POST.get("data_nascimento", "").strip()
         foto_perfil = request.FILES.get("foto_perfil")
 
-        # Cria o User agora
-        user = User.objects.create_user(
-            username=novo_usuario["username"],
-            email=novo_usuario["email"],
-            password=novo_usuario["password"],
-        )
-        user.save()
+        campos_obrigatorios = [
+            ("Nome completo", nome_completo),
+            ("Endereço", endereco),
+            ("País", pais),
+            ("Cidade", cidade),
+            ("Número da rua", numero_rua),
+            ("Telefone", telefone),
+            ("Data de nascimento", data_nascimento),
+        ]
+
+        erros = []
+
+        for nome, valor in campos_obrigatorios:
+            if not valor:
+                erros.append(f"Campo obrigatório: {nome}")
+
+        if erros:
+            for erro in erros:
+                messages.error(request, erro)
+            return render(request, "apadrinhamento/padrinho/cadastro.html")
+
+        try:
+            user = User.objects.create_user(
+                username=novo_usuario["username"],
+                email=novo_usuario["email"],
+                password=novo_usuario["password"],
+            )
+            user.save()
+        except Exception as e:
+            messages.error(request, "Erro ao criar usuário. Tente novamente.")
+            return render(request, "apadrinhamento/padrinho/cadastro.html")
 
         respostas = request.session.get("respostas_questionario", {})
 
-        # Cria o Padrinho
-        Padrinho.objects.create(
-            nome_completo=nome_completo,
-            user=user,
-            data_nascimento=data_nascimento,
-            endereco=endereco,
-            pais=pais,
-            cidade=cidade,
-            complemento_rua=complemento_rua,
-            numero_rua=numero_rua,
-            telefone=telefone,
-            foto=foto_perfil,
-            area_escolar=respostas["resposta_0"],
-            profissao_desejada_quando_crianca=respostas["resposta_1"],
-            profissao_atual=respostas["resposta_2"],
-            hobby=respostas["resposta_3"],
-            inspiracoes=respostas["resposta_4"],
-            valores=respostas["resposta_5"],
-        )
+        try:
+            padrinho = Padrinho.objects.create(
+                nome_completo=nome_completo,
+                user=user,
+                data_nascimento=data_nascimento,
+                endereco=endereco,
+                pais=pais,
+                cidade=cidade,
+                complemento_rua=complemento_rua,
+                numero_rua=numero_rua,
+                telefone=telefone,
+                foto=foto_perfil if foto_perfil else None,
+                area_escolar=respostas.get("resposta_0", ""),
+                profissao_desejada_quando_crianca=respostas.get("resposta_1", ""),
+                profissao_atual=respostas.get("resposta_2", ""),
+                hobby=respostas.get("resposta_3", ""),
+                inspiracoes=respostas.get("resposta_4", ""),
+                valores=respostas.get("resposta_5", ""),
+            )
+        except Exception as e:
+            messages.error(request, "Erro ao salvar os dados. Tente novamente.")
+            return render(request, "apadrinhamento/padrinho/cadastro.html")
 
-        # Login e limpeza da sessão
         login(request, user)
         request.session.pop("novo_usuario", None)
 
@@ -241,13 +265,11 @@ def padrinho_cadastro(request):
 
 @login_required
 def padrinho_escolher_apadrinhado(request):
-    padrinho_atual = request.user.padrinho  # Pega o padrinho logado
-    apadrinhados = Apadrinhado.objects.exclude(padrinho=padrinho_atual)[:3]
-    return render(
-        request,
-        "apadrinhamento/padrinho/escolher-apadrinhado.html",
-        {"apadrinhados": apadrinhados},
-    )
+    apadrinhados_sem_padrinho = Apadrinhado.objects.filter(padrinho__isnull=True)
+    
+    return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {
+        'apadrinhados': apadrinhados_sem_padrinho
+    })
 
 
 @login_required
