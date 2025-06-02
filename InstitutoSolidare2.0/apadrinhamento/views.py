@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.http import JsonResponse
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 #=====================================================================
 #PÄGINA HOME
@@ -34,10 +38,56 @@ def padrinho_login(request):
 def padrinho_cadastro_explicativo(request):
     return render(request, "apadrinhamento/padrinho/cadastro-explicativo.html")
 
-def padrinho_questionario(request):
-    return render(request, "apadrinhamento/padrinho/questionario.html")
+class Pergunta:
+    def __init__(self, pergunta, *respostas):
+        self.pergunta = pergunta
+        self.respostas = respostas
+
+perguntas = [
+    Pergunta("1. Na escola, qual área te chamava mais atenção?", 
+            "Linguagens",
+            "Matemática",
+            "Ciências da Natureza",
+            "Ciências Humanas",
+            "Artes"),
+    Pergunta("2. Qual era a profissão dos seus sonhos, quando criança?",
+             "Médico(a)",
+            "Professor(a)",
+            "Bombeiro(a)",
+            "Atleta ou Jogador(a) de futebol",
+            "Artista",
+            "Ator",
+            "Engenheiro(a)",
+            "Arquiteto(a)",
+            "Veterinário(a)",
+            "Empresário(a)",
+            "Juiz")
+]
+
+def padrinho_questionario(request, indice=0):
+    pergunta_atual = perguntas[indice]
+    opcoes_resposta = list(enumerate(pergunta_atual.respostas))
+    total_perguntas = len(perguntas)
+
+    return render(request, "apadrinhamento/padrinho/questionario.html", {
+        "pergunta_texto": pergunta_atual.pergunta,
+        "opcoes_resposta": opcoes_resposta,
+        "pergunta_atual": indice,
+        "total_perguntas": total_perguntas,
+        "pergunta_anterior_url": reverse("padrinhoQuestionario", args=[indice - 1]) if indice > 0 else "#"
+    })
+
+@csrf_exempt  # Use isso apenas se não for usar o csrf_token no JS!
+def padrinho_salvar_respostas(request):
+    if request.method == 'POST':
+        dados = json.loads(request.body)
+        request.session['respostas_questionario'] = dados
+        return JsonResponse({'status': 'ok'})
+    return JsonResponse({'error': 'Método inválido'}, status=400)
 
 def padrinho_criar_usuario(request):
+    respostas = request.session.get('respostas_questionario', {})
+    print(respostas)  # Exemplo: {'resposta_0': '1', 'resposta_1': '3', ...}
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')

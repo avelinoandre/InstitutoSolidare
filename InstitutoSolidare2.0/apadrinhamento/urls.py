@@ -6,7 +6,8 @@ urlpatterns = [
     # ---------------------------------
     path("padrinho/login/", padrinho_login, name="padrinhoLogin"),
     path("padrinho/cadastro-explicativo/", padrinho_cadastro_explicativo, name="padrinhoCadastroExplicativo"),
-    path("padrinho/questionario/", padrinho_questionario, name="padrinhoQuestionario"),
+    path("padrinho/questionario/<int:indice>/", padrinho_questionario, name="padrinhoQuestionario"),
+    path('padrinho/salvar-respostas/', padrinho_salvar_respostas, name='padrinhoSalvarRespostas'),
     path("padrinho/criar-usuario/", padrinho_criar_usuario, name="padrinhoCriarUsuario"),
     path("padrinho/cadastro/", padrinho_cadastro, name="padrinhoCadastro"),
     path("padrinho/escolher-apadrinhado/", padrinho_escolher_apadrinhado, name="padrinhoEscolherApadrinhado"),

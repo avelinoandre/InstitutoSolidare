@@ -18,13 +18,13 @@
             <div class="answer-box">
                 <label for="resposta" class="form-label">Selecione sua resposta:</label>
                 <select id="resposta" name="resposta" class="form-select">
-                    {% for opcao in opcoes_resposta %}
-                        <option value="{{ opcao.id }}">{{ opcao.texto }}</option>
+                    {% for i, opcao in opcoes_resposta %}
+                        <option value="{{ i }}">{{ opcao }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <a href="{% url 'padrinhoCriarUsuario' %}" class="btn-continue">Continue</a>
+            <button class="btn-continue" onclick="irParaProximaPergunta()">Continue</button>
         </div>
     </div>
 
@@ -39,5 +39,25 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Pergunta Anterior" class="back-icon">
         </a>
     </footer>
+    <script>
+    function irParaProximaPergunta() {
+        const select = document.getElementById('resposta');
+        const respostaSelecionada = select.value;
+
+        // Salvar no localStorage (ou sessionStorage) se quiser manter as respostas
+        const perguntaAtual = {{ pergunta_atual }};
+        localStorage.setItem('resposta_' + perguntaAtual, respostaSelecionada);
+
+        const proximaPergunta = perguntaAtual + 1;
+        const total = {{ total_perguntas }};
+
+        if (proximaPergunta < total) {
+            window.location.href = `/padrinho/questionario/${proximaPergunta}/`;
+        } else {
+            window.location.href = `/padrinho/criar-usuario/`;
+        }
+    }
+</script>
+
 </body>
 </html>
