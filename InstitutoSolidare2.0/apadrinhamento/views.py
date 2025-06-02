@@ -237,6 +237,9 @@ def padrinho_perfil(request):
     }
     return render(request, 'apadrinhamento/padrinho/perfil.html', context)
 
+def padrinho_perguntas_view(request):
+    return render(request, "perfil_perguntas.html")
+
 #=====================================================================
 #LOGIN ADMIN
 #=====================================================================

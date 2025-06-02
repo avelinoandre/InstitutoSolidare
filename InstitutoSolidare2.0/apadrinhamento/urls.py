@@ -14,5 +14,6 @@ urlpatterns = [
     path("padrinho/doacao/<int:apadrinhado_id>/", padrinho_doacao, name="padrinhoDoacao"),
     path('padrinho/feed/', padrinho_feed, name='padrinhoFeed'),
     path('padrinho/perfil/', padrinho_perfil, name='padrinhoPerfil'),
+    path("padrinho/perfil/perguntas/", padrinho_perguntas_view, name="padrinho_perguntas")
     # ---------------------------------
 ]
