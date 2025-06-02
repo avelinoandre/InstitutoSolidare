@@ -10,134 +10,205 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 
-#=====================================================================
-#PÄGINA HOME
-#=====================================================================
+# =====================================================================
+# PÄGINA HOME
+# =====================================================================
+
 
 def home(request):
     return render(request, "apadrinhamento/home.html")
 
-#=====================================================================
-#LOGIN PADRINHO
-#=====================================================================
+
+# =====================================================================
+# LOGIN PADRINHO
+# =====================================================================
+
 
 def padrinho_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect('padrinhoFeed')
+            return redirect("padrinhoFeed")
         else:
-            messages.error(request, 'Usuário ou senha inválidos.')
+            messages.error(request, "Usuário ou senha inválidos.")
     return render(request, "apadrinhamento/padrinho/login.html")
+
 
 def padrinho_cadastro_explicativo(request):
     return render(request, "apadrinhamento/padrinho/cadastro-explicativo.html")
+
 
 class Pergunta:
     def __init__(self, pergunta, *respostas):
         self.pergunta = pergunta
         self.respostas = respostas
 
+
 perguntas = [
-    Pergunta("1. Na escola, qual área te chamava mais atenção?", 
-            "Linguagens",
-            "Matemática",
-            "Ciências da Natureza",
-            "Ciências Humanas",
-            "Artes"),
-    Pergunta("2. Qual era a profissão dos seus sonhos, quando criança?",
-             "Médico(a)",
-            "Professor(a)",
-            "Bombeiro(a)",
-            "Atleta ou Jogador(a) de futebol",
-            "Artista",
-            "Ator",
-            "Engenheiro(a)",
-            "Arquiteto(a)",
-            "Veterinário(a)",
-            "Empresário(a)",
-            "Juiz")
+    Pergunta(
+        "1. Na escola, qual área te chamava mais atenção?",
+        "Linguagens",
+        "Matemática",
+        "Ciências da Natureza",
+        "Ciências Humanas",
+        "Artes",
+    ),
+    Pergunta(
+        "2. Qual era a profissão dos seus sonhos, quando criança?",
+        "Médico(a)",
+        "Professor(a)",
+        "Bombeiro(a)",
+        "Atleta ou Jogador(a) de futebol",
+        "Artista",
+        "Ator",
+        "Engenheiro(a)",
+        "Arquiteto(a)",
+        "Veterinário(a)",
+        "Empresário(a)",
+        "Juiz",
+    ),
+    Pergunta(
+        "3. E hoje, em qual área profissional você atua?",
+        "Saúde",
+        "Educação",
+        "Legislativa",
+        "Tecnologia",
+        "Negócios",
+        "Engenharia",
+        "Artes e Cultura",
+        "Comunicação e Marketing",
+        "Esportes/Atividades físicas",
+        "Serviço público",
+    ),
+    Pergunta(
+        "4. Você possui algum hobby?",
+        "Ler",
+        "Cozinhar",
+        "Praticar esportes",
+        "Tocar instrumentos musicais",
+        "Desenhar ou pintar",
+        "Escrever",
+        "Dançar",
+    ),
+    Pergunta(
+        "5. O que mais te inspira hoje?",
+        "Família",
+        "Meus amigos",
+        "Impactar positivamente a vida de outras pessoas",
+        "Buscar conhecimento e crescimento",
+        "Realizar sonhos de infância",
+        "Fé ou espiritualidade",
+    ),
+    Pergunta(
+        "6. E para fechar, aponte seus 3 maiores valores",
+        "Honestidade",
+        "Liberdade",
+        "Respeito",
+        "Amor",
+        "Coragem",
+        "Justiça",
+        "Empatia",
+        "Responsabilidade",
+        "Gratidão",
+        "Fé",
+        "Determinação",
+        "Lealdade",
+    ),
 ]
+
 
 def padrinho_questionario(request, indice=0):
     pergunta_atual = perguntas[indice]
     opcoes_resposta = list(enumerate(pergunta_atual.respostas))
     total_perguntas = len(perguntas)
 
-    return render(request, "apadrinhamento/padrinho/questionario.html", {
-        "pergunta_texto": pergunta_atual.pergunta,
-        "opcoes_resposta": opcoes_resposta,
-        "pergunta_atual": indice,
-        "total_perguntas": total_perguntas,
-        "pergunta_anterior_url": reverse("padrinhoQuestionario", args=[indice - 1]) if indice > 0 else "#"
-    })
+    return render(
+        request,
+        "apadrinhamento/padrinho/questionario.html",
+        {
+            "pergunta_texto": pergunta_atual.pergunta,
+            "opcoes_resposta": opcoes_resposta,
+            "pergunta_atual": indice,
+            "total_perguntas": total_perguntas,
+            "pergunta_anterior_url": (
+                reverse("padrinhoQuestionario", args=[indice - 1])
+                if indice > 0
+                else "#"
+            ),
+        },
+    )
 
-@csrf_exempt  # Use isso apenas se não for usar o csrf_token no JS!
+
+@csrf_exempt
 def padrinho_salvar_respostas(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         dados = json.loads(request.body)
-        request.session['respostas_questionario'] = dados
-        return JsonResponse({'status': 'ok'})
-    return JsonResponse({'error': 'Método inválido'}, status=400)
+        request.session["respostas_questionario"] = dados
+        return JsonResponse({"status": "ok"})
+    return JsonResponse({"error": "Método inválido"}, status=400)
+
 
 def padrinho_criar_usuario(request):
-    respostas = request.session.get('respostas_questionario', {})
-    print(respostas)  # Exemplo: {'resposta_0': '1', 'resposta_1': '3', ...}
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        password_confirm = request.POST.get("password_confirm")
 
         if not username or not email or not password or not password_confirm:
-            messages.error(request, 'Preencha todos os campos.')
+            messages.error(request, "Preencha todos os campos.")
         elif password != password_confirm:
-            messages.error(request, 'As senhas não coincidem.')
+            messages.error(request, "As senhas não coincidem.")
         elif User.objects.filter(username=username).exists():
-            messages.error(request, 'Este nome de usuário já está em uso.')
+            messages.error(request, "Este nome de usuário já está em uso.")
         elif User.objects.filter(email=email).exists():
-            messages.error(request, 'Este e-mail já está cadastrado.')
+            messages.error(request, "Este e-mail já está cadastrado.")
         else:
             # Armazena os dados na sessão (sem criar o user ainda)
-            request.session['novo_usuario'] = {
-                'username': username,
-                'email': email,
-                'password': password
+            request.session["novo_usuario"] = {
+                "username": username,
+                "email": email,
+                "password": password,
             }
-            return redirect('padrinhoCadastro')
+            return redirect("padrinhoCadastro")
     return render(request, "apadrinhamento/padrinho/criar-usuario.html")
 
+
 def padrinho_cadastro(request):
-    novo_usuario = request.session.get('novo_usuario')
+    novo_usuario = request.session.get("novo_usuario")
 
     if not novo_usuario:
-        messages.error(request, 'Erro no fluxo de cadastro. Por favor, inicie novamente.')
-        return redirect('padrinhoCriarUsuario')
+        messages.error(
+            request, "Erro no fluxo de cadastro. Por favor, inicie novamente."
+        )
+        return redirect("padrinhoCriarUsuario")
 
-    if request.method == 'POST':
-        nome_completo = request.POST.get('nome_completo')
-        endereco = request.POST.get('endereco')
-        pais = request.POST.get('pais')
-        cidade = request.POST.get('cidade')
-        complemento_rua = request.POST.get('complemento_rua')
-        numero_rua = request.POST.get('numero_rua')
-        telefone = request.POST.get('telefone')
-        data_nascimento = request.POST.get('data_nascimento')
-        foto_perfil = request.FILES.get('foto_perfil')
+    if request.method == "POST":
+        nome_completo = request.POST.get("nome_completo")
+        endereco = request.POST.get("endereco")
+        pais = request.POST.get("pais")
+        cidade = request.POST.get("cidade")
+        complemento_rua = request.POST.get("complemento_rua")
+        numero_rua = request.POST.get("numero_rua")
+        telefone = request.POST.get("telefone")
+        data_nascimento = request.POST.get("data_nascimento")
+        foto_perfil = request.FILES.get("foto_perfil")
 
         # Cria o User agora
         user = User.objects.create_user(
-            username=novo_usuario['username'],
-            email=novo_usuario['email'],
-            password=novo_usuario['password']
+            username=novo_usuario["username"],
+            email=novo_usuario["email"],
+            password=novo_usuario["password"],
         )
         user.first_name = nome_completo
         user.save()
+
+        respostas = request.session.get("respostas_questionario", {})
 
         # Cria o Padrinho
         Padrinho.objects.create(
@@ -150,39 +221,53 @@ def padrinho_cadastro(request):
             numero_rua=numero_rua,
             telefone=telefone,
             foto=foto_perfil,
+            area_escolar=respostas["resposta_0"],
+            profissao_desejada_quando_crianca=respostas["resposta_1"],
+            profissao_atual=respostas["resposta_2"],
+            hobby=respostas["resposta_3"],
+            inspiracoes=respostas["resposta_4"],
+            valores=respostas["resposta_5"],
         )
 
         # Login e limpeza da sessão
         login(request, user)
-        request.session.pop('novo_usuario', None)
+        request.session.pop("novo_usuario", None)
 
-        return redirect('padrinhoEscolherApadrinhado')
+        return redirect("padrinhoEscolherApadrinhado")
 
     return render(request, "apadrinhamento/padrinho/cadastro.html")
+
 
 @login_required
 def padrinho_escolher_apadrinhado(request):
     apadrinhados = Apadrinhado.objects.all()[:3]
-    return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {'apadrinhados': apadrinhados})
+    return render(
+        request,
+        "apadrinhamento/padrinho/escolher-apadrinhado.html",
+        {"apadrinhados": apadrinhados},
+    )
+
 
 @login_required
 def padrinho_doacao(request, apadrinhado_id):
     apadrinhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
 
-    if not hasattr(request.user, 'padrinho'):
-        messages.error(request, 'Complete seu cadastro para poder doar.')
-        return redirect('padrinhoCadastro')
+    if not hasattr(request.user, "padrinho"):
+        messages.error(request, "Complete seu cadastro para poder doar.")
+        return redirect("padrinhoCadastro")
 
     padrinho = request.user.padrinho
 
     if apadrinhado.padrinho is not None:
-        messages.error(request, 'Este apadrinhado já possui um padrinho.')
-        return redirect('alguma_pagina')
+        messages.error(request, "Este apadrinhado já possui um padrinho.")
+        return redirect("alguma_pagina")
 
     apadrinhado.padrinho = padrinho
     apadrinhado.save()
 
-    return render(request, 'apadrinhamento/padrinho/doacao.html', {'apadrinhado': apadrinhado})
+    return render(
+        request, "apadrinhamento/padrinho/doacao.html", {"apadrinhado": apadrinhado}
+    )
 
 
 @login_required
@@ -190,9 +275,12 @@ def padrinho_feed(request):
     padrinho = Padrinho.objects.get(user=request.user)
     publicacoes = Publicacao.objects.filter(
         models.Q(publica=True) | models.Q(padrinho=padrinho)
-    ).order_by('-data_envio')
+    ).order_by("-data_envio")
 
-    return render(request, 'apadrinhamento/padrinho/feed.html', {'publicacoes': publicacoes})
+    return render(
+        request, "apadrinhamento/padrinho/feed.html", {"publicacoes": publicacoes}
+    )
+
 
 @login_required
 def padrinho_perfil(request):
@@ -200,42 +288,50 @@ def padrinho_perfil(request):
 
     if request.method == "POST":
         # Dados normais
-        padrinho.user.username = request.POST.get('nome')
-        padrinho.endereco = request.POST.get('endereco')
-        padrinho.pais = request.POST.get('pais')
-        padrinho.cidade = request.POST.get('cidade')
-        padrinho.numero_rua = request.POST.get('numero')
-        padrinho.complemento_rua = request.POST.get('complemento')
-        padrinho.telefone = request.POST.get('telefone')
+        padrinho.user.username = request.POST.get("nome")
+        padrinho.endereco = request.POST.get("endereco")
+        padrinho.pais = request.POST.get("pais")
+        padrinho.cidade = request.POST.get("cidade")
+        padrinho.numero_rua = request.POST.get("numero")
+        padrinho.complemento_rua = request.POST.get("complemento")
+        padrinho.telefone = request.POST.get("telefone")
 
         # Se o campo 'foto' estiver no POST, atualiza a imagem
-        if 'foto' in request.FILES:
-            padrinho.foto = request.FILES['foto']
+        if "foto" in request.FILES:
+            padrinho.foto = request.FILES["foto"]
 
         try:
             padrinho.user.save()  # Salva o usuário relacionado também
             padrinho.save()
-            return JsonResponse({
-            'status': 'ok',
-            'mensagem': 'Dados atualizados com sucesso!',
-            'nova_foto_url': padrinho.foto.url if padrinho.foto else ''
-        })
+            return JsonResponse(
+                {
+                    "status": "ok",
+                    "mensagem": "Dados atualizados com sucesso!",
+                    "nova_foto_url": padrinho.foto.url if padrinho.foto else "",
+                }
+            )
         except Exception as e:
-            return JsonResponse({'status': 'error', 'mensagem': str(e)})
+            return JsonResponse({"status": "error", "mensagem": str(e)})
 
     # GET - renderiza o template
     context = {
-        'nome': padrinho.user.username,
-        'email': padrinho.user.email,
-        'endereco': padrinho.endereco,
-        'pais': padrinho.pais,
-        'cidade': padrinho.cidade,
-        'numero': padrinho.numero_rua,
-        'complemento': padrinho.complemento_rua,
-        'telefone': padrinho.telefone,
-        'foto': padrinho.foto
+        "nome": padrinho.user.username,
+        "email": padrinho.user.email,
+        "endereco": padrinho.endereco,
+        "pais": padrinho.pais,
+        "cidade": padrinho.cidade,
+        "numero": padrinho.numero_rua,
+        "complemento": padrinho.complemento_rua,
+        "telefone": padrinho.telefone,
+        "foto": padrinho.foto,
     }
-    return render(request, 'apadrinhamento/padrinho/perfil.html', context)
+    return render(request, "apadrinhamento/padrinho/perfil.html", context)
+
+def padrinho_doacao_livre(request):
+    return render(request, "apadrinhamento/padrinho/doacao-livre.html")
+
+def padrinho_doacao_livre_checkout(request):
+    return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
 
 def padrinho_perguntas_view(request):
     return render(request, "perfil_perguntas.html")

@@ -15,5 +15,7 @@ urlpatterns = [
     path('padrinho/feed/', padrinho_feed, name='padrinhoFeed'),
     path('padrinho/perfil/', padrinho_perfil, name='padrinhoPerfil'),
     path("padrinho/perfil/perguntas/", padrinho_perguntas_view, name="padrinho_perguntas")
+    path('padrinho/doacao-livre/', padrinho_doacao_livre, name='padrinhoDoacaoLivre'),
+    path('padrinho/doacao-livre-checkout/', padrinho_doacao_livre_checkout, name='padrinhoDoacaoLivreCheckout'),
     # ---------------------------------
 ]

@@ -1,0 +1,124 @@
+{% extends 'shared/base_logout.html' %}
+{% load static %}
+
+{% block content %}
+<div style="background-color:#7cb6d6; padding: 40px; min-height: 100vh;">
+    <!-- Área principal -->
+    <div style="background-color: #d9d9d9; border-radius: 20px; padding: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <!-- Texto explicativo -->
+        <div style="width: 60%;">
+            <h3 style="text-align: center; font-weight: bold;">texto explicativo sobre as doações extras</h3>
+            <p style="text-align: center; margin-top: 20px; line-height: 1.6;">
+                Sua doação transforma vidas.<br>
+                Com sua ajuda, conseguimos levar<br>
+                educação, alimentação e acolhimento<br>
+                para centenas de crianças e famílias<br>
+                em situação de vulnerabilidade social.<br>
+                <br>
+                Cada contribuição é investida em<br>
+                projetos que geram impacto real:<br>
+                reforço escolar, oficinas culturais,<br>
+                ações de saúde, distribuição de cestas<br>
+                básicas e muito mais.<br>
+                <br>
+                O Instituto Solidare acredita no poder<br>
+                da solidariedade para construir um<br>
+                futuro mais justo. E você pode fazer<br>
+                parte disso com apenas um gesto.<br>
+                <br>
+                Ajude-nos a continuar espalhando<br>
+                esperança, oportunidades e amor.<br>
+                Doe agora e seja a mudança que o<br>
+                mundo precisa.<br>
+            </p>
+        </div>
+
+        <!-- Formulário de doação -->
+        <div style="width: 30%; text-align: center;">
+            <p style="font-weight: bold;">faça sua doação:</p>
+
+            <div style="margin-top: 20px;">
+    <label for="valor" style="font-weight: bold; display: block; margin-bottom: 10px;">
+        Digite o valor que deseja doar
+    </label>
+
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+        <span style="margin-right: 5px; font-weight: bold;">R$</span>
+        <input type="text" id="valor" required
+            oninput="formatarMoeda(this)"
+            placeholder="0,00"
+            style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc; background-color: #fff6f6;">
+    </div>
+
+    <button onclick="mostrarMetodos()" 
+        style="width: 100%; height: 60px; border-radius: 10px; background-color: #ffd43b; font-weight: bold; border: none; cursor: pointer;"
+        onmouseover="this.style.backgroundColor='#e6c237'" 
+        onmouseout="this.style.backgroundColor='#ffd43b'">
+        Prosseguir para o pagamento
+    </button>
+
+    <div id="metodos-pagamento" style="display: none; margin-top: 20px;">
+        <p style="font-weight: bold; margin-bottom: 10px;">Escolha o método de pagamento:</p>
+        
+        <button onclick="enviarDoacao('pix')" style="margin-bottom: 10px; width: 100%; padding: 10px; background-color: #4caf50; color: white; border: none; border-radius: 8px;">PIX</button>
+        <button onclick="enviarDoacao('boleto')" style="margin-bottom: 10px; width: 100%; padding: 10px; background-color: #2196f3; color: white; border: none; border-radius: 8px;">Boleto</button>
+        <button onclick="enviarDoacao('cartao')" style="width: 100%; padding: 10px; background-color: #ff9800; color: white; border: none; border-radius: 8px;">Cartão de Crédito/Débito</button>
+    </div>
+</div>
+
+<script>
+    function formatarMoeda(campo) {
+        let valor = campo.value.replace(/\D/g, "");
+        valor = (parseInt(valor, 10) / 100).toFixed(2) + "";
+        valor = valor.replace(".", ",");
+        valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        campo.value = valor;
+    }
+
+    function mostrarMetodos() {
+        const input = document.getElementById("valor").value;
+        const valorNumerico = parseFloat(input.replace(/\./g, "").replace(",", "."));
+
+        if (!valorNumerico || valorNumerico < 1) {
+            alert("Por favor, insira um valor válido para a doação (mínimo R$1,00).");
+            return;
+        }
+
+        document.getElementById("metodos-pagamento").style.display = "block";
+    }
+
+    function enviarDoacao(metodo) {
+        const input = document.getElementById("valor").value;
+        const valorNumerico = parseFloat(input.replace(/\./g, "").replace(",", "."));
+
+        fetch("{% url 'padrinhoDoacaoLivreCheckout' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify({
+                valor: valorNumerico.toFixed(2),
+                metodo_pagamento: metodo
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Doação de R$ " + input + " iniciada via " + metodo.toUpperCase());
+            } else {
+                alert("Erro ao iniciar a doação.");
+            }
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            alert("Erro ao enviar dados.");
+        });
+    }
+</script>
+
+        </div>
+{% include 'partials/circle-button.html' %}
+</body>
+
+</html>
+{% endblock %}
