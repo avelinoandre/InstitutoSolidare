@@ -47,6 +47,7 @@ class Padrinho(models.Model):
     
 class Publicacao(models.Model):
     titulo = models.CharField(max_length=255)
+    foto = models.ImageField(upload_to="fotos/")
     conteudo = models.TextField()
     data_envio = models.DateField(auto_now_add=True)
     
