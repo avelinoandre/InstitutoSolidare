@@ -1,24 +1,25 @@
 {% extends "shared/base_logout.html" %}
 {% load static %}
 {%  block content %}
-<div style="background-color: #9ec9f0; padding: 40px; min-height: 100vh;">
-    <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px;">
-            <div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
+<div style="background-color: #d9d9d9; border-radius: 20px; padding: 30px; display: flex; gap: 20px;">
 
-        <!-- Coluna lateral com foto e botões -->
-        <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            {% if foto %}
-            <img id="foto-preview" src="{{ foto.url }}" alt="Foto do Padrinho" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            {% else %}
-            <p id="foto-preview" style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
-            {% endif %}
+    <!-- Coluna lateral com foto e botões -->
+    <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        {% if foto %}
+        <img id="foto-preview" src="{{ foto.url }}" alt="Foto do Padrinho" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+        {% else %}
+        <p id="foto-preview" style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
+        {% endif %}
 
-            <input type="file" id="foto" name="foto" accept="image/*" style="width: 100%;"/>
+        <input type="file" id="foto" name="foto" accept="image/*" style="width: 100%;"/>
 
-            <a href="{% url 'padrinhoPerfil' %}" style="background-color: #1c2c3c; color: white; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar dados</a>
-            <a href="{% url 'padrinhoAlterarValores' %}" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar valores</a>
-        </div>
+        <a href="{% url 'padrinhoPerfil' %}" style="background-color: #1c2c3c; color: white; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar dados</a>
+        <a href="{% url 'padrinhoAlterarValores' %}" style="background-color: #7aaad6; color: black; text-decoration: none; font-weight: bold; width: 100%; text-align: center; padding: 10px; border-radius: 6px;">Alterar valores</a>
+    </div>
 
+    <!-- Container das perguntas e botão separados -->
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+        <!-- Perguntas -->
         <div id="perguntas-container" style="display: flex; flex-direction: column; gap: 30px;">
             {% for pergunta in perguntas %}
             <div>
@@ -33,7 +34,8 @@
             {% endfor %}
         </div>
 
-        <div style="text-align: center; margin-top: 40px;">
+        <!-- Botão e popup abaixo das perguntas -->
+        <div style="text-align: center; margin-top: 20px;">
             <button onclick="salvarRespostas()" style="
                 background-color: #ffd43b;
                 font-weight: bold;
@@ -44,10 +46,11 @@
             " onmouseover="this.style.backgroundColor='#e6c237'" onmouseout="this.style.backgroundColor='#ffd43b'">
                 SALVAR RESPOSTAS
             </button>
-        </div>
 
-        <div id="popup" style="display:none; margin-top: 20px; text-align: center; font-weight: bold;"></div>
+            <div id="popup" style="display:none; margin-top: 20px; text-align: center; font-weight: bold;"></div>
+        </div>
     </div>
+
 </div>
 <script>
 function salvarRespostas() {

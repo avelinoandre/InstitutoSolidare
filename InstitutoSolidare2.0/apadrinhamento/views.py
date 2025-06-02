@@ -386,10 +386,12 @@ def padrinho_alterar_valores(request):
         except json.JSONDecodeError:
             return JsonResponse({"mensagem": "Erro ao processar dados."}, status=400)
 
+    padrinho = request.user.padrinho
     # GET: carregar página
     context = {
         "perguntas": perguntas_padrinho,
         "respostas_usuario": [],
+        "foto": padrinho.foto,
     }
     return render(request, "apadrinhamento/padrinho/alterar-valores.html", context)
 
