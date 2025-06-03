@@ -619,6 +619,26 @@ def adm_gerenciar_cartas(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
 def adm_escrever_carta(request):
+    if request.method == "POST":
+        recipient_name = request.POST.get("recipient")
+        message = request.POST.get("short_message")
+
+        if recipient_name:
+            apadrinhado = Apadrinhado.objects.get(nome=recipient_name)
+
+            if padrinho and message:
+                carta = Carta.objects.create(
+                    titulo=short_message or "Sem título",
+                    conteudo=message,
+                    apadrinhado=apadrinhado,
+                    padrinho=request.user.padrinho,
+                    remetente_tipo="Padrinho",
+                )
+                return HttpResponse("Carta enviada com sucesso!")
+
+        else:
+            return HttpResponse("Erro: destinatário não informado.", status=400)
+
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
 
 def adm_programado(request):
@@ -638,7 +658,7 @@ def adm_novo_post(request):
         publico_foi_pressionado = request.POST.get("publico_foi_pressionado") == "True"
 
         # Validação e criação (exemplo genérico)
-        
+
         if titulo and conteudo:
             apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id) if host_afiliado_id else None
             padrinho = None

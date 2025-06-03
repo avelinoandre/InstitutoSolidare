@@ -211,6 +211,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    height: 85vh; 
+}
+
+.main-content.message-compose > form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .recipient-select {
@@ -261,6 +268,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-top: auto;
 }
 
 .message-send-box .text-input.send-input {
