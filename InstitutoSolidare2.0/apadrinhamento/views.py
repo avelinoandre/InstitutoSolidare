@@ -28,6 +28,9 @@ class Pergunta:
 def home(request):
     return render(request, "apadrinhamento/home.html")
 
+def new_home(request):
+    return render(request, "apadrinhamento/new_home.html")
+
 
 # =====================================================================
 # LOGIN PADRINHO
