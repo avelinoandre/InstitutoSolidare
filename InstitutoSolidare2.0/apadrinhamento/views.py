@@ -618,10 +618,10 @@ def adm_escrever_carta(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
 
 def adm_programado(request):
-    return render(request, "apadrinhamento/adm/gerenciamento_cartas/programado.html")
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
 
 def adm_respondidas(request):
-    return render(request, "apadrinhamento/adm/gerenciamento_cartas/cartas_respondidas.html")
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
 
 def adm_novo_post(request):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html")

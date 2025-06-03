@@ -14,15 +14,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     background-color: #f0f0f0;
-    overflow: hidden;
+    overflow-x: hidden; /* previne overflow lateral */
 }
 
 .container {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -74,7 +73,8 @@ body {
 }
 
 .content-area {
-    min-width: 100vw;
+    min-width: 100%;
+    min-width: 0;
     min-height: 90vh;
     display: flex;
     flex: 1;
@@ -150,7 +150,8 @@ body {
 
 .main-content {
     flex: 1;
-    min-width: 100vw;
+    min-width: 100%;
+    min-width: 0;
     background-color: white;
     border-radius: var(--border-radius);
     padding: 20px;
