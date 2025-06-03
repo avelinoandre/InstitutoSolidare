@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <style>
+  /* (Mesmo CSS anterior, mantido para preservar o layout) */
   .form-container {
     padding: 30px;
     display: flex;
@@ -25,7 +26,7 @@
     color: #003049;
   }
 
-  form {
+  .fields {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -93,39 +94,39 @@
     width: 100%;
   }
 </style>
+<div id="popup" style="display:none; text-align: center; font-weight: bold;"></div>
 
 <div class="form-container">
   <div class="form-card">
     <h2>Novo Afilhado</h2>
 
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
+    <div class="fields">
 
       <label>Nome:
-        <input type="text" name="nome" required>
+        <input type="text" id="nome" required>
       </label>
 
       <label>Data de Nascimento:
-        <input type="date" name="data_nascimento" required>
+        <input type="date" id="data_nascimento" required>
       </label>
 
       <label>Gênero:
-        <input type="text" name="genero" required>
+        <input type="text" id="genero" required>
       </label>
 
       <label>Endereço:
-        <input type="text" name="endereco" required>
+        <input type="text" id="endereco" required>
       </label>
 
       <label>Meu sonho:
-        <input type="text" name="info" required>
+        <input type="text" id="info" required>
       </label>
 
       <div id="perguntas-container" class="full-width">
         {% for pergunta in perguntas %}
         <div>
           <label>{{ pergunta.pergunta }}
-            <select name="resposta_{{ forloop.counter0 }}" id="resposta-{{ forloop.counter0 }}">
+            <select id="resposta-{{ forloop.counter0 }}">
               {% for opcao in pergunta.respostas %}
               <option value="{{ forloop.counter0 }}">{{ opcao }}</option>
               {% endfor %}
@@ -136,17 +137,60 @@
       </div>
 
       <label class="full-width">Foto:
-        <input type="file" name="foto" required>
+        <input type="file" id="foto" required>
       </label>
 
       <label class="full-width">Foto para padrinho:
-        <input type="file" name="foto_para_padrinho" required>
+        <input type="file" id="foto_para_padrinho" required>
       </label>
 
       <div class="submit-button full-width">
-        <button type="submit">Salvar</button>
+          <button type="button" onclick="salvarAfilhado()">Salvar</button>
       </div>
-    </form>
+
   </div>
 </div>
+
+<script>
+function salvarAfilhado() {
+  const formData = new FormData();
+  formData.append('nome', document.getElementById('nome').value);
+  formData.append('data_nascimento', document.getElementById('data_nascimento').value);
+  formData.append('genero', document.getElementById('genero').value);
+  formData.append('endereco', document.getElementById('endereco').value);
+  formData.append('info', document.getElementById('info').value);
+  formData.append('foto', document.getElementById('foto').files[0]);
+  formData.append('foto_para_padrinho', document.getElementById('foto_para_padrinho').files[0]);
+
+  const respostas = [];
+
+  document.querySelectorAll('[id^="resposta-"]').forEach(select => {
+    respostas.push(parseInt(select.value));
+  });
+
+  formData.append('respostas', JSON.stringify(respostas));
+
+  fetch("{% url 'cadastrarAfilhado' %}", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": "{{ csrf_token }}"
+    },
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+  const popup = document.getElementById('popup');
+  popup.innerText = data.mensagem || 'Afilhado salvo com sucesso!';
+  popup.style.display = 'block';
+  popup.style.color = data.sucesso ? "#155724" : "#721c24";
+  popup.style.backgroundColor = data.sucesso ? "#d4edda" : "#f8d7da";
+  popup.style.padding = "12px";
+  popup.style.borderRadius = "8px";
+
+  if (data.sucesso && data.redirect_url) {
+      setTimeout(() => window.location.href = data.redirect_url, 2000);
+    }
+  });
+}
+</script>
 {% endblock %}

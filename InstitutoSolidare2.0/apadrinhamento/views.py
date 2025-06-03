@@ -587,9 +587,13 @@ def cadastrar_afilhado(request):
             foto=foto,
             foto_para_padrinho=foto_para_padrinho,
         )
-        return redirect("gerenciarAfilhados")        # ajuste sua rota
 
-    # GET – renderiza o formulário
+        return JsonResponse({
+            "sucesso": True,
+            "mensagem": "Afilhado cadastrado com sucesso!",
+            "redirect_url": "/adm/gerenciar-afilhados/"
+        })
+
     return render(
         request,
         "apadrinhamento/adm/cadastrar-afilhado.html",
