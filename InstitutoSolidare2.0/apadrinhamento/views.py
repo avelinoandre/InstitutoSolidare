@@ -289,6 +289,7 @@ def padrinho_escolher_apadrinhado(request):
         a.valores_nome = resposta_texto(a.valores, 5)
         a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
         a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
+        a.info_texto = a.info
 
     return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {
         'apadrinhados': top_3,
@@ -429,6 +430,7 @@ def padrinho_meus_apadrinhados(request):
         a.valores_nome = resposta_texto(a.valores, 5)
         a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
         a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
+        a.info_texto = a.info
 
     return render(
         request,
