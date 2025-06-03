@@ -666,7 +666,7 @@ def adm_novo_post(request):
                 padrinho = apadrinhado.padrinho
 
             Publicacao.objects.create(
-                publica=publico_foi_pressionado,
+                publica=not publico_foi_pressionado,
                 padrinho=padrinho,
                 titulo=titulo,
                 conteudo=conteudo,
