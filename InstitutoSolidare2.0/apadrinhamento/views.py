@@ -531,8 +531,8 @@ def editar_afilhado(request, apadrinhado_id):
 
     return render(request, 'apadrinhamento/adm/afilhado_editar.html', {'afilhado': afilhado})
 
-def excluir_afilhado(request, id):
-    afilhado = get_object_or_404(Apadrinhado, id=id)
+def excluir_afilhado(request, apadrinhado_id):
+    afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
     afilhado.delete()
     return redirect('lista_afilhados')
 
