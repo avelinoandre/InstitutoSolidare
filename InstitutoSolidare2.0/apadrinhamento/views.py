@@ -689,3 +689,6 @@ def adm_novo_post(request):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
         "apadrinhados": apadrinhados,
     })
+
+def adm_editar_post(request, id):
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html")
