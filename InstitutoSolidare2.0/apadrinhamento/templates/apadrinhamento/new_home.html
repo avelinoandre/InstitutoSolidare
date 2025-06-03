@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=123">
+    <title>Instituto Solidare</title>
+</head>
+<body>
+    <header>
+        <img src="{% static "img\logo.png" %}" alt="" width="54" height="61" class="logo-image">
+        <section class="icons-login">
+            <section class="flags-icons">
+                <img src="https://flagcdn.com/w40/br.png" alt="Bandeira Brasil" width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/us.png" alt="Bandeira Estados Unidos" width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/es.png" alt="Bandeira Espanha" width="50" height="40" class="flag">
+            </section>
+            <section class="login">
+                <a href="{% url "padrinhoLogin" %}" class="login-btn">Entrar</a>
+            </section>
+        </section>
+    </header>
+    <main>
+
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
