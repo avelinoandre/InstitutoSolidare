@@ -683,48 +683,37 @@ def adm_respondidas(request):
     cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True)
     return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html", {"respondidas": cartas_respondidas})
 
-@csrf_exempt  # só se não usar {% csrf_token %} no HTML — caso use, remova isso!
+@csrf_exempt
 def adm_novo_post(request):
     if request.method == "POST":
-        host_afiliado_id = request.POST.get("host_afiliado")
-        titulo = request.POST.get("titulo")
-        conteudo = request.POST.get("conteudo")
-        foto = request.FILES.get("foto")
-        publico_foi_pressionado = request.POST.get("publico") == "True"  # adaptado ao seu JS
+        host_id   = request.POST.get("host_afiliado")  # '' se não veio nada
+        titulo    = request.POST.get("titulo")
+        conteudo  = request.POST.get("conteudo")
+        foto      = request.FILES.get("foto")
 
-        if not titulo or not conteudo:
-            return JsonResponse({"sucesso": False, "mensagem": "Preencha todos os campos obrigatórios."})
-        
+        publica = not host_id         # True se host_id é '', None ou falsy
         apadrinhado = None
-        padrinho = None
+        if not publica:
+            apadrinhado = get_object_or_404(Apadrinhado, id=host_id)
 
-        if host_afiliado_id:
-            try:
-                apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id)
-                padrinho = apadrinhado.padrinho
-            except Apadrinhado.DoesNotExist:
-                return JsonResponse({"sucesso": False, "mensagem": "Afilhado não encontrado."})
-
-            Publicacao.objects.create(
-                publica=not publico_foi_pressionado,
-                padrinho=padrinho,
-                titulo=titulo,
-                conteudo=conteudo,
-                foto=foto  # ajuste o nome do campo no seu modelo
-            )
-            return redirect('gerenciarFeed')
+        Publicacao.objects.create(
+            publica=publica,
+            apadrinhado=apadrinhado,
+            titulo=titulo,
+            conteudo=conteudo,
+            foto=foto
+        )
 
         return JsonResponse({
-            "sucesso": True,
             "mensagem": "Post criado com sucesso!",
-            "redirect_url": reverse("gerenciarFeed")
+            "redirect_url": reverse('gerenciarFeed')  # ou reverse('gerenciarFeed')
         })
 
-    # Se for GET (renderizar a página)
     apadrinhados = Apadrinhado.objects.all()
-    return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
-        "apadrinhados": apadrinhados,
-    })
+    return render(request,
+        "apadrinhamento/adm/gerenciamento_feed/novo_post.html",
+        {"apadrinhados": apadrinhados}
+    )
 
 def adm_editar_post(request, id):
     post = get_object_or_404(Publicacao, id=id)

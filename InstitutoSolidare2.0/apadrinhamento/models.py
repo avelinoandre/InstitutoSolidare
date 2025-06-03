@@ -67,6 +67,14 @@ class Publicacao(models.Model):
         help_text="Somente para cartas privadas. Deixe em branco para cartas públicas."
     )
 
+    apadrinhado = models.ForeignKey(
+        Apadrinhado,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        help_text="Somente para cartas privadas. Deixe em branco para cartas públicas."
+    )
+
     def __str__(self):
         if self.publica:
             return f"Carta pública: {self.titulo}"
