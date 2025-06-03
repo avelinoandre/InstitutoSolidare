@@ -3,7 +3,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", new_home, name="new_home"),
+    path("", home, name="home"),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     # ---------------------------------
     path("padrinho/login/", padrinho_login, name="padrinhoLogin"),
