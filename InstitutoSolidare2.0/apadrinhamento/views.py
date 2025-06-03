@@ -214,18 +214,16 @@ def padrinho_cadastro(request):
                 email=novo_usuario["email"],
                 password=novo_usuario["password"],
             )
-            user.save()
         except Exception as e:
             messages.error(request, "Erro ao criar usuário. Tente novamente.")
             return render(request, "apadrinhamento/padrinho/cadastro.html")
 
         respostas = request.session.get("respostas_questionario", {})
-
         try:
             padrinho = Padrinho.objects.create(
                 nome_completo=nome_completo,
                 user=user,
-                data_nascimento=data_nascimento,
+                data_nascimento=datetime.strptime(data_nascimento, "%Y-%m-%d").date(),
                 endereco=endereco,
                 pais=pais,
                 cidade=cidade,
@@ -234,13 +232,13 @@ def padrinho_cadastro(request):
                 telefone=telefone,
                 foto=foto_perfil if foto_perfil else None,
                 area_escolar=respostas.get("resposta_0", ""),
-                profissao_atual=respostas.get("resposta_2", ""),
-                hobby=respostas.get("resposta_3", ""),
-                inspiracoes=respostas.get("resposta_4", ""),
-                valores=respostas.get("resposta_5", ""),
+                profissao_atual=respostas.get("resposta_1", ""),
+                hobby=respostas.get("resposta_2", ""),
+                inspiracoes=respostas.get("resposta_3", ""),
+                valores=respostas.get("resposta_4", ""),
             )
         except Exception as e:
-            messages.error(request, "Erro ao salvar os dados. Tente novamente.")
+            messages.error(request, e)
             return render(request, "apadrinhamento/padrinho/cadastro.html")
 
         login(request, user)
