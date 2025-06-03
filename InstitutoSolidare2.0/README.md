@@ -337,8 +337,16 @@ https://nossosonho.azurewebsites.net/
 ### Bug Open ??:
 ![Open 1]()
 
-### Bug closed ??:
-![Closed 1]()
+### Bug closed 7:
+![Close 7](img_readme\BUGCLOSED7.png)
+
+### Bug closed 8:
+![Close 7](img_readme\BUGCLOSED8.png)
+
+### Bug closed 9:
+![Close 7](img_readme\BUGCLOSED8.png)
+
+
 
 </details>
 
