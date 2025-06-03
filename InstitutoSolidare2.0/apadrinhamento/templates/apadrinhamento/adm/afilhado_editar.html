@@ -42,33 +42,29 @@
             <!-- Perguntas do questionário -->
             <div id="perguntas-container" style="display: flex; flex-direction: column; gap: 30px;">
                 {% for pergunta in perguntas %}
-                <div>
-                    <div>{{ pergunta.pergunta }}</div>
-                    <select id="resposta-{{ forloop.counter0 }}">
-                        {% for opcao in pergunta.respostas %}
-                            <option value="{{ forloop.counter0 }}"
-                                {% if forloop.counter0 == respostas_usuario|slice:forloop.parentloop.counter0|stringformat:"d"|default:"-1" %}
-                                    selected
-                                {% endif %}>
-                                {{ opcao }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% endfor %}
+            <div>
+                <div>{{ pergunta.pergunta }}</div>
+
+                <select id="resposta-{{ forloop.counter0 }}">
+                    {% for opcao in pergunta.respostas %}
+                        <option value="{{ forloop.counter0 }}"
+                            {% if forloop.counter0 == pergunta.resposta_usuario %}
+                                selected
+                            {% endif %}
+                        >{{ opcao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
             </div>
 
             <!-- Botões de ação -->
             <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button onclick="salvarAfilhado({{ afilhado.id }})"
-                        style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
-                    Alterar Dados
-                </button>
 
-                <button onclick="salvarRespostas({{ afilhado.id }})"
-                        style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
-                    Salvar Respostas
-                </button>
+                    <button onclick="salvarTudo({{ afilhado.id }})"
+                    style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
+                Salvar
+            </button>
 
                 <button onclick="confirmarExclusao({{ afilhado.id }})"
                         style="background-color: #ff4d4d; padding: 10px 20px; border-radius: 6px; font-weight: bold; color: white;">
@@ -83,15 +79,16 @@
 </div>
 
 <script>
-function salvarAfilhado(id) {
+function salvarTudo(id) {
+    const selects = document.querySelectorAll('[id^="resposta-"]');
+    const respostas = Array.from(selects).map(select => parseInt(select.value));
+
     const data = {
         nome: document.getElementById("nome").value,
         data_nascimento: document.getElementById("data_nascimento").value,
-        usuario: document.getElementById("usuario").value,
         endereco: document.getElementById("endereco").value,
-        tags: document.getElementById("tags").value,
-        curso: document.getElementById("curso").value,
-        sonho: document.getElementById("sonho").value
+        sonho: document.getElementById("sonho").value,
+        respostas: respostas
     };
 
     fetch("{% url 'editarAfilhado' afilhado.id %}", {
@@ -102,37 +99,15 @@ function salvarAfilhado(id) {
         },
         body: JSON.stringify(data)
     })
-    .then(resp => resp.json())
+    .then(response => response.json())
     .then(res => {
         const popup = document.getElementById("popup");
         popup.style.display = "block";
-        popup.innerText = res.mensagem || "Atualizado com sucesso!";
+        popup.innerText = res.mensagem || "Dados salvos com sucesso!";
         popup.style.color = res.sucesso ? "#155724" : "#721c24";
         popup.style.backgroundColor = res.sucesso ? "#d4edda" : "#f8d7da";
         popup.style.padding = "12px";
         popup.style.borderRadius = "8px";
-    });
-}
-
-function salvarRespostas(id) {
-    const selects = document.querySelectorAll('[id^="resposta-"]');
-    const respostas = [];
-
-    selects.forEach(select => respostas.push(parseInt(select.value)));
-
-    fetch(`/adm/gerenciar-afilhados/${id}/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}",
-        },
-        body: JSON.stringify({ respostas })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const popup = document.getElementById("popup");
-        popup.innerText = data.mensagem || "Respostas salvas com sucesso!";
-        popup.style.display = "block";
     });
 }
 

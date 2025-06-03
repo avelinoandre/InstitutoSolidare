@@ -493,7 +493,6 @@ def editar_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, pk=apadrinhado_id)
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
         afilhado.nome = data.get("nome", afilhado.nome)
         #afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
         afilhado.save()
@@ -512,8 +511,20 @@ def editar_afilhado(request, apadrinhado_id):
             return JsonResponse({"mensagem": "Respostas atualizadas com sucesso!"})
         except Exception as e:
             return JsonResponse({"mensagem": f"Erro: {str(e)}"}, status=400)
-            
+    # GET: carregar página
+    respostas_atuais = [
+    afilhado.area_escolar,
+    afilhado.profissao_desejada,
+    afilhado.hobby,
+    afilhado.inspiracoes,
+    afilhado.valores,
+]
 
+    # Copia as perguntas e adiciona o campo "resposta_usuario"
+    perguntas = perguntas_padrinho.copy()
+
+    for i, pergunta in enumerate(perguntas):
+        pergunta.resposta_usuario = respostas_atuais[i]
     # GET: carregar a tela
     respostas_usuario = [
     afilhado.area_escolar,
@@ -525,7 +536,7 @@ def editar_afilhado(request, apadrinhado_id):
 
     context = {
         "afilhado": afilhado,
-        "perguntas": perguntas_padrinho,
+        "perguntas": perguntas,
         "respostas_usuario": respostas_usuario,
     }
     return render(request, "apadrinhamento/adm/afilhado_editar.html", context)
