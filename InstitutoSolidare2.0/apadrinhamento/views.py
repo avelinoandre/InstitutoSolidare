@@ -120,14 +120,17 @@ def padrinho_questionario(request, indice=0):
     opcoes_resposta = list(enumerate(pergunta_atual.respostas))
     total_perguntas = len(perguntas_padrinho)
 
+    perguntas_range = range(1, total_perguntas + 1)
+
     return render(
         request,
         "apadrinhamento/padrinho/questionario.html",
         {
             "pergunta_texto": pergunta_atual.pergunta,
             "opcoes_resposta": opcoes_resposta,
-            "pergunta_atual": indice,
+            "pergunta_atual": indice + 1,
             "total_perguntas": total_perguntas,
+            "perguntas_range": perguntas_range,
             "pergunta_anterior_url": (
                 reverse("padrinhoQuestionario", args=[indice - 1])
                 if indice > 0
@@ -135,7 +138,6 @@ def padrinho_questionario(request, indice=0):
             ),
         },
     )
-
 
 @csrf_exempt
 def padrinho_salvar_respostas(request):
