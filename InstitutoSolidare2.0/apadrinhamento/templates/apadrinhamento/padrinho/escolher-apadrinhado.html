@@ -19,11 +19,11 @@
             <p><strong>Idade:</strong> {{ a.idade }} anos</p>
 
             <div class="gostos">
-                {% if a.hobby %}<p><strong>Hobby:</strong> {{ a.hobby }}</p>{% endif %}
-                {% if a.inspiracoes %}<p><strong>Inspirações:</strong> {{ a.inspiracoes }}</p>{% endif %}
-                {% if a.valores %}<p><strong>Valores:</strong> {{ a.valores }}</p>{% endif %}
-                {% if a.area_escolar %}<p><strong>Área escolar:</strong> {{ a.area_escolar }}</p>{% endif %}
-                {% if a.profissao_desejada %}<p><strong>Profissão desejada:</strong> {{ a.profissao_desejada }}</p>{% endif %}
+                {% if a.hobby_nome %}<p><strong>Hobby:</strong> {{ a.hobby_nome }}</p>{% endif %}
+                {% if a.inspiracoes_nome %}<p><strong>Inspirações:</strong> {{ a.inspiracoes_nome }}</p>{% endif %}
+                {% if a.valores_nome %}<p><strong>Valores:</strong> {{ a.valores_nome }}</p>{% endif %}
+                {% if a.area_escolar_nome %}<p><strong>Área escolar:</strong> {{ a.area_escolar_nome }}</p>{% endif %}
+                {% if a.profissao_desejada_nome %}<p><strong>Profissão desejada:</strong> {{ a.profissao_desejada_nome }}</p>{% endif %}
             </div>
 
             <a href="{% url 'padrinhoDoacao' a.id %}" class="afiliar-btn">Afiliar</a>
