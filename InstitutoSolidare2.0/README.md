@@ -341,10 +341,14 @@ https://nossosonho.azurewebsites.net/
 ![Close 7](img_readme\BUGCLOSED7.png)
 
 ### Bug closed 8:
-![Close 7](img_readme\BUGCLOSED8.png)
+![Close 8](img_readme\BUGCLOSED8.png)
 
 ### Bug closed 9:
-![Close 7](img_readme\BUGCLOSED8.png)
+![Close 9](img_readme\BUGCLOSED9.png)
+
+### Bug closed 10:
+![Close 10](img_readme\BUGCLOSED10.png)
+
 
 
 
