@@ -3,68 +3,82 @@
 
 {% block content %}
 <div style="padding: 30px;">
-    <div style="background-color: #85bce2; padding: 30px; border-radius: 20px;">
-        <!-- Foto e campos -->
-        <div style="display: flex; gap: 20px;">
-            <div style="width: 200px; height: 200px; background-color: #ccc; border-radius: 8px;">
-                {% if afilhado.foto %}
-                    <img src="{{ afilhado.foto.url }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-                {% endif %}
+    <div style="background-color: #85bce2; padding: 30px; border-radius: 20px; display: flex; gap: 30px;">
+
+        <!-- Coluna lateral com foto -->
+        <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            {% if afilhado.foto %}
+                <img src="{{ afilhado.foto.url }}" alt="Foto do Afilhado" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            {% else %}
+                <p style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
+            {% endif %}
+        </div>
+
+        <!-- Informações + Perguntas -->
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 30px;">
+
+            <!-- Campos editáveis -->
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                    <label>Nome:
+                        <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%;">
+                    </label>
+                    <label>Data de Nascimento:
+                        <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento }}">
+                    </label>
+                </div>
             </div>
 
-            <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
-                <label>Nome:
-                    <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%;">
-                </label>
-                <label>Data de Nascimento:
-                    <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento }}">
+            <label>Endereço:
+                <input type="text" id="endereco" value="{{ afilhado.endereco }}" style="width: 100%;">
+            </label>
+
+            <div style="display: flex; gap: 20px;">
+                <label style="flex: 1;">Meu Sonho:
+                    <textarea id="sonho" style="width: 100%;">{{ afilhado.sonho }}</textarea>
                 </label>
             </div>
+
+            <!-- Perguntas do questionário -->
+            <div id="perguntas-container" style="display: flex; flex-direction: column; gap: 30px;">
+                {% for pergunta in perguntas %}
+                <div>
+                    <div>{{ pergunta.pergunta }}</div>
+                    <select id="resposta-{{ forloop.counter0 }}">
+                        {% for opcao in pergunta.respostas %}
+                            <option value="{{ forloop.counter0 }}"
+                                {% if forloop.counter0 == respostas_usuario|slice:forloop.parentloop.counter0|stringformat:"d"|default:"-1" %}
+                                    selected
+                                {% endif %}>
+                                {{ opcao }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Botões de ação -->
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="salvarAfilhado({{ afilhado.id }})"
+                        style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
+                    Alterar Dados
+                </button>
+
+                <button onclick="salvarRespostas({{ afilhado.id }})"
+                        style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
+                    Salvar Respostas
+                </button>
+
+                <button onclick="confirmarExclusao({{ afilhado.id }})"
+                        style="background-color: #ff4d4d; padding: 10px 20px; border-radius: 6px; font-weight: bold; color: white;">
+                    Excluir Afilhado
+                </button>
+            </div>
+
+            <!-- Alerta -->
+            <div id="popup" style="display:none; margin-top: 20px; font-weight: bold;"></div>
         </div>
-
-        <label style="display: block; margin-top: 10px;">Endereço:
-            <input type="text" id="endereco" value="{{ afilhado.endereco }}" style="width: 100%;">
-        </label>
-
-        <div style="display: flex; gap: 20px; margin-top: 10px;">
-            <label style="flex: 1;">Meu Sonho:
-                <textarea id="sonho" style="width: 100%;">{{ afilhado.sonho }}</textarea>
-            </label>
-        </div>
-
-        <!-- Perguntas -->
-        <div style="margin-top: 30px;">
-        {% for idx, pergunta, resposta_atual in perguntas_formatadas %}
-            <label style="display: block; margin-bottom: 15px;">
-                <strong>{{ pergunta.pergunta }}</strong><br>
-                <select id="pergunta_{{ idx }}" style="width: 100%; padding: 6px;">
-                    {% for opcao in pergunta.opcoes %}
-                        <option value="{{ opcao }}" {% if resposta_atual == opcao %}selected{% endif %}>
-                            {{ opcao }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </label>
-        {% endfor %}
-
-        </div>
-
-        <!-- Botões -->
-        <div style="margin-top: 20px;">
-            <button onclick="salvarAfilhado({{ afilhado.id }})"
-                    style="background-color: #ffd43b; padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold;">
-                Alterar Dados
-            </button>
-
-           <button onclick="confirmarExclusao({{ afilhado.id }})"
-                style="background-color: #ffd43b; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; color: black; margin-left: 10px;">
-            Excluir afilhado
-        </button>
-
-        </div>
-
-        <!-- Alerta de resultado -->
-        <div id="popup" style="display:none; margin-top: 20px; font-weight: bold;"></div>
     </div>
 </div>
 
@@ -73,19 +87,14 @@ function salvarAfilhado(id) {
     const data = {
         nome: document.getElementById("nome").value,
         data_nascimento: document.getElementById("data_nascimento").value,
+        usuario: document.getElementById("usuario").value,
         endereco: document.getElementById("endereco").value,
-        sonho: document.getElementById("sonho").value,
+        tags: document.getElementById("tags").value,
+        curso: document.getElementById("curso").value,
+        sonho: document.getElementById("sonho").value
     };
 
-
-    for (let i = 1; i <= 6; i++) {
-        data[`pergunta_${i}`] = document.getElementById(`pergunta_${i}`).value;
-    }
-
-    fetch(`/afilhado/${id}/`, {
-
     fetch("{% url 'editarAfilhado' afilhado.id %}", {
-
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -104,7 +113,30 @@ function salvarAfilhado(id) {
         popup.style.borderRadius = "8px";
     });
 }
-function confirmarExclusao(afilhadoId) {
+
+function salvarRespostas(id) {
+    const selects = document.querySelectorAll('[id^="resposta-"]');
+    const respostas = [];
+
+    selects.forEach(select => respostas.push(parseInt(select.value)));
+
+    fetch(`/adm/gerenciar-afilhados/${id}/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}",
+        },
+        body: JSON.stringify({ respostas })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const popup = document.getElementById("popup");
+        popup.innerText = data.mensagem || "Respostas salvas com sucesso!";
+        popup.style.display = "block";
+    });
+}
+
+function confirmarExclusao(id) {
     if (confirm("Tem certeza que deseja excluir este afilhado? Essa ação não poderá ser desfeita.")) {
         window.location.href = "{% url 'excluir_afilhado' afilhado.id %}";
     }

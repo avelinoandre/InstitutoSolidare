@@ -545,20 +545,45 @@ def lista_afilhados(request):
 
 @csrf_exempt
 def editar_afilhado(request, apadrinhado_id):
-    afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
-    
-    if request.method == 'POST':
+    afilhado = get_object_or_404(Apadrinhado, pk=apadrinhado_id)
+    if request.method == "POST":
         data = json.loads(request.body)
         print(data)
         afilhado.nome = data.get("nome", afilhado.nome)
-        afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
-        afilhado.endereco = data.get("endereco", afilhado.endereco)
-        afilhado.sonho = data.get("sonho", afilhado.sonho)
         #afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
         afilhado.save()
-        return JsonResponse({"sucesso": True, "mensagem": "Afilhado atualizado com sucesso."})
+        try:
+            data = json.loads(request.body)
+            respostas = data.get("respostas", [])
 
-    return render(request, 'apadrinhamento/adm/afilhado_editar.html', {'afilhado': afilhado})
+            afilhado.area_escolar = int(respostas[0])
+            afilhado.profissao_desejada = int(respostas[1])
+            afilhado.hobby = int(respostas[2])
+            afilhado.inspiracoes = int(respostas[3])
+            afilhado.valores = int(respostas[4])
+
+            afilhado.save()
+
+            return JsonResponse({"mensagem": "Respostas atualizadas com sucesso!"})
+        except Exception as e:
+            return JsonResponse({"mensagem": f"Erro: {str(e)}"}, status=400)
+            
+
+    # GET: carregar a tela
+    respostas_usuario = [
+    afilhado.area_escolar,
+    afilhado.profissao_desejada,
+    afilhado.hobby,
+    afilhado.inspiracoes,
+    afilhado.valores,
+    ]
+
+    context = {
+        "afilhado": afilhado,
+        "perguntas": perguntas_apadrinhado,
+        "respostas_usuario": respostas_usuario,
+    }
+    return render(request, "apadrinhamento/adm/afilhado_editar.html", context)
 
 def excluir_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
@@ -577,7 +602,10 @@ def adm_escrever_carta(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
 
 def adm_programado(request):
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
+    return render(request, "apadrinhamento/adm/gerenciamento_cartas/programado.html")
 
 def adm_respondidas(request):
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
+    return render(request, "apadrinhamento/adm/gerenciamento_cartas/cartas_respondidas.html")
+
+def adm_novo_post(request):
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html")
