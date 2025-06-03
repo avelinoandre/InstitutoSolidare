@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+<style>
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+</style>
 <div style="padding: 30px;">
     <div style="background-color: #85bce2; padding: 30px; border-radius: 20px; display: flex; gap: 30px;">
 
@@ -22,7 +30,15 @@
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
                     <label>Nome:
                         <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%;">
-                    </label>
+                    </label> 
+                        <div class="form-row">
+                        <label>Caricatura:
+                            <input type="file" id="foto_para_padrinho" required>
+                        </label>
+                        <div class="form-row">
+                            <label>Foto:
+                                <input type="file" id="foto" required>
+                            </label>
                     <label>Data de Nascimento:
                         <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento|date:'Y-m-d' }}">
                     </label>
@@ -88,6 +104,8 @@ function salvarTudo(id) {
         data_nascimento: document.getElementById("data_nascimento").value,
         endereco: document.getElementById("endereco").value,
         sonho: document.getElementById("sonho").value,
+        foto_para_padrinho: document.getElementById("foto_para_padrinho").files[0],
+        foto: document.getElementById("foto").files[0],
         respostas: respostas
     };
 

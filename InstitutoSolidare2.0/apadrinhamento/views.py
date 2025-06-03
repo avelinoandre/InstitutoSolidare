@@ -492,6 +492,14 @@ def editar_afilhado(request, apadrinhado_id):
         afilhado.nome = data.get("nome", afilhado.nome)
         afilhado.info = data.get("sonho", afilhado.info)
         data_nascimento_str = data.get("data_nascimento")
+        nova_foto = request.FILES.get("foto")
+        nova_foto_padrinho = request.FILES.get("foto_para_padrinho")
+
+        if nova_foto:
+            afilhado.foto = nova_foto
+        if nova_foto_padrinho:
+            afilhado.foto_para_padrinho = nova_foto_padrinho
+            
         if data_nascimento_str:
             try:
                 afilhado.data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date()
