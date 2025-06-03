@@ -29,6 +29,7 @@ urlpatterns = [
     path('adm/gerenciar-afilhados/<int:apadrinhado_id>', editar_afilhado, name='editarAfilhado'),
     path('adm/excluir/<int:apadrinhado_id>/', excluir_afilhado, name='excluir_afilhado'),
     path('adm/gerenciar-feed/', adm_gerenciar_feed, name='gerenciarFeed'),
+    path('adm/novo-post/', adm_novo_post, name='novoPost'),
     path('adm/gerenciar-cartas/', adm_gerenciar_cartas, name='gerenciarCartas'),
     path('adm/escrever-carta/', adm_escrever_carta, name='admEscreverCarta'),
     path('adm/programado/', adm_programado, name='admProgramado'),

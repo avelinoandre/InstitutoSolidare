@@ -1,203 +1,178 @@
-.container {
-    display: flex;
-    flex-grow: 1;
-    padding: 20px;
-    min-width: 100vw;
+:root {
+    --blue: #7fbce9;
+    --light-blue: #a9d3ed;
+    --white: #ffffff;
+    --gray: #f2f2f2;
+    --yellow: #ffc107;
+    --text-color: #333;
 }
 
+/* Reset & Base */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--light-blue);
+}
+
+/* Page Container */
+.page-container {
+    display: flex;
+    min-height: 100vh;
+    box-sizing: border-box;
+    position: relative;
+    padding: 20px;
+}
+
+/* Sidebar */
 .sidebar {
-    width: 200px;
-    background-color: #fff;
-    border-radius: 10px;
+    background-color: var(--white);
+    border-radius: 15px;
     padding: 15px;
-    margin-right: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 200px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .back-button {
-    background-color: #64b5f6;
-    color: #fff;
+    background-color: var(--blue);
+    color: var(--white);
     border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
+    font-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.material-symbols-outlined {
-    font-size: 24px;
-}
-
-.sidebar-item {
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 5px;
-    color: #333;
-}
-
-.sidebar-item.active {
-    background-color: #e0f2f7;
+.sidebar-label {
     font-weight: bold;
+    color: var(--text-color);
 }
 
-.main-content {
-    flex-grow: 1;
-    background-color: #fff;
-    border-radius: 10px;
+/* Content Area */
+.content-area {
+    flex: 1;
+    margin-left: 20px;
+    background-color: var(--white);
+    border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-.search-bar {
-    margin-bottom: 20px;
+/* Filters */
+.filters {
+    display: flex;
+    gap: 10px;
 }
 
-.search-bar input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
+.filters input {
+    flex: 1;
+    padding: 10px;
+    border: none;
     border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
+    background-color: var(--gray);
+    font-size: 14px;
 }
 
-.post-list {
+/* Posts Grid */
+.posts-grid {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
+/* Post Card */
 .post-card {
-    background-color: #e3f2fd;
-    border-radius: 8px;
+    background-color: var(--gray);
+    border-radius: 10px;
     padding: 15px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    min-height: 100px;
+    gap: 20px;
+    align-items: flex-start;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative;
 }
 
-.post-content {
-    flex-grow: 1;
+/* Left Image */
+.post-left {
+    flex: 0 0 120px;
 }
 
-.manage-post-button {
-    background-color: #ffc107;
-    color: #333;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 0.9em;
+.post-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #ccc;
+}
+
+/* Right Content */
+.post-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.post-title {
+    font-size: 16px;
     font-weight: bold;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+    color: var(--text-color);
+    margin: 0;
 }
 
+.post-right p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.post-date {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Manage Post Button */
+.manage-post-button {
+    background-color: var(--yellow);
+    color: var(--text-color);
+    border: none;
+    border-radius: 15px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    align-self: flex-start;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Add Button */
 .add-button {
-    background-color: #ffc107;
-    color: #fff;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--yellow);
+    color: var(--text-color);
     border: none;
     border-radius: 50%;
     width: 60px;
     height: 60px;
+    font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
     cursor: pointer;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    z-index: 1000;
 }
 
-.sidebar-block-secondary {
-    background-color: #e3f2fd;
-    border-radius: 8px;
-    min-height: 80px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.action-button-bottom {
-    background-color: #ffc107;
-    color: #333;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
+.back-icon {
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    width: 100%;
-    text-align: center;
-    margin-top: auto;
-}
-
-.main-content-new-post {
-    gap: 15px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input-full-width {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
-    background-color: #e3f2fd;
-    color: #333;
-}
-
-.textarea-full-width {
-    width: 100%;
-    flex-grow: 1;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
-    background-color: #e3f2fd;
-    resize: none;
-    color: #333;
-}
-
-.secondary-input-field {
-    margin-top: auto;
-}
-
-.button-delete {
-    background-color: #ffc107;
-    margin-bottom: 10px;
-}
-
-.button-save {
-    background-color: #ffc107;
-    font-size: 0.9em;
-    padding: 8px 15px;
-    border-radius: 15px;
-    margin-top: 0;
-}
-
-.sidebar {
-    display: flex;
-    flex-direction: column;
 }
