@@ -706,6 +706,7 @@ def adm_novo_post(request):
 
         publica = not host_id         # True se host_id é '', None ou falsy
         apadrinhado = None
+        padrinho = None
         if not publica:
             apadrinhado = get_object_or_404(Apadrinhado, id=host_id)
             padrinho = apadrinhado.padrinho
