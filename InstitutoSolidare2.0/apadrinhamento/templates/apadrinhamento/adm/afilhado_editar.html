@@ -19,9 +19,6 @@
                 <label>Data de Nascimento:
                     <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento }}">
                 </label>
-                <label>Usuário:
-                    <input type="text" id="usuario" value="{{ afilhado.usuario }}">
-                </label>
             </div>
         </div>
 
@@ -29,17 +26,27 @@
             <input type="text" id="endereco" value="{{ afilhado.endereco }}" style="width: 100%;">
         </label>
 
-        <label style="display: block; margin-top: 10px;">Tags:
-            <input type="text" id="tags" value="{{ afilhado.tags }}" style="width: 100%;">
-        </label>
-
         <div style="display: flex; gap: 20px; margin-top: 10px;">
-            <label style="flex: 1;">Curso:
-                <input type="text" id="curso" value="{{ afilhado.curso }}">
-            </label>
             <label style="flex: 1;">Meu Sonho:
                 <textarea id="sonho" style="width: 100%;">{{ afilhado.sonho }}</textarea>
             </label>
+        </div>
+
+        <!-- Perguntas -->
+        <div style="margin-top: 30px;">
+        {% for idx, pergunta, resposta_atual in perguntas_formatadas %}
+            <label style="display: block; margin-bottom: 15px;">
+                <strong>{{ pergunta.pergunta }}</strong><br>
+                <select id="pergunta_{{ idx }}" style="width: 100%; padding: 6px;">
+                    {% for opcao in pergunta.opcoes %}
+                        <option value="{{ opcao }}" {% if resposta_atual == opcao %}selected{% endif %}>
+                            {{ opcao }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+        {% endfor %}
+
         </div>
 
         <!-- Botões -->
@@ -66,14 +73,19 @@ function salvarAfilhado(id) {
     const data = {
         nome: document.getElementById("nome").value,
         data_nascimento: document.getElementById("data_nascimento").value,
-        usuario: document.getElementById("usuario").value,
         endereco: document.getElementById("endereco").value,
-        tags: document.getElementById("tags").value,
-        curso: document.getElementById("curso").value,
-        sonho: document.getElementById("sonho").value
+        sonho: document.getElementById("sonho").value,
     };
 
+
+    for (let i = 1; i <= 6; i++) {
+        data[`pergunta_${i}`] = document.getElementById(`pergunta_${i}`).value;
+    }
+
+    fetch(`/afilhado/${id}/`, {
+
     fetch("{% url 'editarAfilhado' afilhado.id %}", {
+
         method: "POST",
         headers: {
             "Content-Type": "application/json",

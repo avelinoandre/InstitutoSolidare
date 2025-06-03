@@ -538,11 +538,14 @@ def lista_afilhados(request):
 @csrf_exempt
 def editar_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
-
+    
     if request.method == 'POST':
         data = json.loads(request.body)
         print(data)
         afilhado.nome = data.get("nome", afilhado.nome)
+        afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
+        afilhado.endereco = data.get("endereco", afilhado.endereco)
+        afilhado.sonho = data.get("sonho", afilhado.sonho)
         #afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
         afilhado.save()
         return JsonResponse({"sucesso": True, "mensagem": "Afilhado atualizado com sucesso."})
