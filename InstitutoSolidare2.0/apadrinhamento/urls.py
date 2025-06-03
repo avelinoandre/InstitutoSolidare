@@ -35,4 +35,5 @@ urlpatterns = [
     path('adm/programado/', adm_programado, name='admProgramado'),
     path('adm/respondidas/', adm_respondidas, name='admRespondidas'),
     path("afilhados/novo/", cadastrar_afilhado, name="cadastrarAfilhado"),
+    path("afilhados/editar-post/<int:id>/", adm_editar_post, name="admEditarPost"),
 ]

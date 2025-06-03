@@ -34,7 +34,7 @@
                     <h2 class="post-title">{{ pub.titulo }}</h2>
                     <p>{{ pub.conteudo }}</p>
                     <p class="post-date">{{ pub.data_envio }}</p>
-                    <button class="manage-post-button">Gerenciar post</button>
+                    <a href="{% url 'admEditarPost' pub.id %}" class="manage-post-button">Gerenciar post</a>
                 </div>
             </div>
             {% empty %}
@@ -45,9 +45,7 @@
 </div>
 
 <!-- Add Button -->
-<button class="add-button">
-    <a href="{% url 'novoPost' %}" class="material-symbols-outlined"> add </span>
-</button>
+    <a href="{% url 'novoPost' %}" class="add-button material-symbols-outlined"> add </span>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {

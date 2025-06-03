@@ -677,14 +677,14 @@ def adm_novo_post(request):
             except Apadrinhado.DoesNotExist:
                 return JsonResponse({"sucesso": False, "mensagem": "Afilhado não encontrado."})
 
-        # Criação da publicação
-        Publicacao.objects.create(
-            publica=publico_foi_pressionado,
-            padrinho=padrinho,
-            titulo=titulo,
-            conteudo=conteudo,
-            foto=foto
-        )
+            Publicacao.objects.create(
+                publica=not publico_foi_pressionado,
+                padrinho=padrinho,
+                titulo=titulo,
+                conteudo=conteudo,
+                foto=foto  # ajuste o nome do campo no seu modelo
+            )
+            return redirect('gerenciarFeed')
 
         return JsonResponse({
             "sucesso": True,
@@ -697,3 +697,6 @@ def adm_novo_post(request):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
         "apadrinhados": apadrinhados,
     })
+
+def adm_editar_post(request, id):
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html")
