@@ -1,0 +1,65 @@
+{% extends 'shared/base_logout.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div style="display: flex; height: calc(100vh - 60px);">
+      <nav style="width: 200px; background-color: #a3c5e0; padding-top: 20px;">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="text-align: center; margin: 20px 0;">
+            <button style="background: none; border: none; cursor: pointer; width: 100%;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; background-color: #6ca6cd;"></div>
+              <p style="margin-top: 8px; font-size: 14px; color: #333;">Caixa de entrada</p>
+            </button>
+          </li>
+          <li style="text-align: center; margin: 20px 0;">
+            <button style="background: none; border: none; cursor: pointer; width: 100%;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; background-color: #2e4a74;"></div>
+              <p style="margin-top: 8px; font-size: 14px; color: #333;">Escreva uma carta</p>
+            </button>
+          </li>
+          <li style="text-align: center; margin: 20px 0;">
+            <button style="background: none; border: none; cursor: pointer; width: 100%;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; background-color: #6ca6cd;"></div>
+              <p style="margin-top: 8px; font-size: 14px; color: #333;">Rascunhos</p>
+            </button>
+          </li>
+          <li style="text-align: center; margin: 20px 0;">
+            <button style="background: none; border: none; cursor: pointer; width: 100%;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; margin: 0 auto; background-color: #6ca6cd;"></div>
+              <p style="margin-top: 8px; font-size: 14px; color: #333;">Programados</p>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <main style="flex: 1; background-color: #d9d9d9; padding: 30px; border-top-left-radius: 20px;">
+        <div style="background-color: white; border-radius: 15px; height: 100%; display: flex; flex-direction: column; padding: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1); box-sizing: border-box;">
+          <div style="background-color: #d9d9d9; border-radius: 20px; padding: 10px; margin-bottom: 20px; color: #555;">
+            Nome do afilhado para que deseja escrever... 
+            <span style="float: right;">⌄</span>
+          </div>
+              {% include 'partials/circle-button.html' %}
+          <!-- textarea redimensionável -->
+          <textarea
+            placeholder="Escreva sua mensagem..."
+            style="flex: 1; background-color: white; padding: 10px; border: none; resize: vertical; font-size: 16px; outline: none; border-radius: 10px;"
+          ></textarea>
+          <div style="display: flex; align-items: center; margin-top: 10px;">
+            <input
+              type="text"
+              placeholder="Assunto da carta..."
+              style="flex: 1; background-color: #d9d9d9; border: none; border-radius: 20px; padding: 10px 15px; font-size: 14px; outline: none;"
+            />
+            <button
+              style="background-color: transparent; border: 2px solid #2e4a74; border-radius: 50%; padding: 5px 10px; margin-left: 10px; cursor: pointer;"
+            >
+              <span style="color: #2e4a74;">➤</span>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+{% endblock %}

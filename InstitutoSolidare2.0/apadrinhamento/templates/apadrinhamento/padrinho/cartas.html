@@ -3,61 +3,61 @@
 
 {% block content %}
 
+<!-- Layout principal -->
+<div style="height: calc(100vh - 70px);">
+  <main style="display: flex; height: 100%; background-color: #dcdcdc; padding: 30px; min-width: 90%;">
 
-  <!-- Layout principal -->
-  <div style="display: flex; height: calc(100vh - 70px);">
-
-    <!-- Menu Lateral -->
-    <nav style="width: 200px; background-color: #a3c5e0; padding-top: 20px;">
+    <!-- Sidebar (dentro do main, mas à esquerda) -->
+    <nav style="width: 200px; padding-top: 20px; flex-shrink: 0;">
       <ul style="list-style: none; padding: 0;">
         <li style="margin: 20px 0; text-align: center;">
-          <div style="width: 40px; height: 40px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
+          <div style="width: 70px; height: 70px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
           <p>Caixa de entrada</p>
-      <li style="margin: 20px 0; text-align: center;">
-        <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
-          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
-        </a>
-        <p>Escreva uma carta</p>
-      </li>
+        </li>
         <li style="margin: 20px 0; text-align: center;">
-        <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
-          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
-        </a>
-        <p>Rascunhos</p>
-      </li>
+          <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p>Escreva uma carta</p>
+        </li>
         <li style="margin: 20px 0; text-align: center;">
-        <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
-          <div style="width: 40px; height: 40px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
-        </a>
-        <p>Programados</p>
-      </li>
+          <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p>Rascunhos</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <a href="{% url 'cartas_escrita' %}" style="display: inline-block;">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p>Programados</p>
+        </li>
       </ul>
     </nav>
 
-    <!-- Conteúdo Principal -->
-    <main style="flex-grow: 1; background-color: #dcdcdc; padding: 30px;">
-      <div style="background-color: white; padding: 20px; border-radius: 10px;">
-        <input id="filtro-afilhado" type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
+    <!-- Conteúdo principal à direita da sidebar -->
+    <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%;">
+      <input id="filtro-afilhado" type="text" placeholder="Nome do afilhado / Tags" style="width: 100%; padding: 10px; margin-bottom: 20px;">
 
-<!-- Lista de mensagens -->
-        {% for carta in cartas_recebidas %}
-          <div class="carta" data-nome="{{ carta.apadrinhado.nome|lower }}" style="background-color: #e6e6e6; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-              <strong>{{ carta.apadrinhado.nome }} - {{ carta.titulo }}</strong>
-              <span>{{ carta.data_envio|date:"d/m/Y" }}</span>
-            </div>
-            <div style="margin-top: 10px; white-space: pre-line;">{{ carta.conteudo }}</div>
+      <!-- Lista de mensagens -->
+      {% for carta in cartas_recebidas %}
+        <div class="carta" data-nome="{{ carta.apadrinhado.nome|lower }}" style="background-color: #e6e6e6; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+            <strong>{{ carta.apadrinhado.nome }} - {{ carta.titulo }}</strong>
+            <span>{{ carta.data_envio|date:"d/m/Y" }}</span>
           </div>
-        {% empty %}
-          <p style="text-align: center; color: gray;">Nenhuma carta recebida até o momento.</p>
-        {% endfor %}
-        <!-- ... -->
-      </div>
-    </main>
+          <div style="margin-top: 10px; white-space: pre-line;">{{ carta.conteudo }}</div>
+        </div>
+      {% empty %}
+        <p style="text-align: center; color: gray;">Nenhuma carta recebida até o momento.</p>
+      {% endfor %}
+    </div>
 
-    {% include 'partials/circle-button.html' %}
+  </main>
 
-  </div>
+  {% include 'partials/circle-button.html' %}
+</div>
+
 <script>
   const inputFiltro = document.getElementById('filtro-afilhado');
   inputFiltro.addEventListener('input', () => {
@@ -72,6 +72,5 @@
     });
   });
 </script>
-</body>
-</html>
+
 {% endblock %}
