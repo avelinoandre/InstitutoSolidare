@@ -630,13 +630,15 @@ def adm_gerenciar_cartas(request):
 
 def adm_escrever_carta(request):
     padrinhos = Padrinho.objects.all()
+    cartas = Carta.objects.filter(aprovada=True)
 
     if request.method == "POST":
-        padrinho_id = request.POST.get("recipient")
+        carta_id = request.POST.get("recipient")
         titulo = request.POST.get("titulo")
         conteudo = request.POST.get("conteudo")
 
-        padrinho = get_object_or_404(Padrinho, id=padrinho_id)
+        carta = get_object_or_404(Carta, id=carta_id)
+        padrinho = carta.padrinho
 
         Carta.objects.create(
             titulo=titulo,
@@ -647,7 +649,8 @@ def adm_escrever_carta(request):
         return redirect("gerenciarCartas")  # ou outra view apropriada
 
     context = {
-        "padrinhos": padrinhos
+        "padrinhos": padrinhos,
+        "cartas": cartas
     }
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
 
