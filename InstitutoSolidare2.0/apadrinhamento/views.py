@@ -422,6 +422,14 @@ def padrinho_alterar_valores(request):
 def padrinho_meus_apadrinhados(request):
     padrinho = request.user.padrinho
     apadrinhados = padrinho.apadrinhados.all()
+
+    for a in apadrinhados:
+        a.hobby_nome = resposta_texto(a.hobby, 3)
+        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 4)
+        a.valores_nome = resposta_texto(a.valores, 5)
+        a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
+        a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
+
     return render(
         request,
         "apadrinhamento/padrinho/meus-apadrinhados.html",

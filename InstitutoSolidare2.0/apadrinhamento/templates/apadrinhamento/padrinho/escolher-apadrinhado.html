@@ -11,6 +11,7 @@
 
     <h2 style="text-align:center">Escolha um apadrinhado</h2>
 
+    {% if apadrinhados %}
     <div class="apadrinhados-grid">
         {% for a in apadrinhados %}
         <div class="apadrinhado-card">
@@ -30,6 +31,9 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+        <p style="text-align:center; margin-top: 20px;">Nenhum apadrinhado disponível no momento.</p>
+    {% endif %}
 
     <footer class="footer-home-button">
         <a href="{% url 'padrinhoCadastro' %}">
