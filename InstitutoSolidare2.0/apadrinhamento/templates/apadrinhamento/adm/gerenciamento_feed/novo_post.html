@@ -12,48 +12,83 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para o painel" class="back-icon">
         </a>
         <div class="sidebar-block-secondary"></div>
-        <form method="post" enctype="multipart/form-data"> <!-- IMPORTANTE para upload de imagem -->
-    {% csrf_token %}
-            <button type="submit" class="action-button-bottom">Publicar</button>
+        <button type="button" onclick="salvarPost()" class="action-button-bottom">Publicar</button>
     </div>
 
     <!-- Main content -->
     <div class="content-area main-content-new-post">
-        <!-- Botão para liberar o select -->
-<!-- Botão para mostrar o select -->
-<button type="button" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px;">
-    Público
-</button>
+        <!-- Botão para mostrar o select -->
+        <button type="button" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px;">
+            Público
+        </button>
 
-<!-- Select invisível inicialmente -->
-<select name="host_afiliado" id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
-    <option value="" disabled selected>Selecione o afiliado/padrinho</option>
-    {% for apadrinhado in apadrinhados %}
-        <option value="{{ apadrinhado.id }}">{{ apadrinhado.nome }}</option>
-    {% endfor %}
-</select>
-<!-- Foto -->
-<input type="file" name="foto" accept="image/*" class="input-full-width secondary-input-field" style="margin-top: 15px;" />
-        <textarea name="titulo" class="textarea-full-width primary-textarea-field" placeholder="Título do post"></textarea>
-        <input type="text" name="conteudo" class="input-full-width secondary-input-field" placeholder="Conteúdo">
+        <!-- Select invisível inicialmente -->
+        <select id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
+            <option value="" disabled selected>Selecione o afiliado/padrinho</option>
+            {% for apadrinhado in apadrinhados %}
+                <option value="{{ apadrinhado.id }}">{{ apadrinhado.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Campo oculto para armazenar a flag "público" -->
+        <input type="hidden" id="publico-flag" value="False" />
+
+        <!-- Foto -->
+        <input type="file" id="foto" accept="image/*" class="input-full-width secondary-input-field" style="margin-top: 15px;" />
+
+        <!-- Campos -->
+        <textarea id="titulo" class="textarea-full-width primary-textarea-field" placeholder="Título do post"></textarea>
+        <input type="text" id="conteudo" class="input-full-width secondary-input-field" placeholder="Conteúdo">
     </div>
-    </form>
 </div>
+
 <script>
-    function mostrarSelect() {
-        const select = document.getElementById("select-padrinho");
-        const publicoFlag = document.getElementById("publico-flag");
+function mostrarSelect() {
+    const select = document.getElementById("select-padrinho");
+    const publicoFlag = document.getElementById("publico-flag");
 
-        if (select.style.display === "block") {
-            select.style.display = "none";
-            publicoFlag.value = "False";
-        } else {
-            select.style.display = "block";
-            publicoFlag.value = "True";
-        }
-
-        select.focus();
+    if (select.style.display === "block") {
+        select.style.display = "none";
+        publicoFlag.value = "False";
+    } else {
+        select.style.display = "block";
+        publicoFlag.value = "True";
     }
+
+    select.focus();
+}
+
+function salvarPost() {
+    const formData = new FormData();
+    formData.append("titulo", document.getElementById("titulo").value);
+    formData.append("conteudo", document.getElementById("conteudo").value);
+    formData.append("publico", document.getElementById("publico-flag").value);
+    formData.append("foto", document.getElementById("foto").files[0]);
+
+    const select = document.getElementById("select-padrinho");
+    if (select.style.display === "block" && select.value) {
+        formData.append("host_afiliado", select.value);
+    }
+
+    fetch("{% url 'novoPost' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: formData
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        alert(data.mensagem || "Post criado com sucesso!");
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Erro ao tentar salvar o post.");
+    });
+}
 </script>
 
 {% endblock %}

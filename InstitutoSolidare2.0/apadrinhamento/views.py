@@ -647,23 +647,27 @@ def adm_programado(request):
 def adm_respondidas(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
 
+@csrf_exempt  # só se não usar {% csrf_token %} no HTML — caso use, remova isso!
 def adm_novo_post(request):
-    apadrinhados = Apadrinhado.objects.all()
-
     if request.method == "POST":
         host_afiliado_id = request.POST.get("host_afiliado")
         titulo = request.POST.get("titulo")
         conteudo = request.POST.get("conteudo")
         foto = request.FILES.get("foto")
-        publico_foi_pressionado = request.POST.get("publico_foi_pressionado") == "True"
+        publico_foi_pressionado = request.POST.get("publico") == "True"  # adaptado ao seu JS
 
-        # Validação e criação (exemplo genérico)
+        if not titulo or not conteudo:
+            return JsonResponse({"sucesso": False, "mensagem": "Preencha todos os campos obrigatórios."})
+        
+        apadrinhado = None
+        padrinho = None
 
-        if titulo and conteudo:
-            apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id) if host_afiliado_id else None
-            padrinho = None
-            if apadrinhado:
+        if host_afiliado_id:
+            try:
+                apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id)
                 padrinho = apadrinhado.padrinho
+            except Apadrinhado.DoesNotExist:
+                return JsonResponse({"sucesso": False, "mensagem": "Afilhado não encontrado."})
 
             Publicacao.objects.create(
                 publica=not publico_foi_pressionado,
@@ -674,11 +678,14 @@ def adm_novo_post(request):
             )
             return redirect('gerenciarFeed')
 
-        return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
-            "apadrinhados": apadrinhados,
-            "erro": "Preencha os campos corretamente."
+        return JsonResponse({
+            "sucesso": True,
+            "mensagem": "Post criado com sucesso!",
+            "redirect_url": reverse("gerenciarFeed")
         })
 
+    # Se for GET (renderizar a página)
+    apadrinhados = Apadrinhado.objects.all()
     return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
         "apadrinhados": apadrinhados,
     })
