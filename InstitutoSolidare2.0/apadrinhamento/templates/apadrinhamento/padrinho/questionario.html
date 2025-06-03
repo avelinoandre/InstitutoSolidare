@@ -29,7 +29,7 @@
     </div>
 
     <div class="progress-indicator">
-        {% for i in total_perguntas|make_list %}
+        {% for i in perguntas_range %}
             <div class="progress-dot {% if i == pergunta_atual %}active{% endif %}"></div>
         {% endfor %}
     </div>
@@ -48,7 +48,7 @@
         const perguntaAtual = {{ pergunta_atual }};
         localStorage.setItem('resposta_' + perguntaAtual, respostaSelecionada);
 
-        const proximaPergunta = perguntaAtual + 1;
+        const proximaPergunta = perguntaAtual;
         const total = {{ total_perguntas }};
 
         if (proximaPergunta < total) {

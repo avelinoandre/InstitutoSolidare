@@ -28,6 +28,9 @@ class Pergunta:
 def home(request):
     return render(request, "apadrinhamento/home.html")
 
+def new_home(request):
+    return render(request, "apadrinhamento/new_home.html")
+
 
 # =====================================================================
 # LOGIN PADRINHO
@@ -117,14 +120,17 @@ def padrinho_questionario(request, indice=0):
     opcoes_resposta = list(enumerate(pergunta_atual.respostas))
     total_perguntas = len(perguntas_padrinho)
 
+    perguntas_range = range(1, total_perguntas + 1)
+
     return render(
         request,
         "apadrinhamento/padrinho/questionario.html",
         {
             "pergunta_texto": pergunta_atual.pergunta,
             "opcoes_resposta": opcoes_resposta,
-            "pergunta_atual": indice,
+            "pergunta_atual": indice + 1,
             "total_perguntas": total_perguntas,
+            "perguntas_range": perguntas_range,
             "pergunta_anterior_url": (
                 reverse("padrinhoQuestionario", args=[indice - 1])
                 if indice > 0
@@ -132,7 +138,6 @@ def padrinho_questionario(request, indice=0):
             ),
         },
     )
-
 
 @csrf_exempt
 def padrinho_salvar_respostas(request):
@@ -303,6 +308,18 @@ def padrinho_doacao(request, apadrinhado_id):
 @login_required
 def padrinho_feed(request):
     padrinho = Padrinho.objects.get(user=request.user)
+
+    if request.method == "POST":
+        publicacao_id = request.POST.get("publicacao_id")
+        if publicacao_id:
+            publicacao = get_object_or_404(Publicacao, id=publicacao_id)
+            if not publicacao.likes.filter(id=padrinho.id).exists():
+                publicacao.likes.add(padrinho)
+            else:
+                publicacao.likes.remove(padrinho)
+
+        return redirect("padrinhoFeed")
+
     publicacoes = Publicacao.objects.filter(
         models.Q(publica=True) | models.Q(padrinho=padrinho)
     ).order_by("-data_envio")
@@ -310,7 +327,6 @@ def padrinho_feed(request):
     return render(
         request, "apadrinhamento/padrinho/feed.html", {"publicacoes": publicacoes}
     )
-
 
 @login_required
 def padrinho_perfil(request):
@@ -380,10 +396,10 @@ def padrinho_alterar_valores(request):
             padrinho = request.user.padrinho
 
             padrinho.area_escolar = int(respostas_usuario[0])
-            padrinho.profissao_atual = int(respostas_usuario[2])
-            padrinho.hobby = int(respostas_usuario[3])
-            padrinho.inspiracoes = int(respostas_usuario[4])
-            padrinho.valores = int(respostas_usuario[5])
+            padrinho.profissao_atual = int(respostas_usuario[1])
+            padrinho.hobby = int(respostas_usuario[2])
+            padrinho.inspiracoes = int(respostas_usuario[3])
+            padrinho.valores = int(respostas_usuario[4])
 
             padrinho.save()
 
@@ -451,7 +467,26 @@ def padrinho_cartas(request):
 @login_required
 def escrita_cartas(request):
     padrinho = request.user.padrinho
-    return render(request, "apadrinhamento/padrinho/escrita_cartas.html")
+    apadrinhados = Apadrinhado.objects.filter(padrinho=padrinho)
+
+    if request.method == "POST":
+        afilhado_id = request.POST.get("afilhado_id")
+        titulo = request.POST.get("titulo")
+        conteudo = request.POST.get("conteudo")
+
+        # Aqui você pode salvar no banco, por exemplo:
+        afilhado = Apadrinhado.objects.get(id=afilhado_id)
+        Carta.objects.create(
+            padrinho=padrinho,
+            apadrinhado=afilhado,
+            titulo=titulo,
+            conteudo=conteudo
+        )
+        return redirect("cartas_escrita")  # ou qualquer outra página de sucesso
+
+    return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
+        "apadrinhados": apadrinhados
+    })
 
 
 # =====================================================================
@@ -469,12 +504,14 @@ def adm_login(request):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return JsonResponse({"success": True})
+            if user.is_superuser:
+                login(request, user)
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "error": "Acesso restrito a administradores."}, status=403)
         else:
-            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."})
+            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."}, status=401)
     else:
-        # Se acessar via GET, mostra a página
         return render(request, "apadrinhamento/adm/adm-login.html")
 
 def adm_home(request):
@@ -631,80 +668,107 @@ def adm_gerenciar_feed(request):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/gerenciamento_feed_adm.html", {"publicacoes": publicacoes})
 
 def adm_gerenciar_cartas(request):
-    cartas_pendentes = Carta.objects.filter(aprovada=False)
+    cartas_pendentes = Carta.objects.filter(aprovada=False, respondida=False)
     return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
 def adm_escrever_carta(request):
+    padrinhos = Padrinho.objects.all()
+    cartas = Carta.objects.filter(aprovada=True)
+
     if request.method == "POST":
-        recipient_name = request.POST.get("recipient")
-        message = request.POST.get("short_message")
+        carta_id = request.POST.get("recipient")
+        titulo = request.POST.get("titulo")
+        conteudo = request.POST.get("conteudo")
 
-        if recipient_name:
-            apadrinhado = Apadrinhado.objects.get(nome=recipient_name)
+        carta = get_object_or_404(Carta, id=carta_id)
+        padrinho = carta.padrinho
 
-            if padrinho and message:
-                carta = Carta.objects.create(
-                    titulo=short_message or "Sem título",
-                    conteudo=message,
-                    apadrinhado=apadrinhado,
-                    padrinho=request.user.padrinho,
-                    remetente_tipo="Padrinho",
-                )
-                return HttpResponse("Carta enviada com sucesso!")
+        Carta.objects.create(
+            titulo=titulo,
+            conteudo=conteudo,
+            aprovada=True,
+            padrinho=padrinho,
+            apadrinhado=carta.apadrinhado,
+            remetente_tipo="apadrinhado"
+        )
+        return redirect("gerenciarCartas")  # ou outra view apropriada
 
-        else:
-            return HttpResponse("Erro: destinatário não informado.", status=400)
-
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
+    context = {
+        "padrinhos": padrinhos,
+        "cartas": cartas
+    }
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
 
 def adm_programado(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
 
 def adm_respondidas(request):
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
+    cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True)
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html", {"respondidas": cartas_respondidas})
 
-@csrf_exempt  # só se não usar {% csrf_token %} no HTML — caso use, remova isso!
+@csrf_exempt
 def adm_novo_post(request):
     if request.method == "POST":
-        host_afiliado_id = request.POST.get("host_afiliado")
-        titulo = request.POST.get("titulo")
-        conteudo = request.POST.get("conteudo")
-        foto = request.FILES.get("foto")
-        publico_foi_pressionado = request.POST.get("publico") == "True"  # adaptado ao seu JS
+        host_id   = request.POST.get("host_afiliado")  # '' se não veio nada
+        titulo    = request.POST.get("titulo")
+        conteudo  = request.POST.get("conteudo")
+        foto      = request.FILES.get("foto")
 
-        if not titulo or not conteudo:
-            return JsonResponse({"sucesso": False, "mensagem": "Preencha todos os campos obrigatórios."})
-        
+        publica = not host_id         # True se host_id é '', None ou falsy
         apadrinhado = None
         padrinho = None
+        if not publica:
+            apadrinhado = get_object_or_404(Apadrinhado, id=host_id)
+            padrinho = apadrinhado.padrinho
 
-        if host_afiliado_id:
-            try:
-                apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id)
-                padrinho = apadrinhado.padrinho
-            except Apadrinhado.DoesNotExist:
-                return JsonResponse({"sucesso": False, "mensagem": "Afilhado não encontrado."})
-
-            Publicacao.objects.create(
-                publica=not publico_foi_pressionado,
-                padrinho=padrinho,
-                titulo=titulo,
-                conteudo=conteudo,
-                foto=foto  # ajuste o nome do campo no seu modelo
-            )
-            return redirect('gerenciarFeed')
+        Publicacao.objects.create(
+            publica=publica,
+            apadrinhado=apadrinhado,
+            padrinho=padrinho,
+            titulo=titulo,
+            conteudo=conteudo,
+            foto=foto
+        )
 
         return JsonResponse({
-            "sucesso": True,
             "mensagem": "Post criado com sucesso!",
-            "redirect_url": reverse("gerenciarFeed")
+            "redirect_url": reverse('gerenciarFeed')  # ou reverse('gerenciarFeed')
         })
 
-    # Se for GET (renderizar a página)
     apadrinhados = Apadrinhado.objects.all()
-    return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
-        "apadrinhados": apadrinhados,
-    })
+    return render(request,
+        "apadrinhamento/adm/gerenciamento_feed/novo_post.html",
+        {"apadrinhados": apadrinhados}
+    )
 
 def adm_editar_post(request, id):
-    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html")
+    post = get_object_or_404(Publicacao, id=id)
+
+    if request.method == 'POST':
+        if 'delete' in request.POST:
+            post.delete()
+            return redirect('gerenciarFeed')  # substitua pelo nome correto
+
+        post.titulo = request.POST.get('titulo', post.titulo)
+        post.conteudo = request.POST.get('conteudo', post.conteudo)
+
+        if 'foto' in request.FILES:
+            post.foto = request.FILES['foto']
+
+        post.save()
+        return redirect('admEditarPost', id=post.id)
+
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html", {
+        "post": post
+    })
+
+def aprovar_carta(request, id):
+    carta = get_object_or_404(Carta, id=id)
+    carta.aprovada = True
+    carta.save()
+    return redirect('gerenciarCartas')
+
+def rejeitar_carta(request, id):
+    carta = get_object_or_404(Carta, id=id)
+    carta.delete()
+    return redirect('gerenciarCartas')

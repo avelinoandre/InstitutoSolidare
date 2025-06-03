@@ -21,7 +21,7 @@ urlpatterns = [
     path('padrinho/doacao-livre-checkout/', padrinho_doacao_livre_checkout, name='padrinhoDoacaoLivreCheckout'),
     path('padrinho/meus-apadrinhados/', padrinho_meus_apadrinhados, name='padrinhoMeusApadrinhados'),
     path('padrinho/cartas', padrinho_cartas, name = 'cartas'),
-    path('padrinho/cartas/escrita', escrita_cartas, name = 'cartas_escrita'),
+    path('padrinho/cartas/escrita', escrita_cartas, name ='cartas_escrita'),
     # ---------------------------------
     path('adm/login/', adm_login ,name="admLogin"),
     path('adm/home/', adm_home, name="admHome"),
@@ -36,4 +36,6 @@ urlpatterns = [
     path('adm/respondidas/', adm_respondidas, name='admRespondidas'),
     path("afilhados/novo/", cadastrar_afilhado, name="cadastrarAfilhado"),
     path("afilhados/editar-post/<int:id>/", adm_editar_post, name="admEditarPost"),
+    path('cartas/aprovar/<int:id>/', aprovar_carta, name='aprovarCarta'),
+    path('cartas/rejeitar/<int:id>/', rejeitar_carta, name='rejeitarCarta'),
 ]
