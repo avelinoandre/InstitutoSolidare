@@ -699,4 +699,22 @@ def adm_novo_post(request):
     })
 
 def adm_editar_post(request, id):
-    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html")
+    post = get_object_or_404(Publicacao, id=id)
+
+    if request.method == 'POST':
+        if 'delete' in request.POST:
+            post.delete()
+            return redirect('gerenciarFeed')  # substitua pelo nome correto
+
+        post.titulo = request.POST.get('titulo', post.titulo)
+        post.conteudo = request.POST.get('conteudo', post.conteudo)
+
+        if 'foto' in request.FILES:
+            post.foto = request.FILES['foto']
+
+        post.save()
+        return redirect('admEditarPost', id=post.id)
+
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html", {
+        "post": post
+    })
