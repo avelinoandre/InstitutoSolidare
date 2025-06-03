@@ -637,10 +637,12 @@ def adm_novo_post(request):
         
         if titulo and conteudo:
             apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id) if host_afiliado_id else None
+            padrinho = None
             if apadrinhado:
                 padrinho = apadrinhado.padrinho
+
             Publicacao.objects.create(
-                publica=not publico_foi_pressionado,
+                publica=publico_foi_pressionado,
                 padrinho=padrinho,
                 titulo=titulo,
                 conteudo=conteudo,
