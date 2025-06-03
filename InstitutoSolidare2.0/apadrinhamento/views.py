@@ -380,10 +380,10 @@ def padrinho_alterar_valores(request):
             padrinho = request.user.padrinho
 
             padrinho.area_escolar = int(respostas_usuario[0])
-            padrinho.profissao_atual = int(respostas_usuario[2])
-            padrinho.hobby = int(respostas_usuario[3])
-            padrinho.inspiracoes = int(respostas_usuario[4])
-            padrinho.valores = int(respostas_usuario[5])
+            padrinho.profissao_atual = int(respostas_usuario[1])
+            padrinho.hobby = int(respostas_usuario[2])
+            padrinho.inspiracoes = int(respostas_usuario[3])
+            padrinho.valores = int(respostas_usuario[4])
 
             padrinho.save()
 
