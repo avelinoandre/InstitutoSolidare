@@ -27,17 +27,21 @@
         </aside>
 
             <section class="main-content message-compose">
-                <div class="recipient-select">
-                    <input type="text" placeholder="Nome do padrinho para que deseja escrever..." class="text-input">
+               <form method="post">
+                  {% csrf_token %}
+
+                  <div class="recipient-select">
+                    <input type="text" name="recipient" placeholder="Nome do padrinho para que deseja escrever..." class="text-input">
                     <i class="fas fa-chevron-down"></i>
-                </div>
-                <textarea placeholder="" class="message-textarea"></textarea>
-                <div class="message-send-box">
-                    <input type="text" placeholder="Escreva sua mensagem..." class="text-input send-input">
-                    <button class="send-button">
-                        <i class="fas fa-arrow-right"></i>
+                  </div>
+
+                  <div class="message-send-box">
+                    <input type="text" name="short_message" placeholder="Escreva sua mensagem..." class="text-input send-input">
+                    <button type="submit" class="send-button">
+                      <i class="fas fa-arrow-right"></i>
                     </button>
-                </div>
+                  </div>
+                </form>
             </section>
         </main>
     </div>
