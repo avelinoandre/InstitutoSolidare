@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from .utils import calcular_compatibilidade
+from datetime import datetime
 
 
 class Pergunta:
@@ -491,7 +492,13 @@ def editar_afilhado(request, apadrinhado_id):
     if request.method == "POST":
         data = json.loads(request.body)
         afilhado.nome = data.get("nome", afilhado.nome)
-        #afilhado.data_nascimento = data.get("data_nascimento", afilhado.data_nascimento)
+        afilhado.info = data.get("sonho", afilhado.info)
+        data_nascimento_str = data.get("data_nascimento")
+        if data_nascimento_str:
+            try:
+                afilhado.data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date()
+            except ValueError:
+                return JsonResponse({"mensagem": "Data de nascimento inválida."}, status=400)
         afilhado.save()
         try:
             data = json.loads(request.body)
@@ -542,6 +549,64 @@ def excluir_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
     afilhado.delete()
     return redirect('gerenciarAfilhados')
+
+@csrf_exempt        # tire se já estiver usando {% csrf_token %}
+def cadastrar_afilhado(request):
+    if request.method == "POST":
+        # Campos simples --------------------------------------------
+        nome            = request.POST.get("nome")
+        genero          = request.POST.get("genero")
+        info            = request.POST.get("info")
+        endereco        = request.POST.get("endereco")
+        data_raw        = request.POST.get("data_nascimento")
+
+        # Converte YYYY-MM-DD → date  (ou deixe string, o ORM aceita)
+        data_nascimento = datetime.strptime(data_raw, "%Y-%m-%d").date() if data_raw else None
+
+        # ----------------- Seleções vindas dos <select> -------------
+        area_escolar        = _int_or_none(request.POST.get("resposta_0"))
+        profissao_desejada  = _int_or_none(request.POST.get("resposta_1"))
+        hobby               = _int_or_none(request.POST.get("resposta_2"))
+        inspiracoes         = _int_or_none(request.POST.get("resposta_3"))
+        valores             = _int_or_none(request.POST.get("resposta_4"))
+
+        # ----------------- Arquivos ---------------------------------
+        foto                = request.FILES.get("foto")
+        foto_para_padrinho  = request.FILES.get("foto_para_padrinho")
+
+        # ----------------- Criação do registro ----------------------
+        Apadrinhado.objects.create(
+            nome=nome,
+            data_nascimento=data_nascimento,
+            genero=genero,
+            info=info,
+            endereco=endereco,
+            area_escolar=area_escolar,
+            profissao_desejada=profissao_desejada,
+            hobby=hobby,
+            inspiracoes=inspiracoes,
+            valores=valores,
+            foto=foto,
+            foto_para_padrinho=foto_para_padrinho,
+        )
+        return redirect("gerenciarAfilhados")        # ajuste sua rota
+
+    # GET – renderiza o formulário
+    return render(
+        request,
+        "apadrinhamento/adm/cadastrar-afilhado.html",
+        {"perguntas": perguntas_padrinho},
+    )
+
+
+# ---------- helper ----------
+def _int_or_none(value):
+    """Converte para int ou devolve None se vier vazio/None."""
+    try:
+        return int(value) if value not in (None, "") else None
+    except ValueError:
+        return None
+
 
 def adm_gerenciar_feed(request):
     publicacoes = Publicacao.objects.all()

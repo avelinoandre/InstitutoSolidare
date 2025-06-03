@@ -24,7 +24,7 @@
                         <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%;">
                     </label>
                     <label>Data de Nascimento:
-                        <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento }}">
+                        <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento|date:'Y-m-d' }}">
                     </label>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 
             <div style="display: flex; gap: 20px;">
                 <label style="flex: 1;">Meu Sonho:
-                    <textarea id="sonho" style="width: 100%;">{{ afilhado.sonho }}</textarea>
+                    <textarea id="sonho" style="width: 100%;">{{ afilhado.info }}</textarea>
                 </label>
             </div>
 
