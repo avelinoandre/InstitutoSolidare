@@ -680,6 +680,7 @@ def adm_escrever_carta(request):
             conteudo=conteudo,
             aprovada=True,
             padrinho=padrinho,
+            apadrinhado=carta.apadrinhado,
             remetente_tipo="apadrinhado"
         )
         return redirect("gerenciarCartas")  # ou outra view apropriada
