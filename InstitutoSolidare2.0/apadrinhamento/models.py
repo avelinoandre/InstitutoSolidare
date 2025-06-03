@@ -57,7 +57,8 @@ class Publicacao(models.Model):
     foto = models.ImageField(upload_to="fotos/")
     conteudo = models.TextField()
     data_envio = models.DateField(auto_now_add=True)
-    
+    likes = models.ManyToManyField(Padrinho, related_name='publicacoes_curtidas', blank=True)
+
     publica = models.BooleanField(default=False)  # True = pública, False = privada
     padrinho = models.ForeignKey(
         Padrinho,
@@ -71,6 +72,9 @@ class Publicacao(models.Model):
         if self.publica:
             return f"Carta pública: {self.titulo}"
         return f"Carta privada para {self.padrinho.user.get_full_name()}"
+
+    def likes_count(self):
+        return self.likes.count()
     
 class Carta(models.Model):
     titulo = models.CharField(max_length=255)

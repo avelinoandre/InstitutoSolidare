@@ -306,6 +306,18 @@ def padrinho_doacao(request, apadrinhado_id):
 @login_required
 def padrinho_feed(request):
     padrinho = Padrinho.objects.get(user=request.user)
+
+    if request.method == "POST":
+        publicacao_id = request.POST.get("publicacao_id")
+        if publicacao_id:
+            publicacao = get_object_or_404(Publicacao, id=publicacao_id)
+            if not publicacao.likes.filter(id=padrinho.id).exists():
+                publicacao.likes.add(padrinho)
+            else:
+                publicacao.likes.remove(padrinho)
+
+        return redirect("padrinhoFeed")
+
     publicacoes = Publicacao.objects.filter(
         models.Q(publica=True) | models.Q(padrinho=padrinho)
     ).order_by("-data_envio")
@@ -313,7 +325,6 @@ def padrinho_feed(request):
     return render(
         request, "apadrinhamento/padrinho/feed.html", {"publicacoes": publicacoes}
     )
-
 
 @login_required
 def padrinho_perfil(request):
