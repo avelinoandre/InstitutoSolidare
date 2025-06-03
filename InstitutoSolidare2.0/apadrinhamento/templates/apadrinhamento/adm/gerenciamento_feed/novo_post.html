@@ -12,18 +12,48 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para o painel" class="back-icon">
         </a>
         <div class="sidebar-block-secondary"></div>
-        <form method="post"> {% comment "" %} colocar o action QUANDO EXISTIR O PUBLICAR_POST action="{% url 'publicar_post' %} {% endcomment %}
-            {% csrf_token %}
+        <form method="post" enctype="multipart/form-data"> <!-- IMPORTANTE para upload de imagem -->
+    {% csrf_token %}
             <button type="submit" class="action-button-bottom">Publicar</button>
     </div>
 
     <!-- Main content -->
     <div class="content-area main-content-new-post">
-        <input type="text" name="host_afiliado" class="input-full-width primary-input-field" placeholder="Afiliado host do post / Post instituto">
-        <textarea name="conteudo" class="textarea-full-width primary-textarea-field" placeholder="Conteúdo do post"></textarea>
-        <input type="text" name="campo_extra" class="input-full-width secondary-input-field" placeholder="Campo extra (opcional)">
+        <!-- Botão para liberar o select -->
+<!-- Botão para mostrar o select -->
+<button type="button" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px;">
+    Público
+</button>
+
+<!-- Select invisível inicialmente -->
+<select name="host_afiliado" id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
+    <option value="" disabled selected>Selecione o afiliado/padrinho</option>
+    {% for apadrinhado in apadrinhados %}
+        <option value="{{ apadrinhado.id }}">{{ apadrinhado.nome }}</option>
+    {% endfor %}
+</select>
+<!-- Foto -->
+<input type="file" name="foto" accept="image/*" class="input-full-width secondary-input-field" style="margin-top: 15px;" />
+        <textarea name="titulo" class="textarea-full-width primary-textarea-field" placeholder="Título do post"></textarea>
+        <input type="text" name="conteudo" class="input-full-width secondary-input-field" placeholder="Conteúdo">
     </div>
     </form>
 </div>
+<script>
+    function mostrarSelect() {
+        const select = document.getElementById("select-padrinho");
+        const publicoFlag = document.getElementById("publico-flag");
+
+        if (select.style.display === "block") {
+            select.style.display = "none";
+            publicoFlag.value = "False";
+        } else {
+            select.style.display = "block";
+            publicoFlag.value = "True";
+        }
+
+        select.focus();
+    }
+</script>
 
 {% endblock %}

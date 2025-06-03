@@ -624,4 +624,35 @@ def adm_respondidas(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
 
 def adm_novo_post(request):
-    return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html")
+    apadrinhados = Apadrinhado.objects.all()
+
+    if request.method == "POST":
+        host_afiliado_id = request.POST.get("host_afiliado")
+        titulo = request.POST.get("titulo")
+        conteudo = request.POST.get("conteudo")
+        foto = request.FILES.get("foto")
+        publico_foi_pressionado = request.POST.get("publico_foi_pressionado") == "True"
+
+        # Validação e criação (exemplo genérico)
+        
+        if titulo and conteudo:
+            apadrinhado = Apadrinhado.objects.get(id=host_afiliado_id) if host_afiliado_id else None
+            if apadrinhado:
+                padrinho = apadrinhado.padrinho
+            Publicacao.objects.create(
+                publica=not publico_foi_pressionado,
+                padrinho=padrinho,
+                titulo=titulo,
+                conteudo=conteudo,
+                foto=foto  # ajuste o nome do campo no seu modelo
+            )
+            return redirect('gerenciarFeed')
+
+        return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
+            "apadrinhados": apadrinhados,
+            "erro": "Preencha os campos corretamente."
+        })
+
+    return render(request, "apadrinhamento/adm/gerenciamento_feed/novo_post.html", {
+        "apadrinhados": apadrinhados,
+    })
