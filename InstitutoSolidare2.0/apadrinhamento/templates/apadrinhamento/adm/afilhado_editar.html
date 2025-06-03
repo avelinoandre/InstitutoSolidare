@@ -72,7 +72,7 @@ function salvarAfilhado(id) {
         sonho: document.getElementById("sonho").value
     };
 
-    fetch(`/afilhado/${id}/`, {
+    fetch("{% url 'editarAfilhado' afilhado.id %}", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
