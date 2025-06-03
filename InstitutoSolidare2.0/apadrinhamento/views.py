@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.core.exceptions import ObjectDoesNotExist
+from .utils import calcular_compatibilidade
 
 
 class Pergunta:
@@ -262,15 +263,36 @@ def padrinho_cadastro(request):
 
     return render(request, "apadrinhamento/padrinho/cadastro.html")
 
+def resposta_texto(indice, pergunta_index):
+    if indice is not None:
+        opcoes = perguntas_padrinho[pergunta_index].respostas
+        if 0 <= indice < len(opcoes):
+            return opcoes[indice]
+    return None
 
 @login_required
 def padrinho_escolher_apadrinhado(request):
+    padrinho = request.user.padrinho
     apadrinhados_sem_padrinho = Apadrinhado.objects.filter(padrinho__isnull=True)
-    
-    return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {
-        'apadrinhados': apadrinhados_sem_padrinho
-    })
 
+    apadrinhados_ordenados = sorted(
+        apadrinhados_sem_padrinho,
+        key=lambda ap: calcular_compatibilidade(ap, padrinho),
+        reverse=True
+    )
+
+    top_3 = apadrinhados_ordenados[:3]
+
+    for a in top_3:
+        a.hobby_nome = resposta_texto(a.hobby, 3)
+        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 4)
+        a.valores_nome = resposta_texto(a.valores, 5)
+        a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
+        a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
+
+    return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {
+        'apadrinhados': top_3,
+    })
 
 @login_required
 @csrf_exempt
