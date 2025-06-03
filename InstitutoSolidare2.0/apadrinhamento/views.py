@@ -706,10 +706,12 @@ def adm_novo_post(request):
         apadrinhado = None
         if not publica:
             apadrinhado = get_object_or_404(Apadrinhado, id=host_id)
+            padrinho = apadrinhado.padrinho
 
         Publicacao.objects.create(
             publica=publica,
             apadrinhado=apadrinhado,
+            padrinho=padrinho,
             titulo=titulo,
             conteudo=conteudo,
             foto=foto
