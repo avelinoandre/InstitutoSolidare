@@ -469,12 +469,14 @@ def adm_login(request):
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return JsonResponse({"success": True})
+            if user.is_superuser:
+                login(request, user)
+                return JsonResponse({"success": True})
+            else:
+                return JsonResponse({"success": False, "error": "Acesso restrito a administradores."}, status=403)
         else:
-            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."})
+            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."}, status=401)
     else:
-        # Se acessar via GET, mostra a página
         return render(request, "apadrinhamento/adm/adm-login.html")
 
 def adm_home(request):
@@ -623,37 +625,38 @@ def adm_gerenciar_feed(request):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/gerenciamento_feed_adm.html", {"publicacoes": publicacoes})
 
 def adm_gerenciar_cartas(request):
-    cartas_pendentes = Carta.objects.filter(aprovada=False)
+    cartas_pendentes = Carta.objects.filter(aprovada=False, respondida=False)
     return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
 def adm_escrever_carta(request):
+    padrinhos = Padrinho.objects.all()
+
     if request.method == "POST":
-        recipient_name = request.POST.get("recipient")
-        message = request.POST.get("short_message")
+        padrinho_id = request.POST.get("recipient")
+        titulo = request.POST.get("titulo")
+        conteudo = request.POST.get("conteudo")
 
-        if recipient_name:
-            apadrinhado = Apadrinhado.objects.get(nome=recipient_name)
+        padrinho = get_object_or_404(Padrinho, id=padrinho_id)
 
-            if padrinho and message:
-                carta = Carta.objects.create(
-                    titulo=short_message or "Sem título",
-                    conteudo=message,
-                    apadrinhado=apadrinhado,
-                    padrinho=request.user.padrinho,
-                    remetente_tipo="Padrinho",
-                )
-                return HttpResponse("Carta enviada com sucesso!")
+        Carta.objects.create(
+            titulo=titulo,
+            conteudo=conteudo,
+            aprovada=True,
+            padrinho=padrinho
+        )
+        return redirect("gerenciarCartas")  # ou outra view apropriada
 
-        else:
-            return HttpResponse("Erro: destinatário não informado.", status=400)
-
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html")
+    context = {
+        "padrinhos": padrinhos
+    }
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
 
 def adm_programado(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
 
 def adm_respondidas(request):
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html")
+    cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True)
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html", {"respondidas": cartas_respondidas})
 
 @csrf_exempt  # só se não usar {% csrf_token %} no HTML — caso use, remova isso!
 def adm_novo_post(request):
@@ -718,3 +721,14 @@ def adm_editar_post(request, id):
     return render(request, "apadrinhamento/adm/gerenciamento_feed/editar_post_adm.html", {
         "post": post
     })
+
+def aprovar_carta(request, id):
+    carta = get_object_or_404(Carta, id=id)
+    carta.aprovada = True
+    carta.save()
+    return redirect('gerenciarCartas')
+
+def rejeitar_carta(request, id):
+    carta = get_object_or_404(Carta, id=id)
+    carta.delete()
+    return redirect('gerenciarCartas')

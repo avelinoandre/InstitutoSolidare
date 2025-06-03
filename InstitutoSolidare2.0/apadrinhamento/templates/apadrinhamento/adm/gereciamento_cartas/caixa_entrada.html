@@ -2,43 +2,58 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cartas.css' %}?v=123">
-        
 
-        <main class="content-area">
-            <aside class="sidebar">
-            <a href="{% url 'gerenciarCartas' %}" class="sidebar-item active">
-                <div class="circle yellow"></div>
-                <span>Caixa de entrada</span>
-            </a>
-            <a href="{% url 'admEscreverCarta' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Escreva uma carta</span>
-            </a>
-            <a href="{% url 'admProgramado' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Programados</span>
-            </a>
-            <a href="{% url 'admRespondidas' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Respondidas</span>
-            </a>
-            <div class="sidebar-bottom-arrow">
-                <i class="fas fa-arrow-left"></i>
+<main class="content-area">
+    <aside class="sidebar">
+        <a href="{% url 'gerenciarCartas' %}" class="sidebar-item active">
+            <div class="circle yellow"></div>
+            <span>Caixa de entrada</span>
+        </a>
+        <a href="{% url 'admEscreverCarta' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Escreva uma carta</span>
+        </a>
+        <a href="{% url 'admProgramado' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Programados</span>
+        </a>
+        <a href="{% url 'admRespondidas' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Respondidas</span>
+        </a>
+        <div class="sidebar-bottom-arrow">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+    </aside>
+
+    <section class="main-content">
+        {% for carta in cartas %}
+        <div class="message-item">
+            <span>
+                Mensagem de {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}
+            </span>
+            <span>{{ carta.data_envio }}</span>
+            <i class="fas fa-chevron-down"></i>
+
+            <div class="message-actions">
+                <!-- Botão Aprovar -->
+                <form method="post" action="{% url 'aprovarCarta' carta.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-approve">Aprovar</button>
+                </form>
+
+                <!-- Botão Rejeitar -->
+                <form method="post" action="{% url 'rejeitarCarta' carta.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-reject">Rejeitar</button>
+                </form>
             </div>
-        </aside>
-
-            <section class="main-content">
-                {% for carta in cartas %}
-                <div class="message-item">
-                    <span>Mensagem de {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}</span>
-                    <span>{{ carta.data_envio }}</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                {% empty %}
-                <div class="message-item">
-                    <span>Nenhuma carta pendente de aprovação.</span>
-                </div>
-                {% endfor %}
-            </section>
-        </main>
-    {% endblock %}
+        </div>
+        {% empty %}
+        <div class="message-item">
+            <span>Nenhuma carta pendente de aprovação.</span>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}

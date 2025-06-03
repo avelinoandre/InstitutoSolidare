@@ -3,48 +3,66 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cartas.css' %}?v=123">
 
-        <main class="content-area">
-            <aside class="sidebar">
-            <a href="{% url 'gerenciarCartas' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Caixa de entrada</span>
-            </a>
-            <a href="{% url 'admEscreverCarta' %}" class="sidebar-item active">
-                <div class="circle yellow"></div>
-                <span>Escreva uma carta</span>
-            </a>
-            <a href="{% url 'admProgramado' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Programados</span>
-            </a>
-            <a href="{% url 'admRespondidas' %}" class="sidebar-item">
-                <div class="circle white"></div>
-                <span>Respondidas</span>
-            </a>
-            <div class="sidebar-bottom-arrow">
-                <i class="fas fa-arrow-left"></i>
+<main class="content-area">
+    <aside class="sidebar">
+        <a href="{% url 'gerenciarCartas' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Caixa de entrada</span>
+        </a>
+        <a href="{% url 'admEscreverCarta' %}" class="sidebar-item active">
+            <div class="circle yellow"></div>
+            <span>Escreva uma carta</span>
+        </a>
+        <a href="{% url 'admProgramado' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Programados</span>
+        </a>
+        <a href="{% url 'admRespondidas' %}" class="sidebar-item">
+            <div class="circle white"></div>
+            <span>Respondidas</span>
+        </a>
+        <div class="sidebar-bottom-arrow">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+    </aside>
+
+    <section class="main-content message-compose">
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Padrinho -->
+            <div class="recipient-select">
+                <label for="recipient">Padrinho:</label>
+                <select name="recipient" id="recipient" class="text-input" required>
+                    <option value="" disabled selected>Escolha o padrinho</option>
+                    {% for padrinho in padrinhos %}
+                        <option value="{{ padrinho.id }}">{{ padrinho.nome_completo }}</option>
+                    {% endfor %}
+                </select>
             </div>
-        </aside>
 
-            <section class="main-content message-compose">
-               <form method="post">
-                  {% csrf_token %}
+            <!-- Título -->
+            <div class="message-field">
+                <label for="titulo">Título:</label>
+                <input type="text" name="titulo" id="titulo" placeholder="Título da carta" class="text-input" required>
+            </div>
 
-                  <div class="recipient-select">
-                    <input type="text" name="recipient" placeholder="Nome do padrinho para que deseja escrever..." class="text-input">
-                    <i class="fas fa-chevron-down"></i>
-                  </div>
+            <!-- Conteúdo -->
+            <div class="message-field">
+                <label for="conteudo">Conteúdo:</label>
+                <textarea name="conteudo" id="conteudo" placeholder="Escreva o conteúdo completo aqui..." class="text-input" rows="8" required></textarea>
+            </div>
 
-                  <div class="message-send-box">
-                    <input type="text" name="short_message" placeholder="Escreva sua mensagem..." class="text-input send-input">
-                    <button type="submit" class="send-button">
-                      <i class="fas fa-arrow-right"></i>
-                    </button>
-                  </div>
-                </form>
-            </section>
-        </main>
-    </div>
+            <!-- Enviar -->
+            <div class="message-send-box">
+                <button type="submit" class="send-button">
+                    <i class="fas fa-arrow-right"></i> Enviar
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
+</div>
 </body>
 </html>
-    {% endblock %}
+{% endblock %}
