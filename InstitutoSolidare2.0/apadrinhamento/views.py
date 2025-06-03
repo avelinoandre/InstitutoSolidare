@@ -16,6 +16,7 @@ class Pergunta:
     def __init__(self, pergunta, *respostas):
         self.pergunta = pergunta
         self.respostas = respostas
+        self.resposta_usuario = 0
 
 
 # =====================================================================
@@ -61,21 +62,7 @@ perguntas_padrinho = [
         "Artes",
     ),
     Pergunta(
-        "2. Qual era a profissão dos seus sonhos, quando criança?",
-        "Médico(a)",
-        "Professor(a)",
-        "Bombeiro(a)",
-        "Atleta ou Jogador(a) de futebol",
-        "Artista",
-        "Ator",
-        "Engenheiro(a)",
-        "Arquiteto(a)",
-        "Veterinário(a)",
-        "Empresário(a)",
-        "Juiz",
-    ),
-    Pergunta(
-        "3. E hoje, em qual área profissional você atua?",
+        "2. E hoje, em qual área profissional você atua / Gostaria de atuar?",
         "Saúde",
         "Educação",
         "Legislativa",
@@ -88,7 +75,7 @@ perguntas_padrinho = [
         "Serviço público",
     ),
     Pergunta(
-        "4. Você possui algum hobby?",
+        "3. Você possui algum hobby?",
         "Ler",
         "Cozinhar",
         "Praticar esportes",
@@ -98,7 +85,7 @@ perguntas_padrinho = [
         "Dançar",
     ),
     Pergunta(
-        "5. O que mais te inspira hoje?",
+        "4. O que mais te inspira hoje?",
         "Família",
         "Meus amigos",
         "Impactar positivamente a vida de outras pessoas",
@@ -107,7 +94,7 @@ perguntas_padrinho = [
         "Fé ou espiritualidade",
     ),
     Pergunta(
-        "6. E para fechar, aponte seus 3 maiores valores",
+        "5. E para fechar, aponte seus maior valor",
         "Honestidade",
         "Liberdade",
         "Respeito",
@@ -284,9 +271,9 @@ def padrinho_escolher_apadrinhado(request):
     top_3 = apadrinhados_ordenados[:3]
 
     for a in top_3:
-        a.hobby_nome = resposta_texto(a.hobby, 3)
-        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 4)
-        a.valores_nome = resposta_texto(a.valores, 5)
+        a.hobby_nome = resposta_texto(a.hobby, 2)
+        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 3)
+        a.valores_nome = resposta_texto(a.valores, 4)
         a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
         a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
         a.info_texto = a.info
@@ -411,8 +398,23 @@ def padrinho_alterar_valores(request):
 
     padrinho = request.user.padrinho
     # GET: carregar página
+    respostas_atuais = [
+    padrinho.area_escolar,
+    padrinho.profissao_desejada_quando_crianca,
+    padrinho.profissao_atual,
+    padrinho.hobby,
+    padrinho.inspiracoes,
+    padrinho.valores,
+]
+
+    # Copia as perguntas e adiciona o campo "resposta_usuario"
+    perguntas = perguntas_padrinho.copy()
+
+    for i, pergunta in enumerate(perguntas):
+        pergunta.resposta_usuario = respostas_atuais[i]
+
     context = {
-        "perguntas": perguntas_padrinho,
+        "perguntas": perguntas,
         "respostas_usuario": [],
         "foto": padrinho.foto,
     }
@@ -425,9 +427,9 @@ def padrinho_meus_apadrinhados(request):
     apadrinhados = padrinho.apadrinhados.all()
 
     for a in apadrinhados:
-        a.hobby_nome = resposta_texto(a.hobby, 3)
-        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 4)
-        a.valores_nome = resposta_texto(a.valores, 5)
+        a.hobby_nome = resposta_texto(a.hobby, 2)
+        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 3)
+        a.valores_nome = resposta_texto(a.valores, 4)
         a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
         a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
         a.info_texto = a.info
@@ -459,65 +461,6 @@ def escrita_cartas(request):
 # =====================================================================
 # LOGIN ADMIN
 # =====================================================================
-
-perguntas_apadrinhado = [
-    Pergunta(
-        "1. Qual matéria  da escola você mais gosta?",
-        "Português (Linguagens)",
-        "Inglês (Linguagens)",
-        "Matemática",
-        "Ciências",
-        "Historia (Humanas)",
-        "Geografia (Humanas)",
-        "Artes",
-    ),
-    Pergunta(
-        "2. Você quer ser o que quando crescer?",
-        "Médico(a)",
-        "Professor(a)",
-        "Bombeiro(a)",
-        "Atleta ou Jogador(a) de futebol",
-        "Artista",
-        "Ator",
-        "Engenheiro(a)",
-        "Arquiteto(a)",
-        "Veterinário(a)",
-        "Empresário(a)",
-        "Juiz",
-    ),
-    Pergunta(
-        "3. Você possui algum hobby?",
-        "Saúde",
-        "Educação",
-        "Legislativa",
-        "Tecnologia",
-        "Negócios",
-        "Engenharia",
-        "Artes e Cultura",
-        "Comunicação e Marketing",
-        "Esportes/Atividades físicas",
-        "Serviço público",
-    ),
-    Pergunta(
-        "4. O que mais te inspira hoje? (O que faz o seu olho brilhar e querer estudar?)",
-        "Ler",
-        "Cozinhar",
-        "Praticar esportes",
-        "Tocar instrumentos musicais",
-        "Desenhar ou pintar",
-        "Escrever",
-        "Dançar",
-    ),
-    Pergunta(
-        "5. Escolha 3 valores que você acha importante e quer levar para a vida",
-        "Família",
-        "Meus amigos",
-        "Impactar positivamente a vida de outras pessoas",
-        "Buscar conhecimento e crescimento",
-        "Realizar sonhos de infância",
-        "Fé ou espiritualidade",
-    ),
-]
 
 def adm_login(request):
     if request.method == "POST" and request.content_type == 'application/json':
@@ -582,7 +525,7 @@ def editar_afilhado(request, apadrinhado_id):
 
     context = {
         "afilhado": afilhado,
-        "perguntas": perguntas_apadrinhado,
+        "perguntas": perguntas_padrinho,
         "respostas_usuario": respostas_usuario,
     }
     return render(request, "apadrinhamento/adm/afilhado_editar.html", context)

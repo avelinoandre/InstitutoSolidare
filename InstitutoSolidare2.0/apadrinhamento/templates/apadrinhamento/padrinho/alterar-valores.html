@@ -27,7 +27,11 @@
 
                 <select id="resposta-{{ forloop.counter0 }}">
                     {% for opcao in pergunta.respostas %}
-                        <option value="{{ forloop.counter0 }}">{{ opcao }}</option>
+                        <option value="{{ forloop.counter0 }}"
+                            {% if forloop.counter0 == pergunta.resposta_usuario %}
+                                selected
+                            {% endif %}
+                        >{{ opcao }}</option>
                     {% endfor %}
                 </select>
             </div>
