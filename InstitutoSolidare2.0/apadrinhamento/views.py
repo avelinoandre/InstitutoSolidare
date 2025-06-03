@@ -551,48 +551,50 @@ def excluir_afilhado(request, apadrinhado_id):
 @csrf_exempt        # tire se já estiver usando {% csrf_token %}
 def cadastrar_afilhado(request):
     if request.method == "POST":
-        # Campos simples --------------------------------------------
-        nome            = request.POST.get("nome")
-        genero          = request.POST.get("genero")
-        info            = request.POST.get("info")
-        endereco        = request.POST.get("endereco")
-        data_raw        = request.POST.get("data_nascimento")
+        try:
+            # Campos simples
+            nome = request.POST.get("nome")
+            genero = request.POST.get("genero")
+            info = request.POST.get("info")
+            endereco = request.POST.get("endereco")
+            data_raw = request.POST.get("data_nascimento")
+            data_nascimento = datetime.strptime(data_raw, "%Y-%m-%d").date() if data_raw else None
 
-        # Converte YYYY-MM-DD → date  (ou deixe string, o ORM aceita)
-        data_nascimento = datetime.strptime(data_raw, "%Y-%m-%d").date() if data_raw else None
+            # Respostas (vem como string JSON)
+            respostas_json = request.POST.get("respostas")
+            respostas = json.loads(respostas_json) if respostas_json else []
 
-        # ----------------- Seleções vindas dos <select> -------------
-        area_escolar        = _int_or_none(request.POST.get("resposta_0"))
-        profissao_desejada  = _int_or_none(request.POST.get("resposta_1"))
-        hobby               = _int_or_none(request.POST.get("resposta_2"))
-        inspiracoes         = _int_or_none(request.POST.get("resposta_3"))
-        valores             = _int_or_none(request.POST.get("resposta_4"))
+            # Arquivos
+            foto = request.FILES.get("foto")
+            foto_para_padrinho = request.FILES.get("foto_para_padrinho")
 
-        # ----------------- Arquivos ---------------------------------
-        foto                = request.FILES.get("foto")
-        foto_para_padrinho  = request.FILES.get("foto_para_padrinho")
+            # Criação
+            Apadrinhado.objects.create(
+                nome=nome,
+                genero=genero,
+                info=info,
+                endereco=endereco,
+                data_nascimento=data_nascimento,
+                area_escolar=_get_or_none(respostas, 0),
+                profissao_desejada=_get_or_none(respostas, 1),
+                hobby=_get_or_none(respostas, 2),
+                inspiracoes=_get_or_none(respostas, 3),
+                valores=_get_or_none(respostas, 4),
+                foto=foto,
+                foto_para_padrinho=foto_para_padrinho,
+            )
 
-        # ----------------- Criação do registro ----------------------
-        Apadrinhado.objects.create(
-            nome=nome,
-            data_nascimento=data_nascimento,
-            genero=genero,
-            info=info,
-            endereco=endereco,
-            area_escolar=area_escolar,
-            profissao_desejada=profissao_desejada,
-            hobby=hobby,
-            inspiracoes=inspiracoes,
-            valores=valores,
-            foto=foto,
-            foto_para_padrinho=foto_para_padrinho,
-        )
+            return JsonResponse({
+                "sucesso": True,
+                "mensagem": "Afilhado cadastrado com sucesso!",
+                "redirect_url": "/adm/gerenciar-afilhados/"
+            })
 
-        return JsonResponse({
-            "sucesso": True,
-            "mensagem": "Afilhado cadastrado com sucesso!",
-            "redirect_url": "/adm/gerenciar-afilhados/"
-        })
+        except Exception as e:
+            return JsonResponse({
+                "sucesso": False,
+                "mensagem": f"Erro ao salvar: {str(e)}"
+            }, status=400)
 
     return render(
         request,
@@ -600,6 +602,12 @@ def cadastrar_afilhado(request):
         {"perguntas": perguntas_padrinho},
     )
 
+# Função auxiliar segura
+def _get_or_none(lista, index):
+    try:
+        return lista[index]
+    except (IndexError, TypeError):
+        return None
 
 # ---------- helper ----------
 def _int_or_none(value):

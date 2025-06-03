@@ -1,67 +1,80 @@
 {% extends 'shared/base_logout.html' %}
 {% load static %}
 {% block content %}
+
 <style>
-  /* (Mesmo CSS anterior, mantido para preservar o layout) */
-  .form-container {
-    padding: 30px;
+  .form-wrapper {
     display: flex;
     justify-content: center;
+    margin-top: 40px;
   }
 
   .form-card {
     background: #85bce2;
     padding: 30px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 850px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .form-card h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #003049;
-  }
-
-  .fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    border-radius: 30px;
+    width: 90%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
   }
 
+  .form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
   label {
+    font-weight: bold;
+    color: black;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    font-weight: bold;
-    font-size: 15px;
-    color: #003049;
+    font-size: 16px;
   }
 
   input[type="text"],
   input[type="date"],
-  select,
-  input[type="file"] {
-    margin-top: 5px;
-    padding: 10px;
-    border-radius: 8px;
+  textarea {
+    background: #e5e5e5;
     border: none;
+    border-radius: 8px;
+    padding: 10px;
     font-size: 15px;
+    margin-top: 5px;
   }
 
   input[type="file"] {
+    background: #e5e5e5;
+    border: none;
+    border-radius: 8px;
     padding: 8px;
-    background: white;
+    font-size: 15px;
+    margin-top: 5px;
+    color: #999;
+  }
+
+  textarea {
+    resize: vertical;
   }
 
   select {
-    cursor: pointer;
+    background: #e5e5e5;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 15px;
+    margin-top: 5px;
+    width: 100%;
   }
 
-  .full-width {
-    grid-column: 1 / -1;
+  #popup {
+    display: none;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
   }
 
   .submit-button {
@@ -77,52 +90,50 @@
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s;
   }
 
   .submit-button button:hover {
     background: #f0c534;
   }
-
-  #perguntas-container > div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  #perguntas-container select {
-    width: 100%;
-  }
 </style>
-<div id="popup" style="display:none; text-align: center; font-weight: bold;"></div>
 
-<div class="form-container">
+<div class="form-wrapper">
   <div class="form-card">
-    <h2>Novo Afilhado</h2>
 
-    <div class="fields">
+    <div class="form-row">
+      <label>Caricatura:
+        <input type="file" id="foto_para_padrinho" required>
+      </label>
 
       <label>Nome:
         <input type="text" id="nome" required>
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label>Foto:
+        <input type="file" id="foto" required>
       </label>
 
       <label>Data de Nascimento:
         <input type="date" id="data_nascimento" required>
       </label>
+    </div>
 
-      <label>Gênero:
-        <input type="text" id="genero" required>
-      </label>
-
-      <label>Endereço:
+    <div class="form-row">
+      <label class="full">Endereço:
         <input type="text" id="endereco" required>
       </label>
+    </div>
 
-      <label>Meu sonho:
-        <input type="text" id="info" required>
+    <div class="form-row">
+      <label class="full">Meu Sonho:
+        <textarea id="info" rows="3" required></textarea>
       </label>
+    </div>
 
-      <div id="perguntas-container" class="full-width">
+    <!-- MANTIDO CONFORME SUA SOLICITAÇÃO -->
+    <div id="perguntas-container" class="full-width">
         {% for pergunta in perguntas %}
         <div>
           <label>{{ pergunta.pergunta }}
@@ -134,20 +145,13 @@
           </label>
         </div>
         {% endfor %}
-      </div>
+    </div>
 
-      <label class="full-width">Foto:
-        <input type="file" id="foto" required>
-      </label>
+    <div class="submit-button full-width">
+        <button type="button" onclick="salvarAfilhado()">Salvar</button>
+    </div>
 
-      <label class="full-width">Foto para padrinho:
-        <input type="file" id="foto_para_padrinho" required>
-      </label>
-
-      <div class="submit-button full-width">
-          <button type="button" onclick="salvarAfilhado()">Salvar</button>
-      </div>
-
+    <div id="popup"></div>
   </div>
 </div>
 
@@ -156,18 +160,16 @@ function salvarAfilhado() {
   const formData = new FormData();
   formData.append('nome', document.getElementById('nome').value);
   formData.append('data_nascimento', document.getElementById('data_nascimento').value);
-  formData.append('genero', document.getElementById('genero').value);
+  formData.append('genero', document.getElementById('genero')?.value || '');
   formData.append('endereco', document.getElementById('endereco').value);
   formData.append('info', document.getElementById('info').value);
   formData.append('foto', document.getElementById('foto').files[0]);
   formData.append('foto_para_padrinho', document.getElementById('foto_para_padrinho').files[0]);
 
   const respostas = [];
-
   document.querySelectorAll('[id^="resposta-"]').forEach(select => {
     respostas.push(parseInt(select.value));
   });
-
   formData.append('respostas', JSON.stringify(respostas));
 
   fetch("{% url 'cadastrarAfilhado' %}", {
@@ -179,18 +181,19 @@ function salvarAfilhado() {
   })
   .then(response => response.json())
   .then(data => {
-  const popup = document.getElementById('popup');
-  popup.innerText = data.mensagem || 'Afilhado salvo com sucesso!';
-  popup.style.display = 'block';
-  popup.style.color = data.sucesso ? "#155724" : "#721c24";
-  popup.style.backgroundColor = data.sucesso ? "#d4edda" : "#f8d7da";
-  popup.style.padding = "12px";
-  popup.style.borderRadius = "8px";
+    const popup = document.getElementById('popup');
+    popup.innerText = data.mensagem || 'Afilhado salvo com sucesso!';
+    popup.style.display = 'block';
+    popup.style.color = data.sucesso ? "#155724" : "#721c24";
+    popup.style.backgroundColor = data.sucesso ? "#d4edda" : "#f8d7da";
+    popup.style.padding = "12px";
+    popup.style.borderRadius = "8px";
 
-  if (data.sucesso && data.redirect_url) {
+    if (data.sucesso && data.redirect_url) {
       setTimeout(() => window.location.href = data.redirect_url, 2000);
     }
   });
 }
 </script>
+
 {% endblock %}
