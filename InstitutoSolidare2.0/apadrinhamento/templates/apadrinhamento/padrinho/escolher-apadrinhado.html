@@ -1,13 +1,6 @@
+{% extends "shared/base_logout.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Escolha seu Apadrinhado</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
-</head>
-<body>
-    {% include 'partials/new_header.html' %}
+ {% block content %}
 
     <h2 style="text-align:center">Escolha um apadrinhado</h2>
 
@@ -41,5 +34,4 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
         </a>
     </footer>
-</body>
-</html>
+{% endblock %}

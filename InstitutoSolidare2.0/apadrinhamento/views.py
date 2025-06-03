@@ -233,7 +233,6 @@ def padrinho_cadastro(request):
                 telefone=telefone,
                 foto=foto_perfil if foto_perfil else None,
                 area_escolar=respostas.get("resposta_0", ""),
-                profissao_desejada_quando_crianca=respostas.get("resposta_1", ""),
                 profissao_atual=respostas.get("resposta_2", ""),
                 hobby=respostas.get("resposta_3", ""),
                 inspiracoes=respostas.get("resposta_4", ""),
@@ -382,7 +381,6 @@ def padrinho_alterar_valores(request):
             padrinho = request.user.padrinho
 
             padrinho.area_escolar = int(respostas_usuario[0])
-            padrinho.profissao_desejada_quando_crianca = int(respostas_usuario[1])
             padrinho.profissao_atual = int(respostas_usuario[2])
             padrinho.hobby = int(respostas_usuario[3])
             padrinho.inspiracoes = int(respostas_usuario[4])
@@ -400,7 +398,6 @@ def padrinho_alterar_valores(request):
     # GET: carregar página
     respostas_atuais = [
     padrinho.area_escolar,
-    padrinho.profissao_desejada_quando_crianca,
     padrinho.profissao_atual,
     padrinho.hobby,
     padrinho.inspiracoes,

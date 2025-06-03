@@ -9,7 +9,7 @@ def calcular_compatibilidade(apadrinhado, padrinho):
 
     gostos_padrinho = [
         padrinho.area_escolar,
-        padrinho.profissao_desejada_quando_crianca,
+        padrinho.profissao_atual,
         padrinho.hobby,
         padrinho.inspiracoes,
         padrinho.valores,

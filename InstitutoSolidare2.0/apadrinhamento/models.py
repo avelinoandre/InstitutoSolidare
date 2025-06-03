@@ -11,6 +11,7 @@ class Apadrinhado(models.Model):
     foto = models.ImageField(upload_to="fotos/")
     foto_para_padrinho=models.ImageField(upload_to="fotos/")
     info = models.CharField(max_length=200, null=False)
+    endereco = models.CharField(max_length=200, null=False)
 
     padrinho = models.ForeignKey('Padrinho', related_name='apadrinhados', on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -43,7 +44,6 @@ class Padrinho(models.Model):
     foto = models.ImageField(upload_to="fotos/")
 
     area_escolar = models.IntegerField(null=True, blank=True)
-    profissao_desejada_quando_crianca = models.IntegerField(null=True, blank=True)
     profissao_atual = models.IntegerField(null=True, blank=True)
     hobby = models.IntegerField(null=True, blank=True)
     inspiracoes = models.IntegerField(null=True, blank=True)

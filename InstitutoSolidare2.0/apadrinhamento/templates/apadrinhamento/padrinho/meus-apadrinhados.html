@@ -1,13 +1,6 @@
+{% extends "shared/base_logout.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Meus Afiliados</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
-</head>
-<body>
-    {% include 'partials/new_header.html' %}
+ {% block content %}
 
     <h2 style="text-align:center">Meus Afiliados</h2>
 
@@ -35,5 +28,4 @@
     {% endif %}
 
     {% include 'partials/circle-button.html' %}
-</body>
-</html>
+{% endblock %}
