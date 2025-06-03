@@ -454,7 +454,26 @@ def padrinho_cartas(request):
 @login_required
 def escrita_cartas(request):
     padrinho = request.user.padrinho
-    return render(request, "apadrinhamento/padrinho/escrita_cartas.html")
+    apadrinhados = Apadrinhado.objects.filter(padrinho=padrinho)
+
+    if request.method == "POST":
+        afilhado_id = request.POST.get("afilhado_id")
+        titulo = request.POST.get("titulo")
+        conteudo = request.POST.get("conteudo")
+
+        # Aqui você pode salvar no banco, por exemplo:
+        afilhado = Apadrinhado.objects.get(id=afilhado_id)
+        Carta.objects.create(
+            padrinho=padrinho,
+            apadrinhado=afilhado,
+            titulo=titulo,
+            conteudo=conteudo
+        )
+        return redirect("cartas_escrita")  # ou qualquer outra página de sucesso
+
+    return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
+        "apadrinhados": apadrinhados
+    })
 
 
 # =====================================================================

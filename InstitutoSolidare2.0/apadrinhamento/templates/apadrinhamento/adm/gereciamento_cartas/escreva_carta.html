@@ -36,7 +36,7 @@
                 <select name="recipient" id="recipient" class="text-input" required>
                     <option value="" disabled selected>Escolha uma carta para responder</option>
                     {% for carta in cartas %}
-                        <option value="{{ cartas.id }}">{{ cartas.titulo }}</option>
+                        <option value="{{ carta.id }}">{{ carta.titulo }}</option>
                     {% endfor %}
                 </select>
             </div>
