@@ -5,22 +5,45 @@
 
 <div class="cartas-grid">
     {% for publicacao in publicacoes %}
-        <div class="publicacao">
+        <div class="publicacao" style="position: relative;">
             <h3>{{ publicacao.titulo }}</h3>
-            
+
             {% if publicacao.foto %}
-                <img src="{{ publicacao.foto.url }}" alt="Foto da publicação" style="max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0;">
+                <img src="{{ publicacao.foto.url }}" alt="Foto da publicação"
+                     style="max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0;">
             {% endif %}
-            
-            <p>{{ publicacao.conteudo }}</p>
-            <small>
-                Tipo: 
-                {% if publicacao.publica %}
-                    Pública
-                {% else %}
-                    Privada
-                {% endif %}
-            </small>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+
+                <div style="display: flex; flex-direction: column; gap: 5px; flex-grow: 1;">
+                    <p style="margin: 0;">{{ publicacao.conteudo }}</p>
+                    <small style="white-space: nowrap;">
+                        Tipo: 
+                        {% if publicacao.publica %}
+                            Pública
+                        {% else %}
+                            Privada
+                        {% endif %}
+                    </small>
+                </div>
+
+                <form method="post" style="margin: 0;">
+                    {% csrf_token %}
+                    <input type="hidden" name="publicacao_id" value="{{ publicacao.id }}">
+                    <button type="submit" style="
+                        font-size: 12px;
+                        padding: 4px 10px;
+                        border-radius: 5px;
+                        background-color: #eee;
+                        border: 1px solid #ccc;
+                        cursor: pointer;
+                        white-space: nowrap;
+                    ">
+                        ❤️ Curtir ({{ publicacao.likes.count }})
+                    </button>
+                </form>
+            </div>
+
             <hr>
         </div>
     {% endfor %}
