@@ -530,7 +530,7 @@ def editar_afilhado(request, apadrinhado_id):
 def excluir_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
     afilhado.delete()
-    return redirect('lista_afilhados')
+    return redirect('gerenciarAfilhados')
 
 def adm_gerenciar_feed(request):
     publicacoes = Publicacao.objects.all()

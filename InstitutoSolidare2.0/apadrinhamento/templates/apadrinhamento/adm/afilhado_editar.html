@@ -49,10 +49,11 @@
                 Alterar Dados
             </button>
 
-            <a href="{% url 'excluir_afilhado' afilhado.id %}"
-               style="background-color: #ffd43b; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; color: black; margin-left: 10px;">
-                Excluir afilhado
-            </a>
+           <button onclick="confirmarExclusao({{ afilhado.id }})"
+                style="background-color: #ffd43b; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; color: black; margin-left: 10px;">
+            Excluir afilhado
+        </button>
+
         </div>
 
         <!-- Alerta de resultado -->
@@ -90,6 +91,11 @@ function salvarAfilhado(id) {
         popup.style.padding = "12px";
         popup.style.borderRadius = "8px";
     });
+}
+function confirmarExclusao(afilhadoId) {
+    if (confirm("Tem certeza que deseja excluir este afilhado? Essa ação não poderá ser desfeita.")) {
+        window.location.href = "{% url 'excluir_afilhado' afilhado.id %}";
+    }
 }
 </script>
 {% endblock %}
