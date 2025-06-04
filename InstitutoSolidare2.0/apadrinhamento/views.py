@@ -709,8 +709,7 @@ def adm_gerenciar_cartas(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
 def adm_escrever_carta(request):
-    padrinhos = Padrinho.objects.all()
-    cartas = Carta.objects.filter(aprovada=True)
+    cartas = Carta.objects.filter(aprovada=True, respondida=False).order_by("-data_envio")
 
     if request.method == "POST":
         carta_id = request.POST.get("recipient")
@@ -724,14 +723,16 @@ def adm_escrever_carta(request):
             titulo=titulo,
             conteudo=conteudo,
             aprovada=True,
+            respondida=True,
             padrinho=padrinho,
             apadrinhado=carta.apadrinhado,
             remetente_tipo="apadrinhado"
         )
+        carta.respondida = True
+        carta.save()
         return redirect("gerenciarCartas")  # ou outra view apropriada
 
     context = {
-        "padrinhos": padrinhos,
         "cartas": cartas
     }
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
