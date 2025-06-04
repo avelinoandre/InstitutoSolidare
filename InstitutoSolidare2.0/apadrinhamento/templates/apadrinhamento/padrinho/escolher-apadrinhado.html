@@ -9,7 +9,12 @@
         {% for a in apadrinhados %}
         <div class="apadrinhado-card">
             <div class="apadrinhado-image">
-                <img src="{{ a.foto_para_padrinho.url }}" alt="Foto de {{ a.nome }}">
+                {% if a.foto_para_padrinho %}
+                    <img src="{{ a.foto_para_padrinho.url }}" alt="Foto de {{ a.nome }}">
+                {% else %}
+                    <img src="" alt="Foto de {{ a.nome }}">
+                {% endif %}
+
             </div>
 
             <div class="apadrinhado-info">
