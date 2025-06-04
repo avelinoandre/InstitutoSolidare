@@ -13,9 +13,15 @@
         <img src="{% static "img\logo.png" %}" alt="logo" width="54" height="61" class="logo-image">
         <section class="icons-login">
             <section class="flags-icons">
-                <img src="https://flagcdn.com/w40/br.png" alt="Bandera de Brasil" width="50" height="40" class="flag">
-                <img src="https://flagcdn.com/w40/us.png" alt="Bandera de EE.UU." width="50" height="40" class="flag">
-                <img src="https://flagcdn.com/w40/es.png" alt="Bandera de España" width="50" height="40" class="flag">
+                <a href="{% url 'home' %}" title="Versão em Portugues">
+                <img src="https://flagcdn.com/w40/br.png" alt="Bandeira Brasil" width="50" height="40" class="flag">
+              </a>
+                <a href="{% url 'homeEN' %}" title="Versão em Inglês">
+                  <img src="https://flagcdn.com/w40/us.png" alt="Bandeira Estados Unidos" width="50" height="40" class="flag" style="cursor: pointer;">
+                </a>
+                <a href="{% url 'homeES' %}" title="Versão em Espanhol">
+                <img src="https://flagcdn.com/w40/es.png" alt="Bandeira Espanha" width="50" height="40" class="flag">
+                </a>
             </section>
             <section class="login">
                 <a href="{% url "padrinhoLogin" %}" class="login-btn">Iniciar sesión</a>

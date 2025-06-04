@@ -32,6 +32,12 @@ def home(request):
 def new_home(request):
     return render(request, "apadrinhamento/new_home.html")
 
+def new_homeEN(request):
+    return render(request, "apadrinhamento/new_homeING.html")
+
+def new_homeES(request):
+    return render(request, "apadrinhamento/new_homeESP.html")
+
 
 # =====================================================================
 # LOGIN PADRINHO
