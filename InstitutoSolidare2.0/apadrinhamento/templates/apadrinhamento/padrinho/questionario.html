@@ -47,7 +47,7 @@ function irParaProximaPergunta() {
     const perguntaAtual = {{ pergunta_atual }};
     const total = {{ total_perguntas }};
 
-    localStorage.setItem('resposta_' + perguntaAtual, respostaSelecionada);
+    localStorage.setItem(perguntaAtual, respostaSelecionada);
 
     if (perguntaAtual < total) {
         window.location.href = `/padrinho/questionario/${perguntaAtual}/`;
@@ -55,7 +55,7 @@ function irParaProximaPergunta() {
         // Montar dicionário de respostas
         const respostas = {};
         for (let i = 1; i <= total; i++) {
-            respostas[i] = localStorage.getItem('resposta_' + i);
+            respostas[i] = localStorage.getItem(i);
         }
 
 
@@ -72,6 +72,7 @@ function irParaProximaPergunta() {
         .then(data => {
             if (data.status === "ok") {
                 window.location.href = "/padrinho/criar-usuario/";
+                localStorage.clear()
             } else {
                 alert("Erro ao salvar as respostas.");
             }
