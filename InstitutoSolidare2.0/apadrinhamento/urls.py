@@ -36,7 +36,4 @@ urlpatterns = [
     path('adm/programado/', adm_programado, name='admProgramado'),
     path('adm/respondidas/', adm_respondidas, name='admRespondidas'),
     path("afilhados/novo/", cadastrar_afilhado, name="cadastrarAfilhado"),
-    path("afilhados/editar-post/<int:id>/", adm_editar_post, name="admEditarPost"),
-    path('cartas/aprovar/<int:id>/', aprovar_carta, name='aprovarCarta'),
-    path('cartas/rejeitar/<int:id>/', rejeitar_carta, name='rejeitarCarta'),
 ]
