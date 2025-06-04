@@ -249,7 +249,8 @@ def padrinho_cadastro(request):
         login(request, user)
         request.session.pop("novo_usuario", None)
 
-        if not Apadrinhado.objects.exists():
+        apadrinhados = Apadrinhado.objects.filter(padrinho__isnull=True)
+        if len(apadrinhados) == 0:
             return redirect("padrinhoFeed")
 
         return redirect("padrinhoEscolherApadrinhadoDeslogado")
