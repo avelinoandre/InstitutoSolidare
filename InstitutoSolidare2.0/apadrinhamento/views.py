@@ -737,7 +737,7 @@ def adm_programado(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
 
 def adm_respondidas(request):
-    cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True)
+    cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True, remetente_tipo="apadrinhado")
     return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html", {"respondidas": cartas_respondidas})
 
 @csrf_exempt
