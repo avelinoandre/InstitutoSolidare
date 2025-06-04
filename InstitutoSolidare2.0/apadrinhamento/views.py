@@ -249,7 +249,7 @@ def padrinho_cadastro(request):
         login(request, user)
         request.session.pop("novo_usuario", None)
 
-        return redirect("padrinhoEscolherApadrinhado")
+        return redirect("padrinhoEscolherApadrinhadoDeslogado")
 
     return render(request, "apadrinhamento/padrinho/cadastro.html")
 
@@ -284,6 +284,32 @@ def padrinho_escolher_apadrinhado(request):
     return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado.html', {
         'apadrinhados': top_3,
     })
+
+@login_required
+def padrinho_escolher_apadrinhado_deslogado(request):
+    padrinho = request.user.padrinho
+    apadrinhados_sem_padrinho = Apadrinhado.objects.filter(padrinho__isnull=True)
+
+    apadrinhados_ordenados = sorted(
+        apadrinhados_sem_padrinho,
+        key=lambda ap: calcular_compatibilidade(ap, padrinho),
+        reverse=True
+    )
+
+    top_3 = apadrinhados_ordenados[:3]
+
+    for a in top_3:
+        a.hobby_nome = resposta_texto(a.hobby, 2)
+        a.inspiracoes_nome = resposta_texto(a.inspiracoes, 3)
+        a.valores_nome = resposta_texto(a.valores, 4)
+        a.area_escolar_nome = resposta_texto(a.area_escolar, 0)
+        a.profissao_desejada_nome = resposta_texto(a.profissao_desejada, 1)
+        a.info_texto = a.info
+
+    return render(request, 'apadrinhamento/padrinho/escolher-apadrinhado-deslogado.html', {
+        'apadrinhados': top_3,
+    })
+
 
 @login_required
 @csrf_exempt

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Escolha de Apadrinhado</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
+ {% block content %}
+
+    <h2 style="text-align:center">Escolha um apadrinhado</h2>
+
+    {% if apadrinhados %}
+    <div class="apadrinhados-grid">
+        {% for a in apadrinhados %}
+        <div class="apadrinhado-card">
+            <div class="apadrinhado-image">
+                <img src="{{ a.foto.url }}" alt="Foto de {{ a.nome }}">
+            </div>
+
+            <div class="apadrinhado-info">
+                <h3>{{ a.short_name }}</h3>
+                <p>{{ a.idade }} anos</p>
+            </div>
+
+            <div class="apadrinhado-gostos">
+                {% if a.hobby_nome %}
+                    <p><span class="gosto-field">Hobby:</span> <span class="gosto-value">{{ a.hobby_nome }}</span></p>
+                {% endif %}
+                {% if a.inspiracoes_nome %}
+                    <p><span class="gosto-field">Inspirações:</span> <span class="gosto-value">{{ a.inspiracoes_nome }}</span></p>
+                {% endif %}
+                {% if a.valores_nome %}
+                    <p><span class="gosto-field">Valores:</span> <span class="gosto-value">{{ a.valores_nome }}</span></p>
+                {% endif %}
+                {% if a.area_escolar_nome %}
+                    <p><span class="gosto-field">Área escolar:</span> <span class="gosto-value">{{ a.area_escolar_nome }}</span></p>
+                {% endif %}
+                {% if a.profissao_desejada_nome %}
+                    <p><span class="gosto-field">Profissão desejada: </span> <span class="gosto-value">{{ a.profissao_desejada_nome }}</span></p>
+                {% endif %}
+            </div>
+
+            {% if a.info_texto %}
+            <div class="apadrinhado-sonho">
+                <p><strong>Meu sonho:</strong> {{ a.info_texto }}</p>
+            </div>
+            {% endif %}
+
+            <div class="apadrinhado-button">
+                <a href="{% url 'padrinhoDoacao' a.id %}" class="afiliar-btn">Apadrinhar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p style="text-align:center; margin-top: 20px;">Nenhum apadrinhado disponível no momento.</p>
+    {% endif %}
+
+    <footer class="footer-home-button">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
+        </a>
+    </footer>
+{% endblock %}

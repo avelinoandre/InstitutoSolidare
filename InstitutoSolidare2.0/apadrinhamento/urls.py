@@ -13,6 +13,7 @@ urlpatterns = [
     path("padrinho/criar-usuario/", padrinho_criar_usuario, name="padrinhoCriarUsuario"),
     path("padrinho/cadastro/", padrinho_cadastro, name="padrinhoCadastro"),
     path("padrinho/escolher-apadrinhado/", padrinho_escolher_apadrinhado, name="padrinhoEscolherApadrinhado"),
+    path("padrinho/escolher-apadrinhado-deslogado/", padrinho_escolher_apadrinhado_deslogado, name="padrinhoEscolherApadrinhadoDeslogado"),
     path("padrinho/doacao/<int:apadrinhado_id>/", padrinho_doacao, name="padrinhoDoacao"),
     path('padrinho/feed/', padrinho_feed, name='padrinhoFeed'),
     path('padrinho/perfil/', padrinho_perfil, name='padrinhoPerfil'),
