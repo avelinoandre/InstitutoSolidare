@@ -19,6 +19,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net',
+]
+
 
 # Application definition
 
