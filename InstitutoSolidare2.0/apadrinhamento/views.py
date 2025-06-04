@@ -142,6 +142,7 @@ def padrinho_questionario(request, indice=0):
 @csrf_exempt
 def padrinho_salvar_respostas(request):
     if request.method == "POST":
+        print("VIEW FOI CHAMADA")
         dados = json.loads(request.body)
         request.session["respostas_questionario"] = dados
         return JsonResponse({"status": "ok"})

@@ -39,24 +39,49 @@
             <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Pergunta Anterior" class="back-icon">
         </a>
     </footer>
-    <script>
-    function irParaProximaPergunta() {
-        const select = document.getElementById('resposta');
-        const respostaSelecionada = select.value;
+<script>
+function irParaProximaPergunta() {
+    const select = document.getElementById('resposta');
+    const respostaSelecionada = select.value;
 
-        // Salvar no localStorage (ou sessionStorage) se quiser manter as respostas
-        const perguntaAtual = {{ pergunta_atual }};
-        localStorage.setItem('resposta_' + perguntaAtual, respostaSelecionada);
+    const perguntaAtual = {{ pergunta_atual }};
+    const total = {{ total_perguntas }};
 
-        const proximaPergunta = perguntaAtual;
-        const total = {{ total_perguntas }};
+    localStorage.setItem('resposta_' + perguntaAtual, respostaSelecionada);
 
-        if (proximaPergunta < total) {
-            window.location.href = `/padrinho/questionario/${proximaPergunta}/`;
-        } else {
-            window.location.href = `/padrinho/criar-usuario/`;
+    if (perguntaAtual < total) {
+        window.location.href = `/padrinho/questionario/${perguntaAtual}/`;
+    } else {
+        // Montar dicionário de respostas
+        const respostas = {};
+        for (let i = 1; i <= total; i++) {
+            respostas[i] = localStorage.getItem('resposta_' + i);
         }
+
+
+        // Enviar via POST
+        fetch("{% url 'padrinhoSalvarRespostas' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: JSON.stringify(respostas)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if (data.status === "ok") {
+                window.location.href = "/padrinho/criar-usuario/";
+            } else {
+                alert("Erro ao salvar as respostas.");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Erro ao enviar as respostas.");
+        });
     }
+}
 </script>
 
 </body>
