@@ -521,71 +521,76 @@ def lista_afilhados(request):
     afilhados = Apadrinhado.objects.all()
     return render(request, 'apadrinhamento/adm/gerenciar_afilhado.html', {'Apadrinhado': afilhados})
 
-@csrf_exempt
+@csrf_exempt 
 def editar_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, pk=apadrinhado_id)
+
     if request.method == "POST":
-        data = json.loads(request.body)
-        afilhado.nome = data.get("nome", afilhado.nome)
-        afilhado.info = data.get("sonho", afilhado.info)
-        data_nascimento_str = data.get("data_nascimento")
-        nova_foto = request.FILES.get("foto")
-        nova_foto_padrinho = request.FILES.get("foto_para_padrinho")
-
-        if nova_foto:
-            afilhado.foto = nova_foto
-        if nova_foto_padrinho:
-            afilhado.foto_para_padrinho = nova_foto_padrinho
-            
-        if data_nascimento_str:
-            try:
-                afilhado.data_nascimento = datetime.strptime(data_nascimento_str, "%Y-%m-%d").date()
-            except ValueError:
-                return JsonResponse({"mensagem": "Data de nascimento inválida."}, status=400)
-        afilhado.save()
         try:
-            data = json.loads(request.body)
-            respostas = data.get("respostas", [])
+            # Campos de texto
+            nome = request.POST.get("nome")
+            endereco = request.POST.get("endereco")
+            info = request.POST.get("sonho")
+            data_raw = request.POST.get("data_nascimento")
+            data_nascimento = datetime.strptime(data_raw, "%Y-%m-%d").date() if data_raw else None
 
-            afilhado.area_escolar = int(respostas[0])
-            afilhado.profissao_desejada = int(respostas[1])
-            afilhado.hobby = int(respostas[2])
-            afilhado.inspiracoes = int(respostas[3])
-            afilhado.valores = int(respostas[4])
+            # Arquivos
+            nova_foto = request.FILES.get("foto")
+            nova_foto_padrinho = request.FILES.get("foto_para_padrinho")
+
+            # Respostas do questionário
+            respostas_json = request.POST.get("respostas")
+            respostas = json.loads(respostas_json) if respostas_json else []
+
+            # Atualiza campos
+            afilhado.nome = nome
+            afilhado.endereco = endereco
+            afilhado.info = info
+            afilhado.data_nascimento = data_nascimento
+
+            if nova_foto:
+                afilhado.foto = nova_foto
+            if nova_foto_padrinho:
+                afilhado.foto_para_padrinho = nova_foto_padrinho
+
+            afilhado.area_escolar = _get_or_none(respostas, 0)
+            afilhado.profissao_desejada = _get_or_none(respostas, 1)
+            afilhado.hobby = _get_or_none(respostas, 2)
+            afilhado.inspiracoes = _get_or_none(respostas, 3)
+            afilhado.valores = _get_or_none(respostas, 4)
 
             afilhado.save()
 
-            return JsonResponse({"mensagem": "Respostas atualizadas com sucesso!"})
+            return JsonResponse({
+                "sucesso": True,
+                "mensagem": "Afilhado atualizado com sucesso!"
+            })
+
         except Exception as e:
-            return JsonResponse({"mensagem": f"Erro: {str(e)}"}, status=400)
-    # GET: carregar página
+            return JsonResponse({
+                "sucesso": False,
+                "mensagem": f"Erro ao atualizar: {str(e)}"
+            }, status=400)
+
+    # Método GET – carrega dados
     respostas_atuais = [
-    afilhado.area_escolar,
-    afilhado.profissao_desejada,
-    afilhado.hobby,
-    afilhado.inspiracoes,
-    afilhado.valores,
-]
-
-    # Copia as perguntas e adiciona o campo "resposta_usuario"
-    perguntas = perguntas_padrinho.copy()
-
-    for i, pergunta in enumerate(perguntas):
-        pergunta.resposta_usuario = respostas_atuais[i]
-    # GET: carregar a tela
-    respostas_usuario = [
-    afilhado.area_escolar,
-    afilhado.profissao_desejada,
-    afilhado.hobby,
-    afilhado.inspiracoes,
-    afilhado.valores,
+        afilhado.area_escolar,
+        afilhado.profissao_desejada,
+        afilhado.hobby,
+        afilhado.inspiracoes,
+        afilhado.valores,
     ]
+
+    # Adiciona a resposta atual ao objeto de perguntas
+    perguntas = perguntas_padrinho.copy()
+    for i, pergunta in enumerate(perguntas):
+        pergunta.resposta_usuario = respostas_atuais[i] if i < len(respostas_atuais) else None
 
     context = {
         "afilhado": afilhado,
         "perguntas": perguntas,
-        "respostas_usuario": respostas_usuario,
     }
+
     return render(request, "apadrinhamento/adm/afilhado_editar.html", context)
 
 def excluir_afilhado(request, apadrinhado_id):
