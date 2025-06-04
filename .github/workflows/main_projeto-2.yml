@@ -54,6 +54,12 @@ jobs:
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
 
     steps:
       - name: Download artifact from build job
@@ -71,6 +77,20 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7D8326DB2E7846C89229DA8A82B40EAC }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_1CA39CE76A9D4933A620482439E25CA0 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EE04D94262C14DF49F1137ECF4C02BA3 }}
+
+      - name: Run Django migrations
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
