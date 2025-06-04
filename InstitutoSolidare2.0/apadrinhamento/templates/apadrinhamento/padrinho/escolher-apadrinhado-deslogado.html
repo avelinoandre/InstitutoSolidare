@@ -1,8 +1,17 @@
-{% extends "shared/base_logout.html" %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Escolha de Apadrinhado</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=123">
+</head>
+<body>
+    {% include 'partials/new_header.html' %}
+
  {% block content %}
 
-    <h2 style="text-align:center">Meus Afiliados</h2>
+    <h2 style="text-align:center">Escolha um apadrinhado</h2>
 
     {% if apadrinhados %}
     <div class="apadrinhados-grid">
@@ -40,6 +49,10 @@
                 <p><strong>Meu sonho:</strong> {{ a.info_texto }}</p>
             </div>
             {% endif %}
+
+            <div class="apadrinhado-button">
+                <a href="{% url 'padrinhoDoacao' a.id %}" class="afiliar-btn">Apadrinhar</a>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -47,5 +60,9 @@
         <p style="text-align:center; margin-top: 20px;">Nenhum apadrinhado disponível no momento.</p>
     {% endif %}
 
-    {% include 'partials/circle-button.html' %}
+    <footer class="footer-home-button">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon">
+        </a>
+    </footer>
 {% endblock %}

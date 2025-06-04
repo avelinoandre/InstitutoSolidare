@@ -3,7 +3,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("", home, name="home"),
+    path("", new_home, name="home"),
     path('logout/', auth_views.LogoutView.as_view(next_page='home'), name='logout'),
     # ---------------------------------
     path("padrinho/login/", padrinho_login, name="padrinhoLogin"),
@@ -13,6 +13,7 @@ urlpatterns = [
     path("padrinho/criar-usuario/", padrinho_criar_usuario, name="padrinhoCriarUsuario"),
     path("padrinho/cadastro/", padrinho_cadastro, name="padrinhoCadastro"),
     path("padrinho/escolher-apadrinhado/", padrinho_escolher_apadrinhado, name="padrinhoEscolherApadrinhado"),
+    path("padrinho/escolher-apadrinhado-deslogado/", padrinho_escolher_apadrinhado_deslogado, name="padrinhoEscolherApadrinhadoDeslogado"),
     path("padrinho/doacao/<int:apadrinhado_id>/", padrinho_doacao, name="padrinhoDoacao"),
     path('padrinho/feed/', padrinho_feed, name='padrinhoFeed'),
     path('padrinho/perfil/', padrinho_perfil, name='padrinhoPerfil'),
@@ -35,7 +36,4 @@ urlpatterns = [
     path('adm/programado/', adm_programado, name='admProgramado'),
     path('adm/respondidas/', adm_respondidas, name='admRespondidas'),
     path("afilhados/novo/", cadastrar_afilhado, name="cadastrarAfilhado"),
-    path("afilhados/editar-post/<int:id>/", adm_editar_post, name="admEditarPost"),
-    path('cartas/aprovar/<int:id>/', aprovar_carta, name='aprovarCarta'),
-    path('cartas/rejeitar/<int:id>/', rejeitar_carta, name='rejeitarCarta'),
 ]

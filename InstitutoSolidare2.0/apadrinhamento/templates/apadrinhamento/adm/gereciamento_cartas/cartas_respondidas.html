@@ -5,6 +5,10 @@
 
         <main class="content-area">
             <aside class="sidebar">
+            <div style="padding: 30px;">
+            <a href="{% url 'admHome' %}" class="back-icon-link">
+                <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+            </a>
             <a href="{% url 'gerenciarCartas' %}" class="sidebar-item">
                 <div class="circle white"></div>
                 <span>Caixa de entrada</span>

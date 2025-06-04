@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <img src="{% static "img\logo.png" %}" alt="" width="54" height="61" class="logo-image">
+        <img src="{% static "img\logo.png" %}" alt="foto logo" width="54" height="61" class="logo-image">
         <section class="icons-login">
             <section class="flags-icons">
                 <img src="https://flagcdn.com/w40/br.png" alt="Bandeira Brasil" width="50" height="40" class="flag">
@@ -22,11 +22,253 @@
             </section>
         </section>
     </header>
+
     <main>
+        <section class="first-container" style="background-image: url('{% static "img/home.png" %}'); background-size: cover; background-position: center;">
+            <p>VOCÊ PODE CONSTRUIR ESSE FUTURO</p>
+            <h1>Sonhe <br> Conosco</h1>
+            <a href="{% url "padrinhoLogin" %}" class="btn-apadrinhe">Apadrinhe!</a>
+        </section>
 
+        <section class="second-container">
+            <h1 class="impacto">Nosso Impacto</h1>
+            <section class="foward-impacto">
+                <p class="impacto-text">Estamos presentes em <strong>5 estados do Nordeste</strong>, atuando em <strong>20 cidades</strong> e <strong>29 comunidades</strong>, tanto em áreas urbanas <br> quanto rurais, com <strong>3 programas sociais</strong>, <strong>24 projetos</strong> em desenvolvimento e participação ativa em 10 conselhos de <br> direitos, incluindo os de Assistência Social, Criança e Adolescente, Idoso e Segurança Alimentar e Nutricional.</p>
+                <section class="container-data">
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+1510</h1>
+                            <p>crianças e adolecentes <br> assistidas</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+600</h1>
+                            <p>famílias beneficidas</p>
+                        </section>
+                    </section>
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+100</h1>
+                            <p>mil refeições consumidas <br> por ano</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+1500</h1>
+                            <p>atendimentos médicos</p>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="third-container">
+            <h1 class="conheca">Conheça mais</h1>
+            <section class="foward-conheca">
+                <img src="{% static "img\map.png" %}" width="375" height="375" alt="Map">
+                <p><strong>O instituto Solidare</strong> é uma organização da sociedade civil de <br> direito privado, do segmento de assistência social. Sendo criado <br> em 2006, foi iniciativa da Igreja Batista em Coqueiral e por <br> lideranças comunitárias. Tem como objetivo promover o <br> desenvolvimento social, político e pedagógico de crianças <br> e adolescentes sem distinção de etnias e credo, contribuindo para a <br> formação de cidadãos conscientes de seu potencial como agentes <br> transformadores da realidade social em que vivem.</p>
+            </section>
+        </section>
+
+        <section class="fourth-container">
+            <h1 class="apadrinhar">Como apadrinhar</h1>
+            <section class="foward-apadrinhar">
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar1.png" %}" width="100" height="100" alt="Apadrinhar 1">
+                        <p><strong>Clique no link "QUERO APADRINHAR"</strong> <br> e siga para as próxima etapa de <br> cadastro ágil.</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar2.png" %}" width="100" height="100" alt="Apadrinhar 1">
+                        <p><strong>Você passará por um rápido processo <br> de perguntas</strong> e afirmações, para te <br> conhecermos melhor</p>
+                    </section>
+                </section>
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar3.png" %}" width="100" height="100" alt="Apadrinhar 1">
+                        <p>Após o cadastro, <strong>você irá para a área de <br> pagamento</strong>. Onde você pode contribuir <br> com: pix, boleto ou cartão de crédito</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar4.png" %}" width="100" height="100" alt="Apadrinhar 1">
+                        <p>Acompanhe tudo sobre seu afilhado e o <br> instituto, gerencie sua conta e fale <br> conosco através do <strong>Portal do Padrinho</strong>.</p>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="fifth-container">
+            <h1 class="duvidas">Dúvidas frequentes</h1>
+            <section class="foward-duvidas">
+                <img src="{% static "img\template-icon.png" %}" alt="">
+                <section class="perguntas-duvidas">
+                    <!--Erick aqui é onde começa o codigo que estou com dificuldades / vou deixar o template aqui de todas.-->
+                    <!--OBS! ELE FUNCIONA, ELE SO NÃO ESTÁ BONITO!!!-->
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>O que é ser padrinho/madrinha e qual sua importância?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Ser padrinho ou madrinha é muito mais do que destinar recursos financeiros para a execução de
+                            um programa social. É colaborar para que os sonhos de meninos e meninas se tornem uma
+                            realidade e com isso, contribuir para a melhoria da qualidade de vida dessas pessoas que, segundo
+                            o Estatuto da Criança e do Adolescente (Lei nº 8.069 de 13/07/1990), são cidadãos e cidadãs em
+                            desenvolvimento. <br>
+                            Ser padrinho e madrinha é abraçar a causa da criança e do adolescente e participar ativamente do
+                            desenvolvimento desses pequenos cidadãos e cidadãs, levando-os a tornar seus sonhos em
+                            realidade.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Quem são as crianças e adolescentes a serem apadrinhadas?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Ser padrinho ou madrinha é muito mais do que destinar recursos financeiros para a execução de
+                            um programa social. É colaborar para que os sonhos de meninos e meninas se tornem uma
+                            realidade e com isso, contribuir para a melhoria da qualidade de vida dessas pessoas que, segundo
+                            o Estatuto da Criança e do Adolescente (Lei nº 8.069 de 13/07/1990), são cidadãos e cidadãs em
+                            desenvolvimento.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Como é utilizado os recursos doados por você?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Os recursos doados pelos padrinhos e madrinhas são destinados à execução do Programa de
+                            Cidadania Integral, além de apoiar os beneficiários no que diz respeito à segurança alimentar. Todas
+                            as crianças e adolescentes frequentam os projetos no horário de contraturno escolar, onde
+                            recebem duas refeições nos dias de sua frequência, além de participarem de um conjunto de
+                            atividades socioeducacionais, esportivas, cidadãs, lúdicas e de formação social e profissional. <br>
+                            Acesse o nosso site e confira nossos relatórios anuais e balanço financeiro <a href="https://institutosolidare.org.br/transparencia/">https://institutosolidare.org.br/transparencia/</a></p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Como será o meu contato com meu/minha apadrinhado/a?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>É muito importante para a construção do relacionamento entre padrinho/madrinha e seu
+                            apadrinhado/a, que ambos mantenham uma comunicação contínua, a qual será mediada pela
+                            equipe do Instituto Solidare. Periodicamente serão compartilhadas cartas, relatórios, e demais
+                            informações, que permitirão ao padrinho e madrinha conhecer o desenvolvimento do seu
+                            afilhado/a, em alguns casos em tempo real.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>A proteção da criança e do adolescente vulnerável</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>O Instituto Solidare se alinha com todos os princípios e determinações dos marcos legais de
+                            proteção da criança e do adolescente, com destaque especial para o Estatuto da Criança e do
+                            Adolescente – Lei Federal nº 8.069 de 13 de julho de 1990. Nesse sentido, o Instituto Solidare criou
+                            a Política de Proteção da Criança e do Adolescente Vulnerável, o qual norteia todas as iniciativas no
+                            cuidado da criança e do adolescente, evitando qualquer atividade que lhe venha causar algum tipo
+                            de dano. Caso saiba de algum comportamento inadequado praticado contra seu afilhado/a, entre
+                            em contato conosco através do WhatsApp (81) 3251-4480 ou pelo e-
+                            mail: denuncia@institutosolidar.org.br. Você pode conhecer nossa política de proteção através do
+                            site: <a href="www.institutosolidare.org.br">www.institutosolidare.org.br</a></p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>O que posso fazer além do apoio financeiro?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Para além do apoio financeiro, você pode colaborar com o desenvolvimento do seu afilhado/a,
+                            através de conselhos, palavras de incentivo e exemplo de superação, e tudo mais o que você achar
+                            que pode influenciar para o bem do/a seu afilhado/a. Essa relação pode ser realizada por meio de
+                            correspondência, levando em consideração os princípios de segurança da criança e do adolescente,
+                            previsto na Política de Proteção da Criança e do Adolescente Vulnerável. <br>
+                            Se você é um profissional liberal ou dispõe de tempo para trabalho voluntário, o Instituto Solidare
+                            dispõe de vários campos de atuação que necessitam do seu apoio. Caso deseje atuar conosco,
+                            entre em contato com a Gerência Administrativa e Financeira, através do e-
+                            mail: falecom@institutosolidare.org.br, manifestando seu interesse, tempo disponível e área onde
+                            queira prestar serviços voluntários.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>O que posso escrever na carta a ser enviada ao meu afilhado?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Propomos que em sua carta, manual ou pelo Portal do Padrinho, você fale o pouco de si, da sua
+                            família, de momentos importantes, faça perguntas ao afilhado/a, emita conselhos motivacionais,
+                            uma conversa que possa colaborar para o fortalecimento do relacionamento entre
+                            padrinho/madrinha e seu afilhado/a. Seja criativo/a, lembre-se que você está falando com uma
+                            criança ou adolescente, logo a linguagem deve ser simples, de fácil entendimento, como pinturas
+                            etc.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Vou receber uma resposta da minha carta?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Os afilhados/as, ao receberem as cartas dos padrinhos ou madrinhas, responderão a cada carta
+                            recebida e também escreverão cartas para você, mesmo que não recebem uma sua.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Posso enviar mensagens para meu afilhado nas redes sociais?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Visando a segurança da criança e do adolescente, toda comunicação do padrinho ou madrinha
+                            deve ser via Portal do Padrinho ou correspondência enviada por WhatsApp (81) 3251-4480 e por e-
+                            mail: apd@institutosolidare.org.br.</p>
+                        </div>
+                      </section>
+
+                      <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Como faço para atualizar meus dados no programa de apadrinhamento?</span>
+                          <span class="arrow">&#9660;</span> <!-- seta para baixo -->
+                        </header>
+                        <div class="accordion-content">
+                          <p>Sempre que você mudar de número telefônico, endereço de e-mail ou endereço físico, por favor
+                            queira atualizar seus dados cadastrais conosco, através do Portal do Padrinho. Você pode visualizar
+                            e alterar qualquer dado.</p>
+                        </div>
+                      </section>
+                </section>
+            </section>
+        </section>
     </main>
-    <footer>
 
+    <footer>
+        <section class="logo-text">
+            <img src="{% static "img\logo.png" %}" width="54" height="61" alt="logo">
+            <p>Nosso Sonho - Projetos 2 - Design e Ciência da Computação - CESAR School, 2025.</p>
+        </section>
+        <a href="{% url "admLogin" %}" class="adm-btn">Entrar como Administrador</a>
     </footer>
+
+    <script>
+        function toggleAccordion(element) {
+          element.classList.toggle("active");
+          const content = element.nextElementSibling;
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        }
+      </script>
 </body>
 </html>
