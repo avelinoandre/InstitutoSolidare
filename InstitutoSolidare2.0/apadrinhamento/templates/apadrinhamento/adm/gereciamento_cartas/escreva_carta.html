@@ -1,72 +1,70 @@
 {% extends 'shared/base_logout.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/cartas.css' %}?v=123">
 
-<main class="content-area">
-    <aside class="sidebar">
-        <div style="padding: 30px;">
-        <a href="{% url 'admHome' %}" class="back-icon-link">
-            <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
-        </a>
-        <a href="{% url 'gerenciarCartas' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Caixa de entrada</span>
-        </a>
-        <a href="{% url 'admEscreverCarta' %}" class="sidebar-item active">
-            <div class="circle yellow"></div>
-            <span>Escreva uma carta</span>
-        </a>
-        <a href="{% url 'admProgramado' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Programados</span>
-        </a>
-        <a href="{% url 'admRespondidas' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Respondidas</span>
-        </a>
-        <div class="sidebar-bottom-arrow">
-            <i class="fas fa-arrow-left"></i>
+<!-- Layout principal -->
+<div style="height: calc(100vh - 70px);">
+  <main style="display: flex; height: 100%; background-color: #dcdcdc; padding: 30px; min-width: 90%;">
+
+    <!-- Sidebar -->
+<nav style="width: 200px; padding-top: 20px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+  <ul style="list-style: none; padding: 0; margin: 0;">
+    <li style="margin: 20px 0; text-align: center;">
+      <a href="{% url 'admHome' %}" style="display: inline-block;">
+        <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+      </a>
+      <p style="margin-top: 5px;">Caixa de entrada</p>
+    </li>
+    <li style="margin: 20px 0; text-align: center;">
+      <div style="width: 70px; height: 70px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
+      <p style="margin-top: 5px;">Escreva uma carta</p>
+    </li>
+    <li style="margin: 20px 0; text-align: center;">
+      <a href="{% url 'admRespondidas' %}">
+        <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+      </a>
+      <p style="margin-top: 5px;">Respondidas</p>
+    </li>
+  </ul>
+
+  <!-- ✅ Ícone de voltar fixado ao rodapé -->
+  <footer class="footer-nav-button" style="margin-bottom: 20px; text-align: center;">
+    <a href="{% url 'admHome' %}">
+      <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Pergunta Anterior" class="back-icon" style="width: 40px; height: 40px;">
+    </a>
+  </footer>
+</nav>
+
+
+
+    <!-- Conteúdo principal -->
+    <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%;">
+      <form method="POST" style="display: flex; flex-direction: column; gap: 20px; height: 100%;">
+        {% csrf_token %}
+
+        <!-- Campo carta a responder -->
+        <select name="recipient" required style="width: 100%; padding: 10px; border-radius: 10px; background-color: #e0e0e0; border: none;">
+          <option disabled selected>Escolha uma carta para responder</option>
+          {% for carta in cartas %}
+            <option value="{{ carta.id }}">{{ carta.titulo }}</option>
+          {% endfor %}
+        </select>
+
+        <!-- Campo título -->
+        <input type="text" name="titulo" placeholder="Título da carta" required style="width: 100%; padding: 10px; border-radius: 10px; background-color: #e0e0e0; border: none;">
+
+        <!-- Área de texto -->
+        <textarea name="conteudo" placeholder="Escreva o conteúdo completo aqui..." required style="flex-grow: 1; padding: 15px; border: none; border-radius: 10px; resize: none; min-height: 300px;"></textarea>
+
+        <!-- Botão enviar -->
+        <div style="text-align: right;">
+          <button type="submit" style="background-color: #2e4a74; color: white; padding: 10px 20px; border: none; border-radius: 25px; font-size: 16px;">
+            Enviar
+          </button>
         </div>
-    </aside>
-
-    <section class="main-content message-compose">
-        <form method="post">
-            {% csrf_token %}
-
-            <!-- Padrinho -->
-            <div class="recipient-select">
-                <label for="recipient">Carta:</label>
-                <select name="recipient" id="recipient" class="text-input" required>
-                    <option value="" disabled selected>Escolha uma carta para responder</option>
-                    {% for carta in cartas %}
-                        <option value="{{ carta.id }}">{{ carta.titulo }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <!-- Título -->
-            <div class="message-field">
-                <label for="titulo">Título:</label>
-                <input type="text" name="titulo" id="titulo" placeholder="Título da carta" class="text-input" required>
-            </div>
-
-            <!-- Conteúdo -->
-            <div class="message-field">
-                <label for="conteudo">Conteúdo:</label>
-                <textarea name="conteudo" id="conteudo" placeholder="Escreva o conteúdo completo aqui..." class="text-input" rows="8" required></textarea>
-            </div>
-
-            <!-- Enviar -->
-            <div class="message-send-box">
-                <button type="submit" class="send-button">
-                    <i class="fas fa-arrow-right"></i> Enviar
-                </button>
-            </div>
-        </form>
-    </section>
-</main>
+      </form>
+    </div>
+  </main>
 </div>
-</body>
-</html>
+
 {% endblock %}
