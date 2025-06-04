@@ -512,7 +512,8 @@ def escrita_cartas(request):
             padrinho=padrinho,
             apadrinhado=afilhado,
             titulo=titulo,
-            conteudo=conteudo
+            conteudo=conteudo,
+            remetente_tipo="padrinho"
         )
         return redirect("cartas_escrita")  # ou qualquer outra página de sucesso
 
@@ -520,6 +521,11 @@ def escrita_cartas(request):
         "apadrinhados": apadrinhados
     })
 
+@login_required
+def padrinho_cartas_enviadas(request):
+    padrinho = request.user.padrinho
+    cartas_enviadas = Carta.objects.filter(remetente_tipo="padrinho", padrinho=padrinho)
+    return render(request, "apadrinhamento/padrinho/enviadas.html", {"enviadas": cartas_enviadas})
 
 # =====================================================================
 # LOGIN ADMIN
