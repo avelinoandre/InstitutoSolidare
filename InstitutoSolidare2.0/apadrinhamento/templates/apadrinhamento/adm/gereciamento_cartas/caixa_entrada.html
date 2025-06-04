@@ -1,63 +1,75 @@
 {% extends 'shared/base_logout.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/cartas.css' %}?v=123">
 
-<main class="content-area">
-    <aside class="sidebar">
-             <div style="padding: 30px;">
-        <a href="{% url 'admHome' %}" class="back-icon-link">
-            <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+<div style="height: calc(100vh - 70px);">
+  <main style="display: flex; height: 100%; background-color: #dcdcdc; padding: 30px; min-width: 90%;">
+
+    <!-- Sidebar -->
+    <nav style="width: 200px; padding-top: 20px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="margin: 20px 0; text-align: center;">
+          <a href="{% url 'gerenciarCartas' %}">
+            <div style="width: 70px; height: 70px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p style="margin-top: 5px; font-weight: bold;">Caixa de entrada</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <a href="{% url 'admEscreverCarta' %}">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p style="margin-top: 5px;">Escreva uma carta</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <a href="{% url 'admRespondidas' %}">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p style="margin-top: 5px;">Respondidas</p>
+        </li>
+      </ul>
+
+      <!-- Botão voltar -->
+      <footer class="footer-nav-button" style="margin-bottom: 20px; text-align: center;">
+        <a href="{% url 'admHome' %}">
+          <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar" class="back-icon" style="width: 40px; height: 40px;">
         </a>
-        <a href="{% url 'gerenciarCartas' %}" class="sidebar-item active">
-            <div class="circle yellow"></div>
-            <span>Caixa de entrada</span>
-        </a>
-        <a href="{% url 'admEscreverCarta' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Escreva uma carta</span>
-        </a>
-        <a href="{% url 'admProgramado' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Programados</span>
-        </a>
-        <a href="{% url 'admRespondidas' %}" class="sidebar-item">
-            <div class="circle white"></div>
-            <span>Respondidas</span>
-        </a>
-        <div class="sidebar-bottom-arrow">
-            <i class="fas fa-arrow-left"></i>
+      </footer>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%; overflow-y: auto;">
+      {% for carta in cartas %}
+        <div style="margin-bottom: 20px; padding: 20px; border-radius: 10px; background-color: #f5f5f5;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span><strong>Mensagem de:</strong> {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}</span>
+            <span style="font-size: 14px; color: #555;">{{ carta.data_envio }}</span>
+          </div>
+
+          <div style="display: flex; gap: 10px;">
+            <!-- Botão Aprovar -->
+            <form method="post" action="{% url 'aprovarCarta' carta.id %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
+                Aprovar
+              </button>
+            </form>
+
+            <!-- Botão Rejeitar -->
+            <form method="post" action="{% url 'rejeitarCarta' carta.id %}" style="display: inline;">
+              {% csrf_token %}
+              <button type="submit" style="background-color: #f44336; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
+                Rejeitar
+              </button>
+            </form>
+          </div>
         </div>
-    </aside>
-
-    <section class="main-content">
-        {% for carta in cartas %}
-        <div class="message-item">
-            <span>
-                Mensagem de {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}
-            </span>
-            <span>{{ carta.data_envio }}</span>
-            <i class="fas fa-chevron-down"></i>
-
-            <div class="message-actions">
-                <!-- Botão Aprovar -->
-                <form method="post" action="{% url 'aprovarCarta' carta.id %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-approve">Aprovar</button>
-                </form>
-
-                <!-- Botão Rejeitar -->
-                <form method="post" action="{% url 'rejeitarCarta' carta.id %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-reject">Rejeitar</button>
-                </form>
-            </div>
+      {% empty %}
+        <div style="padding: 20px; background-color: #f0f0f0; border-radius: 10px;">
+          <span>Nenhuma carta pendente de aprovação.</span>
         </div>
-        {% empty %}
-        <div class="message-item">
-            <span>Nenhuma carta pendente de aprovação.</span>
-        </div>
-        {% endfor %}
-    </section>
-</main>
+      {% endfor %}
+    </div>
+  </main>
+</div>
+
 {% endblock %}
