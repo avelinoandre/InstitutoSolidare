@@ -216,7 +216,7 @@ main {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 800px;
     background-color: #f7f7e9;
     padding: 2rem;
     margin-bottom: 50px;
@@ -230,12 +230,6 @@ main {
     color: #000;
 }
 
-.form-label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-}
-
 .form-input {
     width: 100%;
     padding: 0.5rem;
@@ -243,6 +237,32 @@ main {
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #e5e5e5;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-group-nested {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-nested {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-nested > div {
+    flex: 1;
 }
 
 .btn-login {
