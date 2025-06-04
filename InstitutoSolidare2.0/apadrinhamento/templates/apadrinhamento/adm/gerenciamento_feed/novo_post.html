@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/adm.css' %}?v=123">
+<link rel="stylesheet" href="{% static 'css/adm-post.css' %}?v=123">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 <div class="page-container">
@@ -18,9 +18,10 @@
     <!-- Main content -->
     <div class="content-area main-content-new-post">
         <!-- Botão para mostrar o select -->
-        <button type="button" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px;">
-            Público
-        </button>
+<button type="button" id="toggle-publico" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px; background-color: #28a745;">
+    Post será público
+</button>
+
 
         <!-- Select invisível inicialmente -->
         <select id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
@@ -31,14 +32,15 @@
         </select>
 
         <!-- Campo oculto para armazenar a flag "público" -->
-        <input type="hidden" id="publico-flag" value="False" />
+        <input type="hidden" id="publico-flag" value="True" />
 
         <!-- Foto -->
         <input type="file" id="foto" accept="image/*" class="input-full-width secondary-input-field" style="margin-top: 15px;" />
 
         <!-- Campos -->
-        <textarea id="titulo" class="textarea-full-width primary-textarea-field" placeholder="Título do post"></textarea>
-        <input type="text" id="conteudo" class="input-full-width secondary-input-field" placeholder="Conteúdo">
+        <input type="text" id="titulo" class="input-full-width primary-input-field" placeholder="Título do post">
+
+        <textarea id="conteudo" class="textarea-full-width secondary-textarea-field conteudo-area" placeholder="Escreva o conteúdo do post aqui..."></textarea>
     </div>
 </div>
 
@@ -46,16 +48,25 @@
 function mostrarSelect() {
     const select = document.getElementById("select-padrinho");
     const publicoFlag = document.getElementById("publico-flag");
+    const toggleBtn = document.getElementById("toggle-publico");
 
-    if (select.style.display === "block") {
-        select.style.display = "none";
-        publicoFlag.value = "False";
-    } else {
+    const isPublic = publicoFlag.value === "True";
+
+    if (isPublic) {
+        // Vai deixar privado
         select.style.display = "block";
+        publicoFlag.value = "False";
+        toggleBtn.textContent = "Tornar público";
+        toggleBtn.style.backgroundColor = "#007bff";
+    } else {
+        // Vai deixar público
+        select.style.display = "none";
         publicoFlag.value = "True";
+        toggleBtn.textContent = "Post será público";
+        toggleBtn.style.backgroundColor = "#28a745";
     }
 
-    select.focus();
+    select.blur();
 }
 
 function salvarPost() {
