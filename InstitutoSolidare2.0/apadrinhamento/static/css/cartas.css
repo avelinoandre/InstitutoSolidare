@@ -116,8 +116,11 @@ body {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box; /* garante que a borda conte no tamanho */
+    flex-shrink: 0; /* evita encolhimento em layouts flex */
 }
+
 
 .circle.yellow {
     background-color: var(--logout-btn-bg);
@@ -450,3 +453,4 @@ textarea.text-input {
 .btn-reject:hover {
     background-color: #d32f2f;
 }
+
