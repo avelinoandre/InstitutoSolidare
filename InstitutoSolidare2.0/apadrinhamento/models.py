@@ -30,6 +30,13 @@ class Apadrinhado(models.Model):
         return hoje.year - self.data_nascimento.year - (
             (hoje.month, hoje.day) < (self.data_nascimento.month, self.data_nascimento.day)
         )
+
+    @property
+    def short_name(self):
+        parts = self.nome.split()
+        if len(parts) > 1:
+            return f"{parts[0]} {parts[1][0]}."
+        return self.nome
     
 class Padrinho(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='padrinho')

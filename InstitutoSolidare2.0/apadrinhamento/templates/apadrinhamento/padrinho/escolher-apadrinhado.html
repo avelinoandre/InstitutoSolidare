@@ -8,20 +8,42 @@
     <div class="apadrinhados-grid">
         {% for a in apadrinhados %}
         <div class="apadrinhado-card">
-            <img src="{{ a.foto.url }}" alt="Foto de {{ a.nome }}">
-            <h3>{{ a.nome }}</h3>
-            <p><strong>Idade:</strong> {{ a.idade }} anos</p>
-
-            <div class="gostos">
-                {% if a.hobby_nome %}<p><strong>Hobby:</strong> {{ a.hobby_nome }}</p>{% endif %}
-                {% if a.inspiracoes_nome %}<p><strong>Inspirações:</strong> {{ a.inspiracoes_nome }}</p>{% endif %}
-                {% if a.valores_nome %}<p><strong>Valores:</strong> {{ a.valores_nome }}</p>{% endif %}
-                {% if a.area_escolar_nome %}<p><strong>Área escolar:</strong> {{ a.area_escolar_nome }}</p>{% endif %}
-                {% if a.profissao_desejada_nome %}<p><strong>Profissão desejada:</strong> {{ a.profissao_desejada_nome }}</p>{% endif %}
-                {% if a.info_texto %}<p><strong>Meu sonho: </strong> {{ a.info_texto }}</p>{% endif %}
+            <div class="apadrinhado-image">
+                <img src="{{ a.foto.url }}" alt="Foto de {{ a.nome }}">
             </div>
 
-            <a href="{% url 'padrinhoDoacao' a.id %}" class="afiliar-btn">Afiliar</a>
+            <div class="apadrinhado-info">
+                <h3>{{ a.short_name }}</h3>
+                <p>{{ a.idade }} anos</p>
+            </div>
+
+            <div class="apadrinhado-gostos">
+                {% if a.hobby_nome %}
+                    <p><span class="gosto-field">Hobby:</span> <span class="gosto-value">{{ a.hobby_nome }}</span></p>
+                {% endif %}
+                {% if a.inspiracoes_nome %}
+                    <p><span class="gosto-field">Inspirações:</span> <span class="gosto-value">{{ a.inspiracoes_nome }}</span></p>
+                {% endif %}
+                {% if a.valores_nome %}
+                    <p><span class="gosto-field">Valores:</span> <span class="gosto-value">{{ a.valores_nome }}</span></p>
+                {% endif %}
+                {% if a.area_escolar_nome %}
+                    <p><span class="gosto-field">Área escolar:</span> <span class="gosto-value">{{ a.area_escolar_nome }}</span></p>
+                {% endif %}
+                {% if a.profissao_desejada_nome %}
+                    <p><span class="gosto-field">Profissão desejada: </span> <span class="gosto-value">{{ a.profissao_desejada_nome }}</span></p>
+                {% endif %}
+            </div>
+
+            {% if a.info_texto %}
+            <div class="apadrinhado-sonho">
+                <p><strong>Meu sonho:</strong> {{ a.info_texto }}</p>
+            </div>
+            {% endif %}
+
+            <div class="apadrinhado-button">
+                <a href="{% url 'padrinhoDoacao' a.id %}" class="afiliar-btn">Apadrinhar</a>
+            </div>
         </div>
         {% endfor %}
     </div>
