@@ -6,23 +6,18 @@
 
 <div class="page-container">
     <!-- Sidebar -->
-    <div class="sidebar">
-        <a href="{% url 'admHome' %}" class="back-button">
-            <span class="material-symbols-outlined">arrow_back</span>
+    <a href="{% url 'admHome' %}" class="back-button">
+        <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para o painel" class="back-icon">
         </a>
-        <div class="sidebar-label">Data</div>
-        <div class="sidebar-label">Posts anteriores</div>
-    </div>
 
     <!-- Main content -->
     <div class="content-area">
-        <!-- Filters -->
-        <div class="filters">
-            <input type="text" id="search-input" placeholder="Nome, tema, tags ...">
-        </div>
 
         <!-- Posts -->
         <div class="posts-grid">
+            <div class="filters">
+            <input type="text" id="search-input" placeholder="Filtrar por título">
+        </div>
             {% for pub in publicacoes %}
             <div class="post-card" data-title="{{ pub.titulo|lower }}">
                 <div class="post-left">
