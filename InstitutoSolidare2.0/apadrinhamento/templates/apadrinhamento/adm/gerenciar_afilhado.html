@@ -1,7 +1,30 @@
 {% extends 'shared/base_logout.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .back-icon-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.back-icon-img {
+    width: 50px; /* ajuste conforme necessário */
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-icon-img:hover {
+    transform: scale(1.1);
+}
+
+
+</style>
 <div style="padding: 30px;">
+  <a href="{% url 'admHome' %}" class="back-icon-link">
+    <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+  </a>
+
     <div style="background-color: #85bce2; padding: 20px; border-radius: 20px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;">
         {% for af in Apadrinhado %}
         <a href="{% url 'editarAfilhado' af.id %}" style="text-decoration: none; color: black;">

@@ -9,8 +9,28 @@
     gap: 20px;
     flex-wrap: wrap;
 }
+    .back-icon-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.back-icon-img {
+    width: 50px; /* ajuste conforme necessário */
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-icon-img:hover {
+    transform: scale(1.1);
+}
 </style>
+
 <div style="padding: 30px;">
+    <div style="padding: 30px;">
+  <a href="{% url 'gerenciarAfilhados' %}" class="back-icon-link">
+    <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+  </a>
     <div style="background-color: #85bce2; padding: 30px; border-radius: 20px; display: flex; gap: 30px;">
         <!-- Informações + Perguntas -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 30px;">
