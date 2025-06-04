@@ -12,33 +12,30 @@
 </style>
 <div style="padding: 30px;">
     <div style="background-color: #85bce2; padding: 30px; border-radius: 20px; display: flex; gap: 30px;">
-
-        <!-- Coluna lateral com foto -->
-        <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            {% if afilhado.foto %}
-                <img src="{{ afilhado.foto.url }}" alt="Foto do Afilhado" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
-            {% else %}
-                <p style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
-            {% endif %}
-        </div>
-
         <!-- Informações + Perguntas -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 30px;">
 
             <!-- Campos editáveis -->
             <div style="display: flex; gap: 20px;">
                 <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; gap: 30px;">
+                        <div style="display: flex; flex-direction: column;">
+                            <label>Caricatura:
+                            <input type="file" id="foto_para_padrinho" onchange="previewImage(this, 'preview-caricatura')" required>
+                            </label>
+                            <img id="preview-caricatura" src="{% if afilhado.foto_para_padrinho %}{{ afilhado.foto_para_padrinho.url }}{% endif %}" style="margin-top: 8px; width: 400px; border-radius: 8px;" />
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                            <label>Foto:
+                            <input type="file" id="foto" onchange="previewImage(this, 'preview-foto')" required>
+                            </label>
+                            <img id="preview-foto" src="{% if afilhado.foto %}{{ afilhado.foto.url }}{% endif %}" style="margin-top: 8px; width: 425px; border-radius: 8px;" />
+                        </div>
+                        </div>
                     <label>Nome:
                         <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%;">
                     </label> 
-                        <div class="form-row">
-                        <label>Caricatura:
-                            <input type="file" id="foto_para_padrinho" required>
-                        </label>
-                        <div class="form-row">
-                            <label>Foto:
-                                <input type="file" id="foto" required>
-                            </label>
                     <label>Data de Nascimento:
                         <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento|date:'Y-m-d' }}">
                     </label>
@@ -133,6 +130,15 @@ function confirmarExclusao(id) {
     if (confirm("Tem certeza que deseja excluir este afilhado? Essa ação não poderá ser desfeita.")) {
         window.location.href = "{% url 'excluir_afilhado' afilhado.id %}";
     }
+}
+function previewImage(input, targetId) {
+  const file = input.files[0];
+  const preview = document.getElementById(targetId);
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => preview.src = e.target.result;
+    reader.readAsDataURL(file);
+  }
 }
 </script>
 {% endblock %}
