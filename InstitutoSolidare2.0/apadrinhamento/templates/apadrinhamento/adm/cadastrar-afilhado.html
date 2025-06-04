@@ -95,9 +95,28 @@
   .submit-button button:hover {
     background: #f0c534;
   }
+      .back-icon-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.back-icon-img {
+    width: 50px; /* ajuste conforme necessário */
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-icon-img:hover {
+    transform: scale(1.1);
+}
 </style>
 
 <div class="form-wrapper">
+     <div style="padding: 30px;">
+  <a href="{% url 'gerenciarAfilhados' %}" class="back-icon-link">
+    <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+  </a>
   <div class="form-card">
 
     <div class="form-row">

@@ -9,8 +9,28 @@
     gap: 20px;
     flex-wrap: wrap;
 }
+    .back-icon-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.back-icon-img {
+    width: 50px; /* ajuste conforme necessário */
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.back-icon-img:hover {
+    transform: scale(1.1);
+}
 </style>
+
 <div style="padding: 30px;">
+    <div style="padding: 30px;">
+  <a href="{% url 'gerenciarAfilhados' %}" class="back-icon-link">
+    <img src="{% static 'img\btn-voltar.svg' %}" alt="Voltar" class="back-icon-img">
+  </a>
     <div style="background-color: #85bce2; padding: 30px; border-radius: 20px; display: flex; gap: 30px;">
         <!-- Informações + Perguntas -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 30px;">
@@ -21,34 +41,34 @@
                         <div style="display: flex; gap: 30px;">
                         <div style="display: flex; flex-direction: column;">
                             <label>Caricatura:
-                            <input type="file" id="foto_para_padrinho" onchange="previewImage(this, 'preview-caricatura')" required>
+                            <input type="file" id="foto_para_padrinho" onchange="previewImage(this, 'preview-caricatura')" required style="background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">
                             </label>
                             <img id="preview-caricatura" src="{% if afilhado.foto_para_padrinho %}{{ afilhado.foto_para_padrinho.url }}{% endif %}" style="margin-top: 8px; width: 400px; height: 300px; border-radius: 8px;" />
                         </div>
 
                         <div style="display: flex; flex-direction: column; align-items: flex-end;">
                             <label>Foto:
-                            <input type="file" id="foto" onchange="previewImage(this, 'preview-foto')" required>
+                            <input type="file" id="foto" onchange="previewImage(this, 'preview-foto')" required style="background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">
                             </label>
                             <img id="preview-foto" src="{% if afilhado.foto %}{{ afilhado.foto.url }}{% endif %}" style="margin-top: 8px; width: 400px; height: 300px; border-radius: 8px;" />
                         </div>
                         </div>
                     <label>Nome:
-                        <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%; border-radius: 4px;">
+                        <input type="text" id="nome" value="{{ afilhado.nome }}" style="width: 100%; border-radius: 4px; background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">
                     </label> 
                     <label>Data de Nascimento:
-                        <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento|date:'Y-m-d' }}" style="border-radius: 4px;">
+                        <input type="date" id="data_nascimento" value="{{ afilhado.data_nascimento|date:'Y-m-d' }}" style="border-radius: 4px; background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">
                     </label>
                 </div>
             </div>
 
             <label>Endereço:
-                <input type="text" id="endereco" value="{{ afilhado.endereco }}" style="width: 100%; border-radius: 4px;">
+                <input type="text" id="endereco" value="{{ afilhado.endereco }}" style="width: 100%; border-radius: 4px; background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">
             </label>
 
             <div style="display: flex; gap: 20px;">
                 <label style="flex: 1;">Meu Sonho:
-                    <textarea id="sonho" style="width: 100%; height: 100%; border-radius: 4px;">{{ afilhado.info }}</textarea>
+                    <textarea id="sonho" style="width: 100%; height: 100%; border-radius: 4px; background-color: #e0e0e0; color: #333; border: 1px solid #ccc; border-radius: 6px; padding: 6px;">{{ afilhado.info }}</textarea>
                 </label>
             </div>
 
