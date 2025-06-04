@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=123">
+    <title>Instituto Solidare</title>
+</head>
+<body>
+    <header>
+        <img src="{% static "img\logo.png" %}" alt="logo" width="54" height="61" class="logo-image">
+        <section class="icons-login">
+            <section class="flags-icons">
+                <img src="https://flagcdn.com/w40/br.png" alt="Bandera de Brasil" width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/us.png" alt="Bandera de EE.UU." width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/es.png" alt="Bandera de España" width="50" height="40" class="flag">
+            </section>
+            <section class="login">
+                <a href="{% url "padrinhoLogin" %}" class="login-btn">Iniciar sesión</a>
+            </section>
+        </section>
+    </header>
+
+    <main>
+        <section class="first-container" style="background-image: url('{% static "img/home.png" %}'); background-size: cover; background-position: center;">
+            <p>TÚ PUEDES CONSTRUIR ESTE FUTURO</p>
+            <h1>Soñar <br> Con Nosotros</h1>
+            <a href="{% url "padrinhoLogin" %}" class="btn-apadrinhe">¡Apadrina!</a>
+        </section>
+
+        <section class="second-container">
+            <h1 class="impacto">Nuestro Impacto</h1>
+            <section class="foward-impacto">
+                <p class="impacto-text">Estamos presentes en <strong>5 estados del noreste</strong>, actuando en <strong>20 ciudades</strong> y <strong>29 comunidades</strong>, tanto en zonas urbanas como rurales, con <strong>3 programas sociales</strong>, <strong>24 proyectos</strong> en desarrollo y participación activa en 10 consejos de derechos, incluidos los de Asistencia Social, Niños y Adolescentes, Personas Mayores y Seguridad Alimentaria y Nutricional.</p>
+                <section class="container-data">
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+1510</h1>
+                            <p>niños y adolescentes <br> asistidos</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+600</h1>
+                            <p>familias beneficiadas</p>
+                        </section>
+                    </section>
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+100</h1>
+                            <p>mil comidas servidas <br> por año</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+1500</h1>
+                            <p>consultas médicas</p>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="third-container">
+            <h1 class="conheca">Conócenos Más</h1>
+            <section class="foward-conheca">
+                <img src="{% static "img\map.png" %}" width="375" height="375" alt="Mapa">
+                <p><strong>El Instituto Solidare</strong> es una organización de la sociedad civil de derecho privado, del sector de asistencia social. Fundado en 2006 por la Iglesia Bautista en Coqueiral y líderes comunitarios, su objetivo es promover el desarrollo social, político y pedagógico de niños y adolescentes, sin distinción de etnia ni creencia, contribuyendo a la formación de ciudadanos conscientes de su potencial como agentes de transformación de su realidad social.</p>
+            </section>
+        </section>
+
+        <section class="fourth-container">
+            <h1 class="apadrinhar">Cómo Apadrinar</h1>
+            <section class="foward-apadrinhar">
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar1.png" %}" width="100" height="100" alt="Apadrinar 1">
+                        <p><strong>Haz clic en el enlace "QUIERO APADRINAR"</strong> <br> y continúa con el registro <br> rápido.</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar2.png" %}" width="100" height="100" alt="Apadrinar 2">
+                        <p><strong>Pasarás por un proceso breve <br> de preguntas</strong> para que podamos <br> conocerte mejor.</p>
+                    </section>
+                </section>
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar3.png" %}" width="100" height="100" alt="Apadrinar 3">
+                        <p>Después del registro, <strong>irás a la sección de <br> pago</strong>, donde podrás contribuir <br> por Pix, boleto o tarjeta de crédito.</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar4.png" %}" width="100" height="100" alt="Apadrinar 4">
+                        <p>Sigue todo sobre tu ahijado y <br> el instituto, gestiona tu cuenta <br> y contáctanos a través del <strong>Portal del Padrino</strong>.</p>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="fifth-container">
+            <h1 class="duvidas">Preguntas Frecuentes</h1>
+            <section class="foward-duvidas">
+                <img src="{% static "img\template-icon.png" %}" alt="">
+                <section class="perguntas-duvidas">
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Qué significa ser padrino/madrina y cuál es su importancia? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Ser padrino o madrina es más que brindar apoyo financiero. Es ayudar a que los sueños de niños y niñas se hagan realidad, contribuyendo a mejorar su calidad de vida, como establece el Estatuto del Niño y del Adolescente (Ley N.º 8.069 del 13/07/1990). Es abrazar la causa infantil y participar activamente en su desarrollo.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Quiénes son los niños y adolescentes apadrinados? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Son niños y adolescentes participantes en nuestros programas sociales que necesitan apoyo para alcanzar sus sueños y mejorar su calidad de vida.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Cómo se utilizan los recursos donados? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Los recursos se destinan al Programa de Ciudadanía Integral y apoyo alimentario. Los niños reciben dos comidas por jornada y participan en actividades educativas, deportivas y formativas. <br> Consulta nuestros informes anuales en: <a href="https://institutosolidare.org.br/transparencia/">https://institutosolidare.org.br/transparencia/</a></p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Cómo me comunicaré con mi ahijado/a? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>La comunicación será mediada por el equipo de Solidare. Se enviarán cartas, informes y actualizaciones periódicas para que conozcas el desarrollo de tu ahijado/a.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Protección de la niñez y adolescencia vulnerable ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Seguimos las leyes de protección infantil, especialmente la Ley 8.069. Solidare cuenta con una Política de Protección Infantil que guía nuestras acciones. Si detectas comportamientos inadecuados, contáctanos por WhatsApp: (81) 3251-4480 o al correo: denuncia@institutosolidare.org.br. Más información: <a href="https://www.institutosolidare.org.br">www.institutosolidare.org.br</a></p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Qué puedo hacer además de apoyo financiero? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Puedes enviar consejos, palabras de ánimo y actuar como ejemplo. También puedes ser voluntario. Escríbenos a falecom@institutosolidare.org.br indicando tu disponibilidad y área de interés.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Qué escribir en la carta a mi ahijado/a? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Cuéntale sobre ti, tu familia, tus experiencias, hazle preguntas y ofrécele motivación. Usa un lenguaje simple y amigable. Puedes incluir dibujos.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Recibiré respuesta a mi carta? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>¡Sí! Tu ahijado/a responderá a tus cartas e incluso podrá escribirte de forma espontánea.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Puedo contactar a mi ahijado/a por redes sociales? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>No. Toda la comunicación debe hacerse por el Portal del Padrino, WhatsApp (81) 3251-4480 o correo: apd@institutosolidare.org.br, para proteger al menor.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>¿Cómo actualizo mis datos? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Actualiza tus datos en el Portal del Padrino siempre que cambies tu número, correo o dirección. Puedes revisar y editar tu información en cualquier momento.</p>
+                        </div>
+                    </section>
+
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <section class="logo-text">
+            <img src="{% static "img\logo.png" %}" width="54" height="61" alt="logo">
+            <p>Nuestro Sueño - Proyectos 2 - Diseño y Computación - CESAR School, 2025.</p>
+        </section>
+        <a href="{% url "admLogin" %}" class="adm-btn">Entrar como Administrador</a>
+    </footer>
+
+    <script>
+        function toggleAccordion(element) {
+            element.classList.toggle("active");
+            const content = element.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=123">
+    <title>Solidare Institute</title>
+</head>
+<body>
+    <header>
+        <img src="{% static "img\logo.png" %}" alt="logo image" width="54" height="61" class="logo-image">
+        <section class="icons-login">
+            <section class="flags-icons">
+                <img src="https://flagcdn.com/w40/br.png" alt="Brazil Flag" width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/us.png" alt="USA Flag" width="50" height="40" class="flag">
+                <img src="https://flagcdn.com/w40/es.png" alt="Spain Flag" width="50" height="40" class="flag">
+            </section>
+            <section class="login">
+                <a href="{% url "padrinhoLogin" %}" class="login-btn">Login</a>
+            </section>
+        </section>
+    </header>
+
+    <main>
+        <section class="first-container" style="background-image: url('{% static "img/home.png" %}'); background-size: cover; background-position: center;">
+            <p>YOU CAN BUILD THIS FUTURE</p>
+            <h1>Dream <br> With Us</h1>
+            <a href="{% url "padrinhoLogin" %}" class="btn-apadrinhe">Sponsor!</a>
+        </section>
+
+        <section class="second-container">
+            <h1 class="impacto">Our Impact</h1>
+            <section class="foward-impacto">
+                <p class="impacto-text">We are present in <strong>5 states in the Northeast</strong>, working in <strong>20 cities</strong> and <strong>29 communities</strong>, in both urban and rural areas, with <strong>3 social programs</strong>, <strong>24 ongoing projects</strong>, and active participation in 10 rights councils, including those for Social Assistance, Children and Adolescents, the Elderly, and Food and Nutritional Security.</p>
+                <section class="container-data">
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+1510</h1>
+                            <p>children and adolescents <br> assisted</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+600</h1>
+                            <p>families benefited</p>
+                        </section>
+                    </section>
+                    <section class="data-impacto">
+                        <section class="data-item">
+                            <h1>+100</h1>
+                            <p>thousand meals served <br> per year</p>
+                        </section>
+                        <section class="data-item">
+                            <h1>+1500</h1>
+                            <p>medical consultations</p>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="third-container">
+            <h1 class="conheca">Learn More</h1>
+            <section class="foward-conheca">
+                <img src="{% static "img\map.png" %}" width="375" height="375" alt="Map">
+                <p><strong>Solidare Institute</strong> is a civil society organization under private law in the social assistance sector. Founded in 2006, it was an initiative of the Baptist Church in Coqueiral and community leaders. Its goal is to promote the social, political, and educational development of children and adolescents regardless of ethnicity or creed, contributing to the formation of citizens aware of their potential as agents of transformation in their social reality.</p>
+            </section>
+        </section>
+
+        <section class="fourth-container">
+            <h1 class="apadrinhar">How to Sponsor</h1>
+            <section class="foward-apadrinhar">
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar1.png" %}" width="100" height="100" alt="Sponsor 1">
+                        <p><strong>Click on the "I WANT TO SPONSOR" link</strong> <br> and proceed to the next step <br> for a quick registration.</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar2.png" %}" width="100" height="100" alt="Sponsor 2">
+                        <p><strong>You will go through a quick <br> Q&A process</strong> so we can <br> get to know you better.</p>
+                    </section>
+                </section>
+                <section class="data-apadrinhar">
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar3.png" %}" width="100" height="100" alt="Sponsor 3">
+                        <p>After registration, <strong>you will proceed <br> to the payment area</strong>, where you can <br> contribute via Pix, boleto or credit card.</p>
+                    </section>
+                    <section class="item-apadrinhar">
+                        <img src="{% static "img\apadrinhar4.png" %}" width="100" height="100" alt="Sponsor 4">
+                        <p>Track everything about your sponsored child and <br> the institute, manage your account and contact <br> us through the <strong>Sponsor Portal</strong>.</p>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="fifth-container">
+            <h1 class="duvidas">Frequently Asked Questions</h1>
+            <section class="foward-duvidas">
+                <img src="{% static "img\template-icon.png" %}" alt="">
+                <section class="perguntas-duvidas">
+
+                    <!-- Start FAQ Accordion Items -->
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>What does it mean to be a sponsor and why is it important? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Being a sponsor is more than just providing financial support to a social program. It's about helping children’s dreams come true and contributing to improving their quality of life, as established by the Child and Adolescent Statute (Law 8.069 of 07/13/1990). It’s embracing the cause of childhood and adolescence and actively participating in the development of these young citizens.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Who are the children and adolescents to be sponsored? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>They are children and adolescents enrolled in our social programs who need support to achieve their dreams and improve their living conditions.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>How are the donated resources used? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>The donations go to the Integral Citizenship Program and help with food security. The children attend after-school activities, where they receive two meals and participate in educational, sports, recreational, and professional training activities. <br> See our annual reports and financial statements at <a href="https://institutosolidare.org.br/transparencia/">https://institutosolidare.org.br/transparencia/</a>.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>How will I communicate with my sponsored child? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Communication is encouraged and will be mediated by Solidare's team. Letters, reports, and updates will be shared periodically, keeping you informed about your sponsored child’s development—sometimes in real-time.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Protection of vulnerable children and adolescents ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>We follow all legal child protection guidelines, especially the Child and Adolescent Statute (Law 8.069 of July 13, 1990). We have a Child Protection Policy to guide all our care efforts. If you suspect misconduct, contact us via WhatsApp (81) 3251-4480 or email: denuncia@institutosolidare.org.br. <br> Read our protection policy at <a href="https://www.institutosolidare.org.br">www.institutosolidare.org.br</a>.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>What can I do besides financial support? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Beyond donating, you can offer advice, motivational messages, or be a role model. Correspondence should respect child safety principles. If you're a professional or have time for volunteer work, contact our Admin and Finance department at falecom@institutosolidare.org.br with your availability and area of interest.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>What should I write in a letter to my sponsored child? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Share a bit about yourself, your family, meaningful experiences, ask questions, offer encouragement—write in simple, friendly language. Creativity is welcome, especially for younger children (e.g., drawings).</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Will I receive a reply to my letter? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Yes, your sponsored child will reply to your letters and may even write spontaneously, even if you haven’t sent one.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>Can I message my sponsored child on social media? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>For safety, all communication must go through the Sponsor Portal or via WhatsApp (81) 3251-4480 and email: apd@institutosolidare.org.br.</p>
+                        </div>
+                    </section>
+
+                    <section class="accordion">
+                        <header class="accordion-header" onclick="toggleAccordion(this)">
+                          <span>How can I update my information in the sponsorship program? ↓</span>
+                        </header>
+                        <div class="accordion-content">
+                          <p>Whenever your phone number, email, or address changes, please update your information via the Sponsor Portal. You can view and edit your data anytime.</p>
+                        </div>
+                    </section>
+
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <section class="logo-text">
+            <img src="{% static "img\logo.png" %}" width="54" height="61" alt="logo">
+            <p>Our Dream - Projects 2 - Design and Computer Science - CESAR School, 2025.</p>
+        </section>
+        <a href="{% url "admLogin" %}" class="adm-btn">Admin Login</a>
+    </footer>
+
+    <script>
+        function toggleAccordion(element) {
+          element.classList.toggle("active");
+          const content = element.nextElementSibling;
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        }
+    </script>
+</body>
+</html>
