@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.http import JsonResponse
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from .utils import calcular_compatibilidade
@@ -28,6 +28,7 @@ class Pergunta:
 def home(request):
     return render(request, "apadrinhamento/home.html")
 
+@ensure_csrf_cookie
 def new_home(request):
     return render(request, "apadrinhamento/new_home.html")
 
@@ -225,7 +226,6 @@ def padrinho_cadastro(request):
             return render(request, "apadrinhamento/padrinho/cadastro.html")
 
         respostas = request.session.get("respostas_questionario", {})
-        print(respostas)
         try:
             padrinho = Padrinho.objects.create(
                 nome_completo=nome_completo,
