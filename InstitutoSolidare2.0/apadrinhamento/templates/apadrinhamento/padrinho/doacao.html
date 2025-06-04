@@ -12,14 +12,12 @@
     <div class="pagamento-wrapper">
         <h2>Escolha a forma de pagamento para afiliar {{ apadrinhado.nome }}</h2>
 
-        <div class="pagamento-opcoes">
-            <label><input type="radio" name="forma_pagamento" value="PIX" required> PIX</label><br>
-            <label><input type="radio" name="forma_pagamento" value="Cartão"> Cartão de Crédito / Débito</label><br>
-            <label><input type="radio" name="forma_pagamento" value="Boleto"> Boleto</label>
-        </div>
-
-        <div style="margin-top: 20px; text-align: center;">
-            <button class="pagamento-btn" onclick="finalizarPagamento()">Finalizar Pagamento</button>
+        <div class="pagamento-container">
+            <div class="pagamento-opcoes">
+                <button class="pagamento-opcao-btn" onclick="finalizarPagamento('PIX')">PIX</button>
+                <button class="pagamento-opcao-btn" onclick="finalizarPagamento('Cartão')">Cartão de Crédito / Débito</button>
+                <button class="pagamento-opcao-btn" onclick="finalizarPagamento('Boleto')">Boleto</button>
+            </div>
         </div>
     </div>
 
@@ -30,15 +28,9 @@
     </footer>
 
     <script>
-        function finalizarPagamento() {
-            const forma = document.querySelector('input[name="forma_pagamento"]:checked');
-            if (!forma) {
-                alert("Selecione uma forma de pagamento.");
-                return;
-            }
-
+        function finalizarPagamento(value) {
             // Simular um "pagamento"
-            const confirmar = confirm(`Deseja realmente realizar o pagamento via ${forma.value}?`);
+            const confirmar = confirm(`Deseja realmente realizar o pagamento via ${value}?`);
             if (!confirmar) return;
 
             fetch("", {
@@ -47,7 +39,7 @@
                     "X-CSRFToken": "{{ csrf_token }}",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ pagamento: forma.value })
+                body: JSON.stringify({ pagamento: value })
             })
             .then(resp => {
                 if (resp.ok) {

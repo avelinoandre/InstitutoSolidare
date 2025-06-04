@@ -11,7 +11,8 @@
         <!-- Coluna lateral com foto e botões -->
         <div style="width: 220px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
             {% if foto %}
-            <img id="foto-preview" src="{{ foto.url }}" alt="Foto do Padrinho" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+            <img id="foto-preview" src="{{ foto.url }}" alt="Foto do Padrinho"
+                 style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">
             {% else %}
             <p id="foto-preview" style="text-align: center; line-height: 220px; color: #999;">Sem foto</p>
             {% endif %}
