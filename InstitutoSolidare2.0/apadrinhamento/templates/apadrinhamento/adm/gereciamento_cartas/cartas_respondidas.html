@@ -38,7 +38,7 @@
 
     <!-- Conteúdo principal -->
     <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%; overflow-y: auto;">
-      {% for carta in cartas %}
+      {% for carta in respondidas %}
         <div style="margin-bottom: 20px; padding: 20px; border-radius: 10px; background-color: #f5f5f5;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <span><strong>Mensagem de:</strong> {{ carta.get_remetente.nome }} / {{ carta.get_destinatario.nome }} / {{ carta.titulo }}</span>
