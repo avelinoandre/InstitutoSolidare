@@ -35,9 +35,9 @@ Cypress.Commands.add('loginAdmin', () => {
   cy.visit('http://127.0.0.1:8000/');
   cy.getCookie('csrftoken').should('exist');
   cy.get('.adm-btn').click();
-  cy.get('#username').type('admin');
-  cy.get('#password').type('admin123');
-  cy.get('[onclick="fazerLogin()"]').click();
+  cy.get('#id_username').type('admin');
+  cy.get('#id_password').type('admin123');
+  cy.get('form > button').click();
 });
 
 
@@ -68,12 +68,12 @@ describe('Gerenciar Apadrinhados', () => {
 
 
   it('Cenario 1: Falha no Cadastramento devido a Campos Não Preenchidos Corretamente', () => {
-    // cy.loginAdmin();
+    cy.loginAdmin();
     cy.falha();
   });
 
   it('Cenario 2: Sucesso no Cadastramento de um Apadrinhado', () => {
-    // cy.loginAdmin();
+    cy.loginAdmin();
     cy.sucesso();
   });
 

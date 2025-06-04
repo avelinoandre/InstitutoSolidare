@@ -31,7 +31,6 @@ Cypress.Commands.add('cadastro', () => {
   cy.get('#telefone').type('99999999999');
   cy.get('#data_nascimento').type('1111-11-11');
   cy.get('.btn-login').click();
-  
 });
 
 Cypress.Commands.add('login', () => {
@@ -69,6 +68,7 @@ Cypress.Commands.add('sucesso', () => {
 describe('login e cadastro de padrinhos', () => {
   before(() => {
     cy.deletePadrinhos(); 
+    // cy.cadastro();
   });
 
 

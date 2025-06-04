@@ -28,7 +28,7 @@ Cypress.Commands.add('postagem', () => {
 Cypress.Commands.add('excluir', () => {
   cy.visit('http://127.0.0.1:8000/adm/home/');
   cy.get('[href="/adm/gerenciar-feed/"]').click();
-  cy.get(':nth-child(1) > .post-right > .manage-post-button').click();
+  cy.get('.manage-post-button').click();
   cy.get('.button-delete').click();
   
 });
@@ -36,15 +36,21 @@ Cypress.Commands.add('excluir', () => {
 Cypress.Commands.add('editar', () => {
   cy.visit('http://127.0.0.1:8000/adm/home/');
   cy.get('[href="/adm/gerenciar-feed/"]').click();
-  cy.get(':nth-child(1) > .post-right > .manage-post-button').click();
+  cy.get('.manage-post-button').click();
   cy.get('.primary-input-field').clear().type('teste2');
   cy.get('.textarea-full-width').clear().type('teste2');
   cy.get('.button-save').click();
   
 });
 
-
-
+Cypress.Commands.add('loginAdmin', () => {
+  cy.visit('http://127.0.0.1:8000/');
+  cy.getCookie('csrftoken').should('exist');
+  cy.get('.adm-btn').click();
+  cy.get('#id_username').type('admin');
+  cy.get('#id_password').type('admin123');
+  cy.get('form > button').click();
+});
 
 describe('Gerenciar Feed', () => {
   before(() => {
@@ -54,17 +60,17 @@ describe('Gerenciar Feed', () => {
 
 
   it('Cenario 1: Criar uma postagem', () => {
-    // cy.loginAdmin();
+    cy.loginAdmin();
     cy.postagem();
   });
 
   it('Cenario 2: Editar um poste', () => {
-    // cy.loginAdmin();
+    cy.loginAdmin();
     cy.editar();
   });
 
   it('Cenario 3: Excluir um poste', () => {
-    // cy.loginAdmin();
+    cy.loginAdmin();
     cy.excluir();
   });
 
