@@ -171,10 +171,43 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.back-icon {
+.add-button.material-symbols-outlined {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--yellow);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.back-button {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
     width: 40px;
     height: 40px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-decoration: none;
+}
+.back-button:hover {
+    background-color: #0056b3;
 }
 
 :root {

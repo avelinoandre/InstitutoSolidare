@@ -1,14 +1,14 @@
 {% extends 'shared/base_logout.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/adm.css' %}?v=123">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="{% static 'css/adm-feed.css' %}?v=124">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
 <div class="page-container">
     <!-- Sidebar -->
     <div class="sidebar">
-        <a href="{% url 'admHome' %}">
-            <img src="{% static 'img/btn-voltar.svg' %}" alt="Voltar para a Pergunta Anterior" class="back-icon">
+        <a href="{% url 'admHome' %}" class="back-button">
+            <span class="material-symbols-outlined">arrow_back</span>
         </a>
         <div class="sidebar-label">Data</div>
         <div class="sidebar-label">Posts anteriores</div>
@@ -45,7 +45,7 @@
 </div>
 
 <!-- Add Button -->
-    <a href="{% url 'novoPost' %}" class="add-button material-symbols-outlined"> add </span>
+<a href="{% url 'novoPost' %}" class="add-button material-symbols-outlined">add</a>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -57,11 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             posts.forEach(post => {
                 const title = post.querySelector(".post-title").innerText.toLowerCase();
-                if (title.includes(query)) {
-                    post.style.display = "flex";
-                } else {
-                    post.style.display = "none";
-                }
+                post.style.display = title.includes(query) ? "flex" : "none";
             });
         });
     }
