@@ -142,9 +142,9 @@ def padrinho_questionario(request, indice=0):
 @csrf_exempt
 def padrinho_salvar_respostas(request):
     if request.method == "POST":
-        print("VIEW FOI CHAMADA")
         dados = json.loads(request.body)
         request.session["respostas_questionario"] = dados
+        print(dados)
         return JsonResponse({"status": "ok"})
     return JsonResponse({"error": "Método inválido"}, status=400)
 
@@ -225,6 +225,7 @@ def padrinho_cadastro(request):
             return render(request, "apadrinhamento/padrinho/cadastro.html")
 
         respostas = request.session.get("respostas_questionario", {})
+        print(respostas)
         try:
             padrinho = Padrinho.objects.create(
                 nome_completo=nome_completo,
@@ -237,11 +238,11 @@ def padrinho_cadastro(request):
                 numero_rua=numero_rua,
                 telefone=telefone,
                 foto=foto_perfil if foto_perfil else None,
-                area_escolar=respostas.get("resposta_0", ""),
-                profissao_atual=respostas.get("resposta_1", ""),
-                hobby=respostas.get("resposta_2", ""),
-                inspiracoes=respostas.get("resposta_3", ""),
-                valores=respostas.get("resposta_4", ""),
+                area_escolar=respostas.get("1", ""),
+                profissao_atual=respostas.get("2", ""),
+                hobby=respostas.get("3", ""),
+                inspiracoes=respostas.get("4", ""),
+                valores=respostas.get("5", ""),
             )
         except Exception as e:
             messages.error(request, e)
