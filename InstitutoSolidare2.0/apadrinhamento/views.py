@@ -526,25 +526,21 @@ def escrita_cartas(request):
 # =====================================================================
 
 def adm_login(request):
-    if request.method == "POST" and request.content_type == 'application/json':
-        try:
-            data = json.loads(request.body)
-            username = data.get("username")
-            password = data.get("password")
-        except Exception:
-            return JsonResponse({"success": False, "error": "Dados inválidos"}, status=400)
+    error = None
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
         user = authenticate(request, username=username, password=password)
-        if user is not None:
-            if user.is_superuser:
-                login(request, user)
-                return JsonResponse({"success": True})
-            else:
-                return JsonResponse({"success": False, "error": "Acesso restrito a administradores."}, status=403)
+        if user is not None and user.is_superuser:
+            login(request, user)
+            return redirect("admHome")                       # sucesso → dashboard
         else:
-            return JsonResponse({"success": False, "error": "Usuário ou senha inválidos."}, status=401)
-    else:
-        return render(request, "apadrinhamento/adm/adm-login.html")
+            error = "Usuário ou senha inválidos ou sem permissão."
+
+    # GET ou POST com erro
+    return render(request, "apadrinhamento/adm/adm-login.html", {"error": error})
 
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")

@@ -2,127 +2,49 @@
 {% load static %}
 
 {% block content %}
-<div style="display: flex; justify-content: center; align-items: center; height: 90vh;">
+<div style="display:flex;justify-content:center;align-items:center;height:90vh;">
     <!-- Círculo -->
     <div style="
-        background-color: #85bce2;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        padding: 30px;
-        box-sizing: border-box;
-    ">
-        <h2 style="color: white; font-size: 24px; font-weight: bold; margin-bottom: 10px;">ADM Login</h2>
+        background-color:#85bce2;width:500px;height:500px;border-radius:50%;
+        display:flex;flex-direction:column;justify-content:center;align-items:center;
+        gap:15px;padding:30px;box-sizing:border-box;">
+        
+        <h2 style="color:white;font-size:24px;font-weight:bold;margin-bottom:10px;">ADM Login</h2>
 
-        <div id="login-error" style="color: red; text-align: center;"></div>
+        {% if error %}
+            <div style="color:red;text-align:center;">{{ error }}</div>
+        {% endif %}
 
-        <div style="width: 70%;">
-            <label for="username" style="color: black; font-weight: 500;">ADM user</label>
-            <input type="text" id="username" placeholder="Usuário" required style="
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                font-size: 16px;
-                width: 100%;
-                margin-top: 5px;
-            ">
-        </div>
+        <!-- FORMULÁRIO -->
+        <form method="post" action="{% url 'admLogin' %}"
+              style="width:70%;display:flex;flex-direction:column;gap:15px;">
+            {% csrf_token %}
 
-        <div style="width: 70%;">
-            <label for="password" style="color: black; font-weight: 500;">Senha:</label>
-            <input type="password" id="password" placeholder="Senha" required style="
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                font-size: 16px;
-                width: 100%;
-                margin-top: 5px;
-            ">
-        </div>
+            <div>
+                <label for="id_username" style="color:black;font-weight:500;">ADM user</label>
+                <input type="text" name="username" id="id_username" placeholder="Usuário" required
+                       style="padding:10px;border-radius:8px;border:none;font-size:16px;width:100%;margin-top:5px;">
+            </div>
 
-        <button onclick="fazerLogin()" style="
-            background-color: #FFD02F;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            color: black;
-            border: none;
-            cursor: pointer;
-        ">
-            Login
-        </button>
+            <div>
+                <label for="id_password" style="color:black;font-weight:500;">Senha</label>
+                <input type="password" name="password" id="id_password" placeholder="Senha" required
+                       style="padding:10px;border-radius:8px;border:none;font-size:16px;width:100%;margin-top:5px;">
+            </div>
 
-        <a href="{% url 'home' %}" style="margin-top: 10px; text-decoration: none;">
-            <button type="button" style="
-                background-color: #f0f0f0;
-                padding: 8px 16px;
-                border-radius: 6px;
-                border: none;
-                font-size: 14px;
-                cursor: pointer;
-            ">← Voltar</button>
+            <button type="submit"
+                    style="background-color:#FFD02F;padding:10px 20px;border-radius:8px;
+                           font-size:16px;font-weight:500;color:black;border:none;cursor:pointer;">
+                Login
+            </button>
+        </form>
+
+        <!-- Botão Voltar -->
+        <a href="{% url 'home' %}" style="margin-top:10px;text-decoration:none;">
+            <button type="button"
+                    style="background-color:#f0f0f0;padding:8px 16px;border-radius:6px;border:none;
+                           font-size:14px;cursor:pointer;">← Voltar</button>
         </a>
     </div>
 </div>
-
-<script>
-async function fazerLogin() {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const erroDiv = document.getElementById('login-error');
-
-    erroDiv.innerText = '';
-
-    if (!username || !password) {
-        erroDiv.innerText = 'Preencha todos os campos.';
-        return;
-    }
-
-    try {
-        const response = await fetch("{% url 'admLogin' %}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken'),
-            },
-            body: JSON.stringify({ username, password })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-
-            if (data.success) {
-                window.location.href = "{% url 'admHome' %}";
-            } else {
-                erroDiv.innerText = data.error || 'Usuário ou senha inválidos.';
-            }
-        } else {
-            erroDiv.innerText = 'Erro no servidor. Tente novamente.';
-        }
-    } catch (e) {
-        erroDiv.innerText = 'Erro de conexão. Tente novamente.';
-    }
-}
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-</script>
 {% endblock %}
