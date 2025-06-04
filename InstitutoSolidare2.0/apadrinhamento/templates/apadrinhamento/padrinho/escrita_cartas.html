@@ -2,33 +2,34 @@
 {% load static %}
 
 {% block content %}
-  <!-- Layout principal -->
-  <div style="display: flex; height: calc(100vh - 70px);">
+
+<!-- Layout principal -->
+<div style="height: calc(100vh - 70px);">
+  <main style="display: flex; height: 100%; background-color: #dcdcdc; padding: 30px; min-width: 90%;">
 
     <!-- Sidebar -->
-    <nav style="width: 200px; background-color: #d1d1d1; padding-top: 40px;">
-      <ul style="list-style: none; padding: 0; margin: 0; text-align: center;">
-        <li style="margin-bottom: 30px;">
-        <a href="{% url 'cartas' %}" style="text-decoration: none; color: inherit;">
-      <div style="width: 50px; height: 50px; background-color: #94c5e5; border-radius: 50%; margin: 0 auto;"></div>
-      <p>Caixa de entrada</p>
-    </a>
-  </li>
-
-        <li style="margin-bottom: 30px;">
-          <div style="width: 50px; height: 50px; background-color: #2c3e86; border-radius: 50%; margin: 0 auto;"></div>
+    <nav style="width: 200px; padding-top: 20px; flex-shrink: 0;">
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin: 20px 0; text-align: center;">
+          <a href="{% url 'cartas' %}" style="display: inline-block;">
+            <div style="width: 70px; height: 70px; background-color: #6ca6cd; border-radius: 50%; margin: 0 auto;"></div>
+          </a>
+          <p>Caixa de entrada</p>
+        </li>
+        <li style="margin: 20px 0; text-align: center;">
+          <div style="width: 70px; height: 70px; background-color: #2e4a74; border-radius: 50%; margin: 0 auto;"></div>
           <p>Escreva uma carta</p>
         </li>
       </ul>
     </nav>
 
     <!-- Conteúdo principal -->
-    <main style="flex-grow: 1; background-color: #d1d1d1; padding: 40px; display: flex; justify-content: center;">
-      <form method="POST" action="" style="background-color: white; border-radius: 15px; width: 100%; max-width: 800px; padding: 30px; display: flex; flex-direction: column; gap: 20px;">
+    <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%;">
+      <form method="POST" action="" style="display: flex; flex-direction: column; gap: 20px; height: 100%;">
         {% csrf_token %}
-        
+
         <!-- Campo nome do afilhado -->
-        <select name="afilhado_id" required style="width: 100%; padding: 10px; border-radius: 15px; background-color: #e0e0e0; border: none;">
+        <select name="afilhado_id" required style="width: 100%; padding: 10px; border-radius: 10px; background-color: #e0e0e0; border: none;">
           <option disabled selected>Nome do afilhado para que deseja escrever...</option>
           {% for afilhado in apadrinhados %}
             <option value="{{ afilhado.id }}">{{ afilhado.nome }}</option>
@@ -36,20 +37,22 @@
         </select>
 
         <!-- Campo título da mensagem -->
-        <input type="text" name="titulo" placeholder="Título..." required style="width: 100%; padding: 10px; border-radius: 15px; background-color: #e0e0e0; border: none;">
+        <input type="text" name="titulo" placeholder="Título..." required style="width: 100%; padding: 10px; border-radius: 10px; background-color: #e0e0e0; border: none;">
 
-        <!-- Área de texto editável -->
-        <textarea name="conteudo" placeholder="Digite aqui sua carta..." required style="flex-grow: 1; padding: 15px; height: 300px; border: none; border-radius: 10px; resize: none;"></textarea>
+        <!-- Área de texto -->
+        <textarea name="conteudo" placeholder="Digite aqui sua carta..." required style="flex-grow: 1; padding: 15px; border: none; border-radius: 10px; resize: none; min-height: 300px;"></textarea>
 
         <!-- Botão enviar -->
         <div style="text-align: right;">
-          <button type="submit" style="background-color: #2c3e86; color: white; padding: 10px 20px; border: none; border-radius: 25px; font-size: 16px;">
+          <button type="submit" style="background-color: #2e4a74; color: white; padding: 10px 20px; border: none; border-radius: 25px; font-size: 16px;">
             Enviar
           </button>
         </div>
       </form>
-    </main>
-  </div>
+    </div>
+  </main>
 
-{% include 'partials/circle-button.html' %}
+  {% include 'partials/circle-button.html' %}
+</div>
+
 {% endblock %}

@@ -93,26 +93,24 @@
 
 <script>
 function salvarTudo(id) {
+    const formData = new FormData();
+    formData.append("nome", document.getElementById("nome").value);
+    formData.append("data_nascimento", document.getElementById("data_nascimento").value);
+    formData.append("endereco", document.getElementById("endereco").value);
+    formData.append("sonho", document.getElementById("sonho").value);
+    formData.append("foto", document.getElementById("foto").files[0]);
+    formData.append("foto_para_padrinho", document.getElementById("foto_para_padrinho").files[0]);
+
     const selects = document.querySelectorAll('[id^="resposta-"]');
     const respostas = Array.from(selects).map(select => parseInt(select.value));
+    formData.append("respostas", JSON.stringify(respostas));
 
-    const data = {
-        nome: document.getElementById("nome").value,
-        data_nascimento: document.getElementById("data_nascimento").value,
-        endereco: document.getElementById("endereco").value,
-        sonho: document.getElementById("sonho").value,
-        foto_para_padrinho: document.getElementById("foto_para_padrinho").files[0],
-        foto: document.getElementById("foto").files[0],
-        respostas: respostas
-    };
-
-    fetch("{% url 'editarAfilhado' afilhado.id %}", {
+    fetch("", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
             "X-CSRFToken": "{{ csrf_token }}"
         },
-        body: JSON.stringify(data)
+        body: formData
     })
     .then(response => response.json())
     .then(res => {
@@ -125,6 +123,7 @@ function salvarTudo(id) {
         popup.style.borderRadius = "8px";
     });
 }
+
 
 function confirmarExclusao(id) {
     if (confirm("Tem certeza que deseja excluir este afilhado? Essa ação não poderá ser desfeita.")) {

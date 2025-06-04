@@ -1,0 +1,191 @@
+/* ========== Variáveis ========= */
+:root {
+    --blue: #007bff;
+    --yellow: #ffd600;
+    --white: #fff;
+    --gray: #f0f0f0;
+    --text-color: #333;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --transition: 0.2s ease;
+    --border-radius: 12px;
+}
+
+/* ========== Reset básico ========= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background-color: var(--gray);
+    color: var(--text-color);
+}
+
+/* ========== Layout principal ========= */
+.page-container {
+    display: flex;
+    min-height: 80vh;
+}
+
+/* ========== Sidebar ========= */
+.sidebar {
+    width: 220px;
+    background-color: var(--white);
+    padding: 1.5rem 1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.back-button {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.sidebar-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* ========== Área de conteúdo ========= */
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ========== Filtro de busca ========= */
+.filters {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+    font-size: 1rem;
+}
+
+/* ========== Grade de posts ========= */
+.posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ========== Card de post ========= */
+.post-card {
+    display: flex;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.post-card:hover {
+    transform: translateY(-2px);
+}
+
+.post-left {
+    flex-shrink: 0;
+}
+
+.post-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+}
+
+/* Responsividade para imagens menores */
+@media (max-width: 600px) {
+    .post-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* ========== Conteúdo do post ========= */
+.post-right {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.post-date {
+    font-size: 0.85rem;
+    color: gray;
+}
+
+.manage-post-button {
+    align-self: flex-start;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.manage-post-button:hover {
+    background-color: #0056b3;
+}
+
+/* ========== Botão de adicionar ========= */
+.add-button.material-symbols-outlined {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--yellow);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.add-button:hover {
+    background-color: #f4c400;
+}
