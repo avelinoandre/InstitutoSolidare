@@ -34,6 +34,16 @@ Cypress.Commands.add('createSuperuser', () => {
   });
 });
 
+Cypress.Commands.add('selecionarApadrinhado', (username = 'teste') => {
+  cy.exec(`python get_apadrinhado_id.py ${username}`, { failOnNonZeroExit: false }).then((result) => {
+    const id = result.stdout.trim();
+    if (!id) {
+      throw new Error('Nenhum apadrinhado encontrado para o padrinho!');
+    }
+    cy.get('select').select(id);
+  });
+});
+
 Cypress.Commands.add('cadastro', () => {
   cy.visit('http://127.0.0.1:8000/');
   cy.get('.login-btn').click();
@@ -90,9 +100,8 @@ Cypress.Commands.add('criarPostagem', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').should('exist');
-  cy.get('select > option').should('have.length.greaterThan', 0);
-  cy.get('select').select(0);
+  // cy.get('select').select(0);
+  cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
 
@@ -102,9 +111,8 @@ Cypress.Commands.add('sucesso', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').should('exist');
-  cy.get('select > option').should('have.length.greaterThan', 0);
-  cy.get('select').select(0);
+  // cy.get('select').select(0);
+  cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
 
