@@ -112,7 +112,7 @@ Cypress.Commands.add('criarPostagem', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').select(1);
+  cy.get('select').select('teste');
   // cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
@@ -123,7 +123,7 @@ Cypress.Commands.add('sucesso', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').select(1);
+  cy.get('select').select('teste');
   // cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
