@@ -208,6 +208,7 @@ def padrinho_cadastro(request):
             ("Número da rua", numero_rua),
             ("Telefone", telefone),
             ("Data de nascimento", data_nascimento),
+            ("Foto de perfil", foto_perfil)
         ]
 
         erros = []
@@ -243,7 +244,7 @@ def padrinho_cadastro(request):
                 complemento_rua=complemento_rua,
                 numero_rua=numero_rua,
                 telefone=telefone,
-                foto=foto_perfil if foto_perfil else None,
+                foto=foto_perfil,
                 area_escolar=respostas.get("1", ""),
                 profissao_atual=respostas.get("2", ""),
                 hobby=respostas.get("3", ""),
@@ -416,11 +417,11 @@ def padrinho_perfil(request):
     }
     return render(request, "apadrinhamento/padrinho/perfil.html", context)
 
-
+@login_required
 def padrinho_doacao_livre(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre.html")
 
-
+@login_required
 def padrinho_doacao_livre_checkout(request):
     return render(request, "apadrinhamento/padrinho/doacao-livre-checkout.html")
 
@@ -555,13 +556,16 @@ def adm_login(request):
     # GET ou POST com erro
     return render(request, "apadrinhamento/adm/adm-login.html", {"error": error})
 
+@login_required
 def adm_home(request):
     return render(request, "apadrinhamento/adm/adm_home.html")
 
+@login_required
 def lista_afilhados(request):
     afilhados = Apadrinhado.objects.all()
     return render(request, 'apadrinhamento/adm/gerenciar_afilhado.html', {'Apadrinhado': afilhados})
 
+@login_required
 @csrf_exempt 
 def editar_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, pk=apadrinhado_id)
@@ -634,12 +638,14 @@ def editar_afilhado(request, apadrinhado_id):
 
     return render(request, "apadrinhamento/adm/afilhado_editar.html", context)
 
+@login_required
 def excluir_afilhado(request, apadrinhado_id):
     afilhado = get_object_or_404(Apadrinhado, id=apadrinhado_id)
     afilhado.delete()
     return redirect('gerenciarAfilhados')
 
-@csrf_exempt        # tire se já estiver usando {% csrf_token %}
+@login_required
+@csrf_exempt  # Tire se já estiver usando {% csrf_token %}
 def cadastrar_afilhado(request):
     if request.method == "POST":
         try:
@@ -658,6 +664,33 @@ def cadastrar_afilhado(request):
             # Arquivos
             foto = request.FILES.get("foto")
             foto_para_padrinho = request.FILES.get("foto_para_padrinho")
+
+            # Verificação de campos obrigatórios
+            campos_obrigatorios = {
+                "nome": nome,
+                "gênero": genero,
+                "informações": info,
+                "endereço": endereco,
+                "data de nascimento": data_raw,
+                "foto": foto,
+                "foto para padrinho": foto_para_padrinho
+            }
+
+            # Verifica se algum campo obrigatório está vazio ou None
+            campos_vazios = [campo for campo, valor in campos_obrigatorios.items() if not valor]
+
+            if campos_vazios:
+                return JsonResponse({
+                    "sucesso": False,
+                    "mensagem": f"Preencha todos os campos obrigatórios: {', '.join(campos_vazios)}"
+                }, status=400)
+
+            # Verifica se há pelo menos 5 respostas
+            if len(respostas) < 5:
+                return JsonResponse({
+                    "sucesso": False,
+                    "mensagem": "Preencha todas as 5 respostas esperadas."
+                }, status=400)
 
             # Criação
             Apadrinhado.objects.create(
@@ -708,15 +741,17 @@ def _int_or_none(value):
     except ValueError:
         return None
 
-
+@login_required
 def adm_gerenciar_feed(request):
     publicacoes = Publicacao.objects.all()
     return render(request, "apadrinhamento/adm/gerenciamento_feed/gerenciamento_feed_adm.html", {"publicacoes": publicacoes})
 
+@login_required
 def adm_gerenciar_cartas(request):
     cartas_pendentes = Carta.objects.filter(aprovada=False, respondida=False)
     return render(request, "apadrinhamento/adm/gereciamento_cartas/caixa_entrada.html", {"cartas": cartas_pendentes})
 
+@login_required
 def adm_escrever_carta(request):
     cartas = Carta.objects.filter(aprovada=True, respondida=False).order_by("-data_envio")
 
@@ -747,13 +782,16 @@ def adm_escrever_carta(request):
     }
     return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
 
+@login_required
 def adm_programado(request):
     return render(request, "apadrinhamento/adm/gereciamento_cartas/programado.html")
 
+@login_required
 def adm_respondidas(request):
     cartas_respondidas = Carta.objects.filter(aprovada=True, respondida=True, remetente_tipo="apadrinhado")
     return render(request, "apadrinhamento/adm/gereciamento_cartas/cartas_respondidas.html", {"respondidas": cartas_respondidas})
 
+@login_required
 @csrf_exempt
 def adm_novo_post(request):
     if request.method == "POST":
@@ -789,6 +827,7 @@ def adm_novo_post(request):
         {"apadrinhados": apadrinhados}
     )
 
+@login_required
 def adm_editar_post(request, id):
     post = get_object_or_404(Publicacao, id=id)
 
@@ -810,12 +849,14 @@ def adm_editar_post(request, id):
         "post": post
     })
 
+@login_required
 def aprovar_carta(request, id):
     carta = get_object_or_404(Carta, id=id)
     carta.aprovada = True
     carta.save()
     return redirect('gerenciarCartas')
 
+@login_required
 def rejeitar_carta(request, id):
     carta = get_object_or_404(Carta, id=id)
     carta.delete()
