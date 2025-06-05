@@ -60,7 +60,7 @@ Cypress.Commands.add('sucesso', () => {
 describe('fazer doação livre', () => {
   before(() => {
     cy.deletePadrinhos(); 
-    // cy.cadastro();
+    cy.cadastro();
   });
 
 

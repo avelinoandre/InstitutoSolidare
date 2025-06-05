@@ -46,13 +46,23 @@ Cypress.Commands.add('falha', () => {
   cy.get(':nth-child(2) > :nth-child(2) > a').click();
 });
 
+Cypress.Commands.add('loginAdmin', () => {
+  cy.visit('http://127.0.0.1:8000/');
+  cy.getCookie('csrftoken').should('exist');
+  cy.get('.adm-btn').click();
+  cy.get('#id_username').type('admin');
+  cy.get('#id_password').type('admin123');
+  cy.get('form > button').click();
+});
+
 Cypress.Commands.add('cadastrarApadrinhado', () => {
-  cy.visit('http://127.0.0.1:8000/adm/home/');
   cy.get('[href="/adm/gerenciar-afilhados/"]').click();
   cy.get('[href="/afilhados/novo/"]').click();
   cy.get('#nome').type('teste');
   cy.get('#data_nascimento').type('1111-11-11');
   cy.get('#endereco').type('rua de teste');
+  cy.get('#genero').select('Masculino');
+  cy.get('#info').type('aaaaaaaaaaaaaaaaaaa');
   cy.get('button').click();
 });
 
@@ -78,6 +88,7 @@ describe('login e cadastro de padrinhos', () => {
   });
 
   it('Cenario 2: sucesso do apadrinhamento', () => {
+    cy.loginAdmin();
     cy.cadastrarApadrinhado();
     cy.login();
     cy.sucesso();

@@ -96,6 +96,7 @@ Cypress.Commands.add('postagem', () => {
   cy.get('#titulo').type(`teste`);
   cy.get('#conteudo').type(`teste`);
   cy.get('.sidebar > .action-button-bottom').click();
+  cy.get('#logout-link').click();
 });
 
 describe('feed da visão do padrinho', () => {

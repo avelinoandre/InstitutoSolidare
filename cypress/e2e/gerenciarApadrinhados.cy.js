@@ -56,6 +56,8 @@ Cypress.Commands.add('sucesso', () => {
   cy.get('#nome').type('teste');
   cy.get('#data_nascimento').type('1111-11-11');
   cy.get('#endereco').type('rua de teste');
+  cy.get('#genero').select('Masculino');
+  cy.get('#info').type('aaaaaaaaaaaaaaaaaaa');
   cy.get('button').click();
 });
 
