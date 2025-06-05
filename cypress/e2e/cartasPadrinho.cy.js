@@ -65,7 +65,7 @@ Cypress.Commands.add('sucesso', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').select('teste');
+  cy.get('select').select(1);
   cy.get('button').click();
   
 });
@@ -74,7 +74,7 @@ describe('fazer doação livre', () => {
   before(() => {
     cy.deletePadrinhos(); 
     cy.deleteCartas(); 
-    cy.cadastro();
+    // cy.cadastro();
   });
 
 
