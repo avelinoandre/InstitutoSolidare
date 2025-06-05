@@ -334,7 +334,7 @@ E escolhe a forma de pagamento.],
 <details>
 <summary><strong>🖼️ Storyboards</strong></summary>
 
-- Link do docs com as Storyboards:  
+- Link do docs com as Storyboards (recomenda-se fortimente o donwload para poder visualizar os textos com mais nitidez!):  
   [https://drive.google.com/file/d/1XP1DY3Ywq-NRN-gGRSASNHxE3urc7zLh/view]
 
 </details>
@@ -342,7 +342,7 @@ E escolhe a forma de pagamento.],
 <details>
 <summary><strong>📝 Relatório de Programação</strong></summary>
 
-- Link do docs com o relatório de programação (recomenda-se fortimente o donwload para poder visualizar os textos com mais nitidez!):  
+- Link do docs com o relatório de programação: 
   [https://docs.google.com/document/d/1ZZ6xdAR2GiylmETsNl9Uh1YymUSbXP-ndzaITF-LueI/edit?tab=t.0]
 
 </details>
@@ -378,9 +378,9 @@ E escolhe a forma de pagamento.],
 
 - [**Video do deploy**](https://www.youtube.com/watch?v=_K1LFwxl_1c)
 
-- [**Testes automatizados isolados**]()
+- [**Testes automatizados**]()
 
-- [**CI/CD**]()
+- [**CI/CD**](https://www.youtube.com/watch?v=JfaiVXdjmGQ)
 
 </details>
 
