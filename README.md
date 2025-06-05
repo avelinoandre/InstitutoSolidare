@@ -8,6 +8,14 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 
 ---
 
+## 🌐 Google Site
+
+> ❗ **Importante:** A maioria dos requisitos de C.C podem ser encontrados também no Google site na aba superior **Status Report**
+
+https://sites.google.com/cesar.school/grupo6/home
+
+---
+
 ## 👥 Equipe
 
 - [**Mircio Ferreira**](https://github.com/Mircio-Ferreira) – [C.C]
@@ -345,6 +353,12 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 <details>
 <summary><strong>🔄 Diagrama de Atividade</strong></summary>
 
+### História 1 
+![Diagrama da História 1]()
+
+### História 2 
+![Diagrama da História 2]()
+
 ### História 3  
 ![Diagrama da História 3]()
 
@@ -403,8 +417,11 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 </details>
 
 <details>
-<summary><strong>????</strong></summary>
+<summary><strong>🎥 Screenquest</strong></summary>
 
+![Site em Ar]()
+
+![Testes automatizados]()
 
 </details>
 
