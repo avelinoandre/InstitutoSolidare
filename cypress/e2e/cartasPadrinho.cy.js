@@ -16,6 +16,15 @@ Cypress.Commands.add('deleteCartas', () => {
   });
 });
 
+Cypress.Commands.add('createApadrinhado', () => {
+  cy.exec('python create_apadrinhado.py', { failOnNonZeroExit: false }).then((result) => {
+    console.log(result.stdout);
+    if (result.stderr) {
+      console.error(result.stderr);
+    }
+  });
+});
+
 Cypress.Commands.add('cadastro', () => {
   cy.visit('http://127.0.0.1:8000/');
   cy.get('.login-btn').click();
@@ -82,6 +91,8 @@ Cypress.Commands.add('criarApadrinhado', () => {
   cy.get('button').click();
 });
 
+
+
 Cypress.Commands.add('escolherApadrinhado', () => {
   // cy.visit('http://127.0.0.1:8000/padrinho/escolher-apadrinhado/');
   cy.get('.menu-buttons', { timeout: 10000 }).should('exist');
@@ -112,8 +123,9 @@ describe('fazer doação livre', () => {
 
 
   it('Cenario 1: o usuario consegue enviar uma carta para o apadrinhado respectivo', () => {
-    cy.loginAdmin();
-    cy.criarApadrinhado();
+    // cy.loginAdmin();
+    // cy.criarApadrinhado();
+    cy.createApadrinhado();
     cy.login();
     cy.escolherApadrinhado();
     cy.sucesso();
