@@ -12,6 +12,13 @@
     <div class="login-wrapper">
         <div class="container">
             <h2 class="login-title">Faça seu login</h2>
+            {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
             <div class="login-form">
                 <form method="POST">
                     {% csrf_token %}

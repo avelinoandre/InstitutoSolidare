@@ -89,6 +89,7 @@
         .then(response => {
             if (response.ok) {
                 alert("Doação de R$ " + input + " iniciada via " + metodo.toUpperCase());
+                window.location.href = "{% url 'padrinhoFeed' %}";
             } else {
                 alert("Erro ao iniciar a doação.");
             }

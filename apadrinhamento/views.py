@@ -521,6 +521,7 @@ def escrita_cartas(request):
             conteudo=conteudo,
             remetente_tipo="padrinho"
         )
+        messages.success(request, "Carta enviada com sucesso!")  # ✅ aqui
         return redirect("cartas_escrita")  # ou qualquer outra página de sucesso
 
     return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
@@ -738,7 +739,8 @@ def adm_escrever_carta(request):
         )
         carta.respondida = True
         carta.save()
-        return redirect("gerenciarCartas")  # ou outra view apropriada
+        messages.success(request, "Carta enviada com sucesso!")  # ✅ aqui
+        return redirect("admEscreverCarta")  # ou outra view apropriada
 
     context = {
         "cartas": cartas

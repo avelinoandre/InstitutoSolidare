@@ -880,3 +880,25 @@ button:hover {
     }
 }
 
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.messages {
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+}

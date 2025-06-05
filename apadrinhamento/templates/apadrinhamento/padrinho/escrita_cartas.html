@@ -31,6 +31,13 @@
 
     <!-- Conteúdo principal -->
     <div style="flex-grow: 1; background-color: white; padding: 20px; border-radius: 10px; margin-left: 30px; min-height: 90%;">
+      {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="message {{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
       <form method="POST" action="" style="display: flex; flex-direction: column; gap: 20px; height: 100%;">
         {% csrf_token %}
 
