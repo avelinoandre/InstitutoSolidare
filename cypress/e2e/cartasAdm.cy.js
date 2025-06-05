@@ -94,14 +94,26 @@ Cypress.Commands.add('falha', () => {
   cy.get('button').click();
 });
 
+Cypress.Commands.add('criarApadrinhado', () => {
+  cy.visit('http://127.0.0.1:8000/adm/home/');
+  cy.get('[href="/adm/gerenciar-afilhados/"]').click();
+  cy.get('[href="/afilhados/novo/"]').click();
+  cy.get('#nome').type('teste');
+  cy.get('#data_nascimento').type('1111-11-11');
+  cy.get('#endereco').type('rua de teste');
+  cy.get('#genero').select('Masculino');
+  cy.get('#info').type('aaaaaaaaaaaaaaaaaaa');
+  cy.get('button').click();
+});
+
 Cypress.Commands.add('criarPostagem', () => {
   cy.get('.menu-buttons').click();
   cy.get(':nth-child(1) > :nth-child(3) > a').click();
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  // cy.get('select').select(0);
-  cy.selecionarApadrinhado('teste');
+  cy.get('select').select(1);
+  // cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
 
@@ -111,8 +123,8 @@ Cypress.Commands.add('sucesso', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  // cy.get('select').select(0);
-  cy.selecionarApadrinhado('teste');
+  cy.get('select').select(1);
+  // cy.selecionarApadrinhado('teste');
   cy.get('button').click();
 });
 
@@ -122,11 +134,13 @@ describe('fazer doação livre', () => {
     cy.deleteCartas(); 
     cy.deleteSuperusers();
     cy.createSuperuser();
-    cy.cadastro();
+    // cy.cadastro();
   });
 
 
   it('Cenario 1: o adm consegue enviar uma resposta para o padrinho respectivo', () => {
+    cy.loginAdmin();
+    cy.criarApadrinhado();
     cy.login();
     cy.criarPostagem();
     cy.loginAdmin();
