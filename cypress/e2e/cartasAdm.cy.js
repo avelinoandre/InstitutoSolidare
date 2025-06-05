@@ -134,7 +134,7 @@ describe('fazer doação livre', () => {
     cy.deleteCartas(); 
     cy.deleteSuperusers();
     cy.createSuperuser();
-    // cy.cadastro();
+    cy.cadastro();
   });
 
 
