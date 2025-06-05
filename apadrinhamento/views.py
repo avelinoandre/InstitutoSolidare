@@ -52,16 +52,19 @@ def padrinho_login(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
+            if user.is_superuser:
+                messages.error(request, "Apenas padrinhos podem fazer login por aqui.")
+                return redirect("padrinhoLogin")
+
             login(request, user)
             return redirect("padrinhoFeed")
         else:
             messages.error(request, "Usuário ou senha inválidos.")
-    return render(request, "apadrinhamento/padrinho/login.html")
 
+    return render(request, "apadrinhamento/padrinho/login.html")
 
 def padrinho_cadastro_explicativo(request):
     return render(request, "apadrinhamento/padrinho/cadastro-explicativo.html")
-
 
 perguntas_padrinho = [
     Pergunta(
@@ -587,7 +590,31 @@ def editar_afilhado(request, apadrinhado_id):
             respostas_json = request.POST.get("respostas")
             respostas = json.loads(respostas_json) if respostas_json else []
 
-            # Atualiza campos
+            # Verificação de campos obrigatórios
+            campos_obrigatorios = {
+                "nome": nome,
+                "endereço": endereco,
+                "sonho": info,
+                "data de nascimento": data_raw,
+                "foto": nova_foto or afilhado.foto,
+                "foto para padrinho": nova_foto_padrinho or afilhado.foto_para_padrinho,
+            }
+
+            campos_vazios = [campo for campo, valor in campos_obrigatorios.items() if not valor]
+
+            if campos_vazios:
+                return JsonResponse({
+                    "sucesso": False,
+                    "mensagem": f"Preencha todos os campos obrigatórios: {', '.join(campos_vazios)}"
+                }, status=400)
+
+            if len(respostas) < 5:
+                return JsonResponse({
+                    "sucesso": False,
+                    "mensagem": "Preencha todas as 5 respostas esperadas."
+                }, status=400)
+
+            # Atualiza os dados
             afilhado.nome = nome
             afilhado.endereco = endereco
             afilhado.info = info
