@@ -67,8 +67,11 @@ Cypress.Commands.add('loginAdmin', () => {
   cy.get('#id_username').type('admin');
   cy.get('#id_password').type('admin123');
   cy.get('form > button').click();
+  cy.url().should('include', '/adm/home/');
 });
+
 Cypress.Commands.add('criarApadrinhado', () => {
+  cy.visit('http://127.0.0.1:8000/adm/home/');
   cy.get('[href="/adm/gerenciar-afilhados/"]').click();
   cy.get('[href="/afilhados/novo/"]').click();
   cy.get('#nome').type('teste');

@@ -54,6 +54,7 @@ Cypress.Commands.add('loginAdmin', () => {
   cy.get('#id_username').type('admin');
   cy.get('#id_password').type('admin123');
   cy.get('form > button').click();
+  cy.url().should('include', '/adm/home/');
 });
 
 Cypress.Commands.add('cadastrarApadrinhado', () => {
