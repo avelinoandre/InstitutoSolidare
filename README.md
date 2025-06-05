@@ -37,7 +37,7 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 
 ## 🌐 Site no ar
 
-https://nossosonho.azurewebsites.net/
+https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 
 ### Super usuário (Usado para logar como AMD)
 
@@ -167,6 +167,54 @@ https://nossosonho.azurewebsites.net/
 
 <details>
 <summary><strong>📜 Histórias de Usuário</strong></summary>
+
+<details>
+<summary><strong>📌 História 1 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
+
+<details>
+<summary><strong>📌 História 2 - [Título da História]</strong></summary>
+
+**Como** [persona],  
+**Quero** [objetivo],  
+**Para** [benefício].
+
+#### 🎯 Cenário 1: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ✅ Cenário 2: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+#### ❌ Cenário 3: [Título do Cenário]
+- **Dado** que [contexto],  
+- **Quando** [ação],  
+- **Então** [resultado].
+
+</details>
 
 <details>
 <summary><strong>📌 História 3 - [Título da História]</strong></summary>
@@ -350,6 +398,18 @@ https://nossosonho.azurewebsites.net/
 ![Close 10](img_readme\BUGCLOSED10.png)
 
 
+
+
+</details>
+
+<details>
+<summary><strong>????</strong></summary>
+
+
+</details>
+
+<details>
+<summary><strong>????</strong></summary>
 
 
 </details>
