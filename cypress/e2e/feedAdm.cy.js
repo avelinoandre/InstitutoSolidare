@@ -1,5 +1,5 @@
 Cypress.Commands.add('deleteSuperusers', () => {
-  cy.exec('python scriptsTestes\\delete_superusers.py', { failOnNonZeroExit: false }).then((result) => {
+  cy.exec('python delete_superusers.py', { failOnNonZeroExit: false }).then((result) => {
     console.log(result.stdout);
     if (result.stderr) {
       console.error(result.stderr);

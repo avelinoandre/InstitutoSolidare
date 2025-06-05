@@ -10,5 +10,13 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^14.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iampassos/instituto-solidare-cesar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iampassos/instituto-solidare-cesar/issues"
+  },
+  "homepage": "https://github.com/iampassos/instituto-solidare-cesar#readme"
 }
