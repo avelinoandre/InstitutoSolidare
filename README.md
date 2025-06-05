@@ -379,9 +379,11 @@ E escolhe a forma de pagamento.],
 <details>
 <summary><strong>🎥 Screenquest</strong></summary>
 
-![Site em Ar]()
+![Site em Ar](https://www.youtube.com/watch?v=_K1LFwxl_1c)
 
-![Testes automatizados]()
+![Testes automatizados isolados]()
+
+![CI/CD]()
 
 </details>
 
