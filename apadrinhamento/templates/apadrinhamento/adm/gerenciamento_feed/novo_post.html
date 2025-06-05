@@ -15,33 +15,44 @@
         <button type="button" onclick="salvarPost()" class="action-button-bottom">Publicar</button>
     </div>
 
-    <!-- Main content -->
     <div class="content-area main-content-new-post">
-        <!-- Botão para mostrar o select -->
-<button type="button" id="toggle-publico" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px; background-color: #28a745;">
-    Post será público
-</button>
+    <button type="button" id="toggle-publico" onclick="mostrarSelect()" class="action-button-bottom" style="margin-bottom: 10px; background-color: #28a745;">
+        🔓 Público (clique para tornar privado)
+    </button>
 
+    <div class="form-wrapper">
+        <!-- Foto na lateral esquerda -->
+        
 
-        <!-- Select invisível inicialmente -->
-        <select id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
-            <option value="" disabled selected>Selecione o afiliado/padrinho</option>
-            {% for apadrinhado in apadrinhados %}
-                <option value="{{ apadrinhado.id }}">{{ apadrinhado.nome }}</option>
-            {% endfor %}
-        </select>
+        <!-- Inputs em caixas -->
+        <div class="input-box">
+            <!-- Select -->
+            <select id="select-padrinho" class="input-full-width primary-input-field" style="display: none;">
+                <option value="" disabled selected>Selecione o afiliado</option>
+                {% for apadrinhado in apadrinhados %}
+                    <option value="{{ apadrinhado.id }}">{{ apadrinhado.nome }}</option>
+                {% endfor %}
+            </select>
 
-        <!-- Campo oculto para armazenar a flag "público" -->
-        <input type="hidden" id="publico-flag" value="True" />
+            <div class="foto-preview-box">
+            <input type="file" id="foto" accept="image/*" class="input-full-width secondary-input-field" />
+        </div>
 
-        <!-- Foto -->
-        <input type="file" id="foto" accept="image/*" class="input-full-width secondary-input-field" style="margin-top: 15px;" />
+            <!-- Hidden -->
+            <input type="hidden" id="publico-flag" value="True" />
 
-        <!-- Campos -->
-        <input type="text" id="titulo" class="input-full-width primary-input-field" placeholder="Título do post">
+            <!-- Título -->
+            <div class="input-card">
+                <input type="text" id="titulo" class="input-full-width primary-input-field" placeholder="Título do post">
+            </div>
 
-        <textarea id="conteudo" class="textarea-full-width secondary-textarea-field conteudo-area" placeholder="Escreva o conteúdo do post aqui..."></textarea>
+            <!-- Conteúdo -->
+            <div class="input-card">
+                <textarea id="conteudo" class="textarea-full-width secondary-textarea-field conteudo-area" placeholder="Escreva o conteúdo do post aqui..."></textarea>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 
 <script>
@@ -53,18 +64,16 @@ function mostrarSelect() {
     const isPublic = publicoFlag.value === "True";
 
     if (isPublic) {
-        // Vai deixar privado
-        select.style.display = "block";
-        publicoFlag.value = "False";
-        toggleBtn.textContent = "Tornar público";
-        toggleBtn.style.backgroundColor = "#007bff";
-    } else {
-        // Vai deixar público
-        select.style.display = "none";
-        publicoFlag.value = "True";
-        toggleBtn.textContent = "Post será público";
-        toggleBtn.style.backgroundColor = "#28a745";
-    }
+    select.style.display = "block";
+    publicoFlag.value = "False";
+    toggleBtn.textContent = "🔒 Privado (clique para tornar público)";
+    toggleBtn.style.backgroundColor = "#007bff";
+} else {
+    select.style.display = "none";
+    publicoFlag.value = "True";
+    toggleBtn.textContent = "🔓 Público (clique para tornar privado)";
+    toggleBtn.style.backgroundColor = "#28a745";
+}
 
     select.blur();
 }

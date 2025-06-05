@@ -211,7 +211,7 @@ def padrinho_cadastro(request):
             ("Número da rua", numero_rua),
             ("Telefone", telefone),
             ("Data de nascimento", data_nascimento),
-            ("Foto de perfil", foto_perfil)
+            # ("Foto de perfil", foto_perfil)
         ]
 
         erros = []
@@ -699,8 +699,8 @@ def cadastrar_afilhado(request):
                 "informações": info,
                 "endereço": endereco,
                 "data de nascimento": data_raw,
-                "foto": foto,
-                "foto para padrinho": foto_para_padrinho
+                # "foto": foto,
+                # "foto para padrinho": foto_para_padrinho
             }
 
             # Verifica se algum campo obrigatório está vazio ou None

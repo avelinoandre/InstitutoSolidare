@@ -159,3 +159,16 @@ select {
     border: 1px solid #ccc;
     border-radius: 6px;
 }
+
+#select-padrinho {
+    background-color: #FFD02F;
+}
+
+#foto {
+    background-color: #8AB8DB;
+}
+
+.input-card{
+    background-color: #8AB8DB;
+    padding: 20px;
+}

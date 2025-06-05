@@ -8,8 +8,8 @@ class Apadrinhado(models.Model):
     nome = models.CharField(max_length=200, null = False)
     data_nascimento = models.DateField()
     genero = models.CharField(max_length=15, null = False)
-    foto = models.ImageField(upload_to="fotos/")
-    foto_para_padrinho=models.ImageField(upload_to="fotos/")
+    foto = models.ImageField(upload_to="fotos/", default="fotos/foto_padrao.jpg")
+    foto_para_padrinho=models.ImageField(upload_to="fotos/", default="fotos/foto_padrao.jpg")
     info = models.CharField(max_length=200, null=False)
     endereco = models.CharField(max_length=200, null=False)
 
@@ -48,7 +48,7 @@ class Padrinho(models.Model):
     numero_rua = models.CharField(max_length=50)
     complemento_rua = models.CharField(max_length=50)
     telefone = models.CharField(max_length=30)
-    foto = models.ImageField(upload_to="fotos/")
+    foto = models.ImageField(upload_to="fotos/", default="fotos/foto_padrao.jpg")
 
     area_escolar = models.IntegerField(null=True, blank=True)
     profissao_atual = models.IntegerField(null=True, blank=True)
