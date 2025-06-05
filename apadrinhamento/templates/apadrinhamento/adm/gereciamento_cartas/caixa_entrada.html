@@ -47,7 +47,7 @@
 
           <div style="display: flex; gap: 10px;">
             <!-- Botão Aprovar -->
-            <form method="post" action="{% url 'aprovarCarta' carta.id %}" style="display: inline;">
+            <form id="botao" method="post" action="{% url 'aprovarCarta' carta.id %}" style="display: inline;">
               {% csrf_token %}
               <button type="submit" style="background-color: #4CAF50; color: white; padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer;">
                 Aprovar
