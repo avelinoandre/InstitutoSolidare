@@ -38,6 +38,7 @@
     {% endfor %}
   </ul>
 {% endif %}
+{% if apadrinhados %}
       <form method="POST" action="" style="display: flex; flex-direction: column; gap: 20px; height: 100%;">
         {% csrf_token %}
 
@@ -62,6 +63,7 @@
           </button>
         </div>
       </form>
+      {% endif %}
     </div>
   </main>
 

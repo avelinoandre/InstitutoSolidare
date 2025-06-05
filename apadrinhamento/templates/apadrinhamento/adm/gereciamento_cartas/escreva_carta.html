@@ -46,6 +46,7 @@
     {% endfor %}
   </ul>
 {% endif %}
+{% if cartas %}
       <form method="POST" style="display: flex; flex-direction: column; gap: 20px; height: 100%;">
         {% csrf_token %}
 
@@ -70,6 +71,7 @@
           </button>
         </div>
       </form>
+      {% endif %}
     </div>
   </main>
 </div>

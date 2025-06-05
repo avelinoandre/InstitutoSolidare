@@ -511,12 +511,17 @@ def escrita_cartas(request):
     padrinho = request.user.padrinho
     apadrinhados = Apadrinhado.objects.filter(padrinho=padrinho)
 
+    if not apadrinhados.exists():
+        messages.error(request, "Você ainda não possui apadrinhados para escrever cartas.")
+        return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
+            "apadrinhados": [],
+        })
+
     if request.method == "POST":
         afilhado_id = request.POST.get("afilhado_id")
         titulo = request.POST.get("titulo")
         conteudo = request.POST.get("conteudo")
 
-        # Aqui você pode salvar no banco, por exemplo:
         afilhado = Apadrinhado.objects.get(id=afilhado_id)
         Carta.objects.create(
             padrinho=padrinho,
@@ -525,8 +530,8 @@ def escrita_cartas(request):
             conteudo=conteudo,
             remetente_tipo="padrinho"
         )
-        messages.success(request, "Carta enviada com sucesso!")  # ✅ aqui
-        return redirect("cartas_escrita")  # ou qualquer outra página de sucesso
+        messages.success(request, "Carta enviada com sucesso!")
+        return redirect("cartas_escrita")
 
     return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
         "apadrinhados": apadrinhados
@@ -784,12 +789,18 @@ def adm_escrever_carta(request):
 
     if request.method == "POST":
         carta_id = request.POST.get("recipient")
-        titulo = request.POST.get("titulo")
-        conteudo = request.POST.get("conteudo")
+        titulo = request.POST.get("titulo", "").strip()
+        conteudo = request.POST.get("conteudo", "").strip()
+
+        # Validação de campos obrigatórios
+        if not carta_id or not titulo or not conteudo:
+            messages.error(request, "Todos os campos são obrigatórios.")
+            return redirect("admEscreverCarta")
 
         carta = get_object_or_404(Carta, id=carta_id)
         padrinho = carta.padrinho
 
+        # Cria nova carta como resposta
         Carta.objects.create(
             titulo=titulo,
             conteudo=conteudo,
@@ -799,15 +810,17 @@ def adm_escrever_carta(request):
             apadrinhado=carta.apadrinhado,
             remetente_tipo="apadrinhado"
         )
+
         carta.respondida = True
         carta.save()
-        messages.success(request, "Carta enviada com sucesso!")  # ✅ aqui
-        return redirect("admEscreverCarta")  # ou outra view apropriada
+        messages.success(request, "Carta enviada com sucesso!")
+        return redirect("admEscreverCarta")
 
-    context = {
-        "cartas": cartas
-    }
-    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", context)
+    # Caso não haja cartas disponíveis
+    if not cartas.exists():
+        messages.info(request, "Não há cartas pendentes para responder no momento.")
+
+    return render(request, "apadrinhamento/adm/gereciamento_cartas/escreva_carta.html", {"cartas": cartas})
 
 @login_required
 def adm_programado(request):
