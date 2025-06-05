@@ -14,13 +14,13 @@ SECRET_KEY = 'django-insecure-gg*rflb=-0f=ntj%#rus#t$uwm3lm5*py=mugicdi3g76e_zr%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net',
+    'projeto-2-app-ftb7gqecdxgthher.brazilsouth-01.azurewebsites.net',
     'localhost',
     '127.0.0.1'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net',
+    'https://projeto-2-app-ftb7gqecdxgthher.brazilsouth-01.azurewebsites.net',
 ]
 
 

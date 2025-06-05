@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -28,11 +28,26 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-      
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+        run: |
+          pip install -r requirements.txt
+          npm ci
+
+      - name: Run local server and tests
+        run: |
+          python manage.py migrate
+          python manage.py runserver &
+          sleep 5
+          npx cypress run
+
+      - name: Cleaning testing files
+        run: |
+          rm -f .env
+          rm cypress.config.js
+          rm package-lock.json
+          rm package.json
+          rm -rf cypress
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -54,6 +69,12 @@ jobs:
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
 
     steps:
       - name: Download artifact from build job
@@ -71,6 +92,19 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BB002996540848A681A8C57CA5BDE66C }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8B3BEEE22F40491A8B06396F6DF3DCF3 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BF3FF11DC2594A1ABA7A5925578FE671 }}
+
+      - name: Run Django migrations
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
