@@ -518,11 +518,24 @@ def escrita_cartas(request):
         })
 
     if request.method == "POST":
-        afilhado_id = request.POST.get("afilhado_id")
-        titulo = request.POST.get("titulo")
-        conteudo = request.POST.get("conteudo")
+        afilhado_id = request.POST.get("afilhado_id", "").strip()
+        titulo = request.POST.get("titulo", "").strip()
+        conteudo = request.POST.get("conteudo", "").strip()
 
-        afilhado = Apadrinhado.objects.get(id=afilhado_id)
+        if not afilhado_id or not titulo or not conteudo:
+            messages.error(request, "Todos os campos são obrigatórios.")
+            return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
+                "apadrinhados": apadrinhados
+            })
+
+        try:
+            afilhado = Apadrinhado.objects.get(id=afilhado_id, padrinho=padrinho)
+        except Apadrinhado.DoesNotExist:
+            messages.error(request, "Afilhado inválido.")
+            return render(request, "apadrinhamento/padrinho/escrita_cartas.html", {
+                "apadrinhados": apadrinhados
+            })
+
         Carta.objects.create(
             padrinho=padrinho,
             apadrinhado=afilhado,
