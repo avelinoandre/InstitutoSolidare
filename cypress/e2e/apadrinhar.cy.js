@@ -42,9 +42,9 @@ Cypress.Commands.add('login', () => {
 });
 
 Cypress.Commands.add('falha', () => {
-  cy.visit('http://127.0.0.1:8000/padrinho/meus-apadrinhados/');
-  // cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
-  // cy.get(':nth-child(2) > :nth-child(2) > a').click();
+  // cy.visit('http://127.0.0.1:8000/padrinho/meus-apadrinhados/');
+  cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
+  cy.get(':nth-child(2) > :nth-child(2) > a').click();
 });
 
 Cypress.Commands.add('loginAdmin', () => {
@@ -68,21 +68,21 @@ Cypress.Commands.add('cadastrarApadrinhado', () => {
 });
 
 Cypress.Commands.add('sucesso', () => {
-  cy.visit('http://127.0.0.1:8000/padrinho/escolher-apadrinhado/');
-  // cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
-  // cy.get(':nth-child(2) > :nth-child(2) > a').click();
+  // cy.visit('http://127.0.0.1:8000/padrinho/escolher-apadrinhado/');
+  cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
+  cy.get(':nth-child(2) > :nth-child(2) > a').click();
   cy.get(':nth-child(1) > .apadrinhado-button > .afiliar-btn').click();
   cy.get("[onclick=\"finalizarPagamento('PIX')\"]").click();
-  // cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
-  // cy.get('.menu-buttons > :nth-child(1) > :nth-child(2) > a').click();
-  cy.visit('http://127.0.0.1:8000/padrinho/meus-apadrinhados/');
+  cy.get('.menu-buttons', { timeout: 100000 }).should('exist');
+  cy.get('.menu-buttons > :nth-child(1) > :nth-child(2) > a').click();
+  // cy.visit('http://127.0.0.1:8000/padrinho/meus-apadrinhados/');
   
 });
 
 describe('login e cadastro de padrinhos', () => {
   before(() => {
     cy.deletePadrinhos(); 
-    // cy.cadastro();
+    cy.cadastro();
   });
 
 
