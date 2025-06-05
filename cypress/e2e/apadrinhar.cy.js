@@ -42,7 +42,7 @@ Cypress.Commands.add('login', () => {
 });
 
 Cypress.Commands.add('falha', () => {
-  cy.get('.menu-buttons').click();
+  // cy.get('.menu-buttons').click();
   cy.get(':nth-child(2) > :nth-child(2) > a').click();
 });
 
@@ -67,11 +67,11 @@ Cypress.Commands.add('cadastrarApadrinhado', () => {
 });
 
 Cypress.Commands.add('sucesso', () => {
-  cy.get('.menu-buttons').click();
+  // cy.get('.menu-buttons').click();
   cy.get(':nth-child(2) > :nth-child(2) > a').click();
   cy.get(':nth-child(1) > .apadrinhado-button > .afiliar-btn').click();
   cy.get("[onclick=\"finalizarPagamento('PIX')\"]").click();
-  cy.get('.menu-buttons').click();
+  // cy.get('.menu-buttons').click();
   cy.get('.menu-buttons > :nth-child(1) > :nth-child(2) > a').click();
 });
 
