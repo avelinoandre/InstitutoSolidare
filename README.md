@@ -177,176 +177,128 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 <summary><strong>📜 Histórias de Usuário</strong></summary>
 
 <details>
-<summary><strong>📌 História 1 - [Título da História]</strong></summary>
+<summary><strong>📌 História 1 - [Apadrinhando de mais uma criança]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [um usuário interessado em participar do sistema de apadrinhamento e quero poder realizar mais um sonho de uma criança ao apadrinhá-la.],  
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [Sucesso do apadrinhamento]
+- **Dado** que [o usuário está logado e na aba de apadrinhar novamente],  
+- **Quando** [o usuário escolhe uma criança para a filha],  
+- **Então** [o sistema redireciona o usuário a tela de doação e após concluir, o sistema alerta o sucesso da ação.].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 2: [Falha ao apadrinhar devido a não ter apadrinhados disponíveis, normalmente por que todos já estão apadrinhados.]
+- **Dado** que [o usuário está logado na aba de feed.],  
+- **Quando** [o usuário seleciona o campo de apadrinhar novamente.],  
+- **Então** [resultado o sistema alerta que não existem apadrinhados disponíveis no momento.].
 
 </details>
 
 <details>
-<summary><strong>📌 História 2 - [Título da História]</strong></summary>
+<summary><strong>📌 História 2 - [Cadastro e Gerenciamento de Apadrinhados]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [administrador,quero poder cadastrar e gerenciar apadrinhados,
+ para garantir que os dados dos apadrinhados sejam registrados e atualizados.],  
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 1: [Falha no Cadastro por Campos Incorretos]
+- **Dado** que [do que o adm está logado e na página de cadastrar um afilhado, mas não preencheu todos os campos exigidos.],  
+- **Quando** [clicar em "Efetuar cadastramento".],  
+- **Então** [o sistema informa que nem todos campos foram preenchidos.].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 2: [Sucesso no Cadastro]
+- **Dado** que [do que o adm está logado e na página de cadastrar um afilhado.],  
+- **Quando** [clicar em "Efetuar cadastramento".],  
+- **Então** [o sistema exibe mensagem de sucesso e opção de cadastrar outro.].
 
 </details>
 
 <details>
-<summary><strong>📌 História 3 - [Título da História]</strong></summary>
+<summary><strong>📌 História 3 - [Doação Livre]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [usuário comum, quero realizar uma doação livre para a instituição, para contribuir com os projetos sociais.],  
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [O usuário preenche o valor e as informações corretamente para a doação e consegue enviar a doação sem problemas.]
+- **Dado** que [o usuário está logado e na página de doação
+E preenche o campo com o valor de 20.00 Reais
+E escolhe a forma de pagamento.],  
+- **Quando** [clica em "Doar".],  
+- **Então** [a doação é processada com sucesso e exibe agradecimento.].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 2: [ O usuário tenta realizar uma doação, mas não preenche o valor da doação.]
+- **Dado** que [o usuário está logado e na página de doação.],  
+- **Quando** [clica em "Doar" sem preencher o valor.],  
+- **Então** [o sistema alerta que o campo de valor é obrigatório.].
 
 </details>
 
 <details>
-<summary><strong>📌 História 4 - [Título da História]</strong></summary>
+<summary><strong>📌 História 4 - [Publicação de Notícias]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [administrador, quero cadastrar notícias no feed para informar os usuários sobre novidades da ong e notícias do apadrinhado.]
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [O administrador acessa a área de gerenciamento de notícias da plataforma. Ele deseja publicar uma notícia direcionada a todos os usuários do sistema.]
+- **Dado** que [que o adm está logado na plataforma e acessar a área de cadastrar uma notícia no feed.],  
+- **Quando** [o adm escreve toda notícia e clica em publicar],  
+- **Então** [a notícia é salva e todos os usuário do sistema tem acesso a ela].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 2: [Remoção de Notícia]
+- **Dado** que [que o adm está logado na plataforma e está na área de gerenciar uma notícia já publicada.],  
+- **Quando** [clica em "Excluir" ao lado de uma notícia],  
+- **Então** [ela é removida do banco de dados].
 
 </details>
 
 <details>
-<summary><strong>📌 História 5 - [Título da História]</strong></summary>
+<summary><strong>📌 História 5 - [Acesso ao Feed de Notícias]</strong></summary>
 
-**Como** [persona],  
+**Como** [padrinho, quero acessar o feed de notícias, para acompanhar novidades da ONG e atualizações do meu afilhado.],  
 **Quero** [objetivo],  
 **Para** [benefício].
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [O usuário quer reagir a um post da ong.]
+- **Dado** que [o usuário está logado e na página inicial do feed de notícias.],  
+- **Quando** [escolhe uma postagem e reage com um emoji],  
+- **Então** [o sistema atualiza a quantidade de likes do sistema].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 2: [ Erro ao carregar Feed por não existir notícias cadastradas.]
+- **Dado** que [ o usuário está logado e em uma página do sistema que não seja o feed (ex cartas)],  
+- **Quando** [o usuário clicar em feed.],  
+- **Então** [o usuário é redirecionado para o feed e constata que não há notícias cadastradas.].
 
 </details>
-
 
 <details>
-<summary><strong>📌 História 6 - [Título da História]</strong></summary>
+<summary><strong>📌 História 6 - [Envio e Visualização de Cartas]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [padrinho, padrinho, quero poder enviar e visualizar cartas trocadas com meus afilhados, para que eu possa manter uma comunicação afetiva com eles e acompanhar melhor seu crescimento],
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [Envio de Carta com Sucesso]
+- **Dado** que [o padrinho está logado na aba de carta com afilhado selecionado e carta redigida,],  
+- **Quando** [clica em "Enviar carta"],  
+- **Então** [a carta é enviada ao administrador e uma mensagem de sucesso é exibida.].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 2: [Falha no Envio por erro na formatação.]
+- **Dado** que [o padrinho está logado na aba de cartas e com a carta redigida mas não selecionou o apadrinhado.],  
+- **Quando** [o usuário clica em enviar uma carta.],  
+- **Então** [o sistema exibe mensagem de erro que nem todos os campos foram preenchidos.].
 
 </details>
-
 
 <details>
-<summary><strong>📌 História 7 - [Título da História]</strong></summary>
+<summary><strong>📌 História 7 - [Visualização e Resposta de Cartas pelo Administrador]</strong></summary>
 
-**Como** [persona],  
-**Quero** [objetivo],  
-**Para** [benefício].
+**Como** [administrador, quero visualizar e responder as cartas dos padrinhos, para manter o acompanhamento e comunicação com os usuários.],  
 
-#### 🎯 Cenário 1: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ✅ Cenário 1: [Sucesso na Resposta]
+- **Dado** que [o administrador está logado e na tela de gerenciamento e seleciona uma carta,],  
+- **Quando** [o usuário clicar em envia uma resposta,],  
+- **Então** [o sistema exibe "Resposta enviada com sucesso!" e marcada como respondida.].
 
-#### ✅ Cenário 2: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
-
-#### ❌ Cenário 3: [Título do Cenário]
-- **Dado** que [contexto],  
-- **Quando** [ação],  
-- **Então** [resultado].
+#### ❌ Cenário 2: [Falha no Envio por erro na formatação.]
+- **Dado** que [o adm está logado na aba de cartas e com a carta redigida mas não selecionou o título da carta a ser respondida.],  
+- **Quando** [o usuário clicar em enviar uma resposta.],  
+- **Então** [o sistema exibe mensagem de erro que nem todos os campos foram preenchidos].
 
 </details>
-
-
 
 </details>
 
