@@ -371,19 +371,16 @@ E escolhe a forma de pagamento.],
 ### Bug closed 14:
 ![Close 14](img_readmeSR2/bug_tracker/bugclosed14.png)
 
-
-
-
 </details>
 
 <details>
 <summary><strong>🎥 Screenquest</strong></summary>
 
-![Site em Ar](https://www.youtube.com/watch?v=_K1LFwxl_1c)
+- [**Video do deploy**](https://www.youtube.com/watch?v=_K1LFwxl_1c)
 
-![Testes automatizados isolados]()
+- [**Testes automatizados isolados**]()
 
-![CI/CD]()
+- [**CI/CD**]()
 
 </details>
 
