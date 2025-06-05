@@ -1,30 +1,44 @@
+{% load static %}
+
 <div class="circle-menu" id="menu" onclick="toggleMenu()">
         <div class="menu-buttons">
             <div class="button-row">
                 <div class="button-container">
-                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil"></a>
+                    <a href="{% url 'padrinhoPerfil' %}" title="Perfil">
+                        <img src="{% static 'img/profile.png' %}" alt="profile">
+                    </a>
                     <span class="button-label">Perfil</span>
                 </div>
                 <div class="button-container">
-                    <a href="{% url 'padrinhoMeusApadrinhados' %}" title="MeusApadrinhados"></a>
+                    <a href="{% url 'padrinhoMeusApadrinhados' %}" title="MeusApadrinhados">
+                        <img src="{% static 'img/afilhados.png' %}" alt="meus apadrinhados">
+                    </a>
                     <span class="button-label">Afilhados</span>
                 </div>
                 <div class="button-container">
-                    <a href="{% url 'cartas' %}" title="Cartas"></a>
+                    <a href="{% url 'cartas' %}" title="Cartas">
+                        <img src="{% static 'img/cartas.png' %}" alt="cartas">
+                    </a>
                     <span class="button-label">Cartas</span>
                 </div>
             </div>
             <div class="button-row">
                 <div class="button-container">
-                    <a href="{% url 'padrinhoDoacaoLivre' %}" title="DoacaoLivre"></a>
+                    <a href="{% url 'padrinhoDoacaoLivre' %}" title="DoacaoLivre">
+                        <img src="{% static 'img/doacaolivre.png' %}" alt="doação livre">
+                    </a>
                     <span class="button-label">Doação livre</span>
                 </div>
                 <div class="button-container">
-                    <a href="{% url 'padrinhoEscolherApadrinhado' %}" title="ApadrinheNovamente"></a>
+                    <a href="{% url 'padrinhoEscolherApadrinhado' %}" title="ApadrinheNovamente">
+                        <img src="{% static 'img/apadrinharnovo.png' %}" alt="apadrinhar novo">
+                    </a>
                     <span class="button-label">Apadrinhe novamente</span>
                 </div>
                 <div class="button-container">
-                    <a href="{% url 'padrinhoFeed' %}" title="Feed"></a>
+                    <a href="{% url 'padrinhoFeed' %}" title="Feed">
+                        <img src="{% static 'img/feed.png' %}" alt="feed">
+                    </a>
                     <span class="button-label">Feed</span>
                 </div>
             </div>
