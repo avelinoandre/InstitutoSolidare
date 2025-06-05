@@ -108,7 +108,7 @@ perguntas_padrinho = [
         "Fé ou espiritualidade",
     ),
     Pergunta(
-        "5. E para fechar, aponte seus maior valor",
+        "5. E para fechar, aponte seu maior valor",
         "Honestidade",
         "Liberdade",
         "Respeito",
