@@ -363,7 +363,7 @@ def padrinho_feed(request):
         return redirect("padrinhoFeed")
 
     publicacoes = Publicacao.objects.filter(
-        models.Q(publica=True) | models.Q(padrinho=padrinho)
+        models.Q(publica=True) | models.Q(apadrinhado__padrinho=padrinho)
     ).order_by("-data_envio")
 
     return render(
