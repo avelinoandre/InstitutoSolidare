@@ -354,25 +354,25 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 <summary><strong>🔄 Diagrama de Atividade</strong></summary>
 
 ### História 1 
-![Diagrama da História 1]()
+![Diagrama da História 1](img_readmeSR2/diagrama_de_atividades/historia1.png)
 
 ### História 2 
-![Diagrama da História 2]()
+![Diagrama da História 2](img_readmeSR2/diagrama_de_atividades/historia2.png)
 
 ### História 3  
-![Diagrama da História 3]()
+![Diagrama da História 3](img_readmeSR2/diagrama_de_atividades/historia3.png)
 
 ### História 4  
-![Diagrama da História 4]()
+![Diagrama da História 4](img_readmeSR2/diagrama_de_atividades/historia4.png)
 
 ### História 5  
-![Diagrama da História 5]()
+![Diagrama da História 5](img_readmeSR2/diagrama_de_atividades/historia5.png)
 
 ### História 6  
-![Diagrama da História 6]()
+![Diagrama da História 6](img_readmeSR2/diagrama_de_atividades/historia6.png)
 
 ### História 7
-![Diagrama da História 7]()
+![Diagrama da História 7](img_readmeSR2/diagrama_de_atividades/historia7.png)
 
 
 </details>
@@ -381,7 +381,7 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 <summary><strong>🖼️ Storyboards</strong></summary>
 
 - Link do docs com as Storyboards:  
-  [INSIRA O LINK AQUI]
+  [https://drive.google.com/file/d/1XP1DY3Ywq-NRN-gGRSASNHxE3urc7zLh/view]
 
 </details>
 
@@ -389,27 +389,33 @@ https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
 <summary><strong>📝 Relatório de Programação</strong></summary>
 
 - Link do docs com o relatório de programação:  
-  [INSIRA O LINK AQUI]
+  [https://docs.google.com/document/d/1ZZ6xdAR2GiylmETsNl9Uh1YymUSbXP-ndzaITF-LueI/edit?tab=t.0]
 
 </details>
 
 <details>
 <summary><strong>🚨 Issue / Bug Tracker</strong></summary>
 
-### Bug Open ??:
-![Open 1]()
-
 ### Bug closed 7:
-![Close 7](img_readme\BUGCLOSED7.png)
+![Close 7](img_readmeSR2/bug_tracker/bugclosed7.png)
 
 ### Bug closed 8:
-![Close 8](img_readme\BUGCLOSED8.png)
+![Close 8](img_readmeSR2/bug_tracker/bugclosed8.png)
 
 ### Bug closed 9:
-![Close 9](img_readme\BUGCLOSED9.png)
+![Close 9](img_readmeSR2/bug_tracker/bugclosed9.png)
 
 ### Bug closed 10:
-![Close 10](img_readme\BUGCLOSED10.png)
+![Close 10](img_readmeSR2/bug_tracker/bugclosed10.png)
+
+### Bug closed 11:
+![Close 11](img_readmeSR2/bug_tracker/bugclosed11.png)
+
+### Bug closed 12:
+![Close 12](img_readmeSR2/bug_tracker/bugclosed12.png)
+
+### Bug closed 14:
+![Close 14](img_readmeSR2/bug_tracker/bugclosed14.png)
 
 
 
