@@ -387,10 +387,4 @@ E escolhe a forma de pagamento.],
 
 </details>
 
-<details>
-<summary><strong>????</strong></summary>
-
-
-</details>
-
 </details>
