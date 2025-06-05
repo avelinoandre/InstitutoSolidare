@@ -65,7 +65,13 @@ Cypress.Commands.add('sucesso', () => {
   cy.get(':nth-child(2) > a > div').click();
   cy.get('[type="text"]').type('teste');
   cy.get('textarea').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  cy.get('select').select(1);
+  cy.get('select[name="afilhado_id"] option:not([disabled]):not([selected])')
+  .first()
+  .then($option => {
+    const afilhadoId = $option.val();
+    cy.get('select[name="afilhado_id"]').select(afilhadoId);
+  });
+
   cy.get('button').click();
   
 });

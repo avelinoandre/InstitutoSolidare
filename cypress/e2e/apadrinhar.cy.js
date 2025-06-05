@@ -57,8 +57,8 @@ Cypress.Commands.add('loginAdmin', () => {
 });
 
 Cypress.Commands.add('cadastrarApadrinhado', () => {
-  // cy.get('[href="/adm/gerenciar-afilhados/"]').click();
-  cy.visit('http://127.0.0.1:8000/adm/gerenciar-afilhados/');
+  cy.get('#botaoGerenciarAfilhados').click();
+  // cy.visit('http://127.0.0.1:8000/adm/gerenciar-afilhados/');
   cy.get('[href="/afilhados/novo/"]').click();
   cy.get('#nome').type('teste');
   cy.get('#data_nascimento').type('1111-11-11');
