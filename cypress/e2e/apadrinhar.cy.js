@@ -7,6 +7,15 @@ Cypress.Commands.add('deletePadrinhos', () => {
   });
 });
 
+Cypress.Commands.add('createApadrinhado', () => {
+  cy.exec('python create_apadrinhado.py', { failOnNonZeroExit: false }).then((result) => {
+    console.log(result.stdout);
+    if (result.stderr) {
+      console.error(result.stderr);
+    }
+  });
+});
+
 Cypress.Commands.add('cadastro', () => {
   cy.visit('http://127.0.0.1:8000/');
   cy.get('.login-btn').click();
@@ -93,8 +102,9 @@ describe('login e cadastro de padrinhos', () => {
   });
 
   it('Cenario 2: sucesso do apadrinhamento', () => {
-    cy.loginAdmin();
-    cy.cadastrarApadrinhado();
+    // cy.loginAdmin();
+    // cy.cadastrarApadrinhado();
+    cy.createApadrinhado();
     cy.login();
     cy.sucesso();
   });

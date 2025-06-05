@@ -34,13 +34,12 @@ Cypress.Commands.add('createSuperuser', () => {
   });
 });
 
-Cypress.Commands.add('selecionarApadrinhado', (username = 'teste') => {
-  cy.exec(`python get_apadrinhado_id.py ${username}`, { failOnNonZeroExit: false }).then((result) => {
-    const id = result.stdout.trim();
-    if (!id) {
-      throw new Error('Nenhum apadrinhado encontrado para o padrinho!');
+Cypress.Commands.add('createApadrinhado', () => {
+  cy.exec('python create_apadrinhado.py', { failOnNonZeroExit: false }).then((result) => {
+    console.log(result.stdout);
+    if (result.stderr) {
+      console.error(result.stderr);
     }
-    cy.get('select').select(id);
   });
 });
 
@@ -128,7 +127,7 @@ Cypress.Commands.add('sucesso', () => {
   cy.get('button').click();
 });
 
-describe('fazer doação livre', () => {
+describe('gerenciar cartas', () => {
   before(() => {
     cy.deletePadrinhos(); 
     cy.deleteCartas(); 
@@ -139,8 +138,9 @@ describe('fazer doação livre', () => {
 
 
   it('Cenario 1: o adm consegue enviar uma resposta para o padrinho respectivo', () => {
-    cy.loginAdmin();
-    cy.criarApadrinhado();
+    // cy.loginAdmin();
+    // cy.criarApadrinhado();
+    cy.createApadrinhado();
     cy.login();
     cy.criarPostagem();
     cy.loginAdmin();

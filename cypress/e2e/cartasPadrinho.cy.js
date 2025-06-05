@@ -114,7 +114,7 @@ Cypress.Commands.add('sucesso', () => {
   cy.get('button').click();
 });
 
-describe('fazer doação livre', () => {
+describe('cartas do padrinho', () => {
   before(() => {
     cy.deletePadrinhos(); 
     cy.deleteCartas(); 
