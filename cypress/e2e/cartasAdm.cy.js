@@ -105,6 +105,17 @@ Cypress.Commands.add('criarApadrinhado', () => {
   cy.get('button').click();
 });
 
+Cypress.Commands.add('escolherApadrinhado', () => {
+  // cy.visit('http://127.0.0.1:8000/padrinho/escolher-apadrinhado/');
+  cy.get('.menu-buttons', { timeout: 10000 }).should('exist');
+  cy.get(':nth-child(2) > :nth-child(2) > a').click();
+  cy.get(':nth-child(1) > .apadrinhado-button > .afiliar-btn').click();
+  cy.get("[onclick=\"finalizarPagamento('PIX')\"]").click();
+  cy.get('.menu-buttons', { timeout: 10000 }).should('exist');
+  cy.get('.menu-buttons > :nth-child(1) > :nth-child(2) > a').click();
+  // cy.visit('http://127.0.0.1:8000/padrinho/meus-apadrinhados/');
+});
+
 Cypress.Commands.add('criarPostagem', () => {
   cy.get('.menu-buttons').click();
   cy.get(':nth-child(1) > :nth-child(3) > a').click();
@@ -127,6 +138,8 @@ Cypress.Commands.add('sucesso', () => {
   cy.get('button').click();
 });
 
+
+
 describe('gerenciar cartas', () => {
   before(() => {
     cy.deletePadrinhos(); 
@@ -136,12 +149,12 @@ describe('gerenciar cartas', () => {
     cy.cadastro();
   });
 
-
   it('Cenario 1: o adm consegue enviar uma resposta para o padrinho respectivo', () => {
     // cy.loginAdmin();
     // cy.criarApadrinhado();
     cy.createApadrinhado();
     cy.login();
+    cy.escolherApadrinhado();
     cy.criarPostagem();
     cy.loginAdmin();
     cy.sucesso();
