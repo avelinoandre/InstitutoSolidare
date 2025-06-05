@@ -342,7 +342,7 @@ E escolhe a forma de pagamento.],
 <details>
 <summary><strong>📝 Relatório de Programação</strong></summary>
 
-- Link do docs com o relatório de programação:  
+- Link do docs com o relatório de programação (recomenda-se fortimente o donwload para poder visualizar os textos com mais nitidez!):  
   [https://docs.google.com/document/d/1ZZ6xdAR2GiylmETsNl9Uh1YymUSbXP-ndzaITF-LueI/edit?tab=t.0]
 
 </details>
