@@ -45,12 +45,14 @@ https://sites.google.com/cesar.school/grupo6/home
 
 ## 🌐 Site no ar
 
-https://projeto-2-gacghzg8cjg8e6a2.brazilsouth-01.azurewebsites.net/
+https://projeto-2-app-ftb7gqecdxgthher.brazilsouth-01.azurewebsites.net/
 
 ### Super usuário (Usado para logar como AMD)
 
 - **login:** institutoadmg6  
 - **senha:** ADM%G6
+
+> ❗ **Importante:**O super usuario também é usado para acessar as telas de adm.
 
 ---
 
