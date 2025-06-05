@@ -105,7 +105,7 @@ describe('feed da visão do padrinho', () => {
     cy.deleteSuperusers();
     cy.createSuperuser();
     cy.deletePublicacoes();
-    // cy.cadastro();
+    cy.cadastro();
   });
 
 

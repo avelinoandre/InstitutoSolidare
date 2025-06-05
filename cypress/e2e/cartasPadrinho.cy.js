@@ -74,7 +74,7 @@ describe('fazer doação livre', () => {
   before(() => {
     cy.deletePadrinhos(); 
     cy.deleteCartas(); 
-    // cy.cadastro();
+    cy.cadastro();
   });
 
 
