@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    "apadrinhamento.apps.ApadrinhamentoConfig"
+    "apadrinhamento.apps.ApadrinhamentoConfig",
+    "whitenoise.runserver_nostatic"
 ]
 
 SITE_ID = 1
@@ -73,9 +74,9 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-USE_POSTGRES = os.getenv('DB_HOST') is not None
+PRODUCTION = os.getenv('DB_HOST') is not None
 
-if USE_POSTGRES:
+if PRODUCTION:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -132,9 +133,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = "static/"
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# media
+
+MEDIA_URL = '/media/'
+
+if PRODUCTION:
+    MEDIA_ROOT = os.path.join('/home', 'site', 'media')
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
