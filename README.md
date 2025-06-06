@@ -374,11 +374,11 @@ E escolhe a forma de pagamento.],
 </details>
 
 <details>
-<summary><strong>🎥 Screenquest</strong></summary>
+<summary><strong>🎥 Screencast</strong></summary>
 
 - [**Video do deploy**](https://www.youtube.com/watch?v=_K1LFwxl_1c)
 
-- [**Testes automatizados**]()
+- [**Testes automatizados**](https://www.youtube.com/watch?v=rHs62O5Cf4A)
 
 - [**CI/CD**](https://www.youtube.com/watch?v=3AawiycPYl4)
 
