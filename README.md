@@ -10,7 +10,7 @@ Nosso objetivo é prototipar uma nova solução para o programa de apadrinhament
 
 ## 🌐 Google Site
 
-> ❗ **Importante:** A maioria dos requisitos de C.C podem ser encontrados também no Google site na aba superior **Status Report**
+> ❗ **Importante:** A maioria dos requisitos de C.C podem ser encontrados de forma alternativa no google site**Status Report**
 
 https://sites.google.com/cesar.school/grupo6/home
 
@@ -380,7 +380,7 @@ E escolhe a forma de pagamento.],
 
 - [**Testes automatizados**]()
 
-- [**CI/CD**](https://www.youtube.com/watch?v=JfaiVXdjmGQ)
+- [**CI/CD**](https://www.youtube.com/watch?v=3AawiycPYl4)
 
 </details>
 
